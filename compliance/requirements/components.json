@@ -1,0 +1,38 @@
+{
+  "$schema": "../schema/requirement-catalog.schema.json",
+  "schemaVersion": 1,
+  "catalog": "components",
+  "requirements": [
+    {
+      "id": "NJDS-CMP-SCOPE-001", "authority": "local", "title": "Adopt DADS components by documented use case rather than claiming blanket coverage",
+      "sourceId": "dads-component-index", "sourceUrl": "https://design.digital.go.jp/dads/components/", "section": "コンポーネント一覧",
+      "upstreamStrength": "not-specified", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "artifacts": ["compliance/coverage/components.json"], "tests": ["test/compliance.test.mjs"]
+    },
+    {
+      "id": "DADS-V2-CMP-USAGE-001", "authority": "upstream", "title": "Implement each adopted component according to its documented purpose and cautions",
+      "sourceId": "dads-component-index", "sourceUrl": "https://design.digital.go.jp/dads/components/", "section": "概要・使い方",
+      "upstreamStrength": "required", "localLevel": "must", "applicability": "when-used", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "DADS-V2-CMP-A11Y-001", "authority": "upstream", "title": "Implement the component-specific accessibility guidance for every adopted component",
+      "sourceId": "dads-component-index", "sourceUrl": "https://design.digital.go.jp/dads/components/", "section": "アクセシビリティ",
+      "upstreamStrength": "required", "localLevel": "must", "applicability": "when-used", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "NJDS-CMP-NUXT-001", "authority": "local", "title": "Implement Vue and Nuxt components independently while retaining official semantics and interaction evidence",
+      "sourceId": "dads-html-snippets", "sourceUrl": "https://github.com/digital-go-jp/design-system-example-components-html", "section": "src/components",
+      "upstreamStrength": "informative", "localLevel": "must", "applicability": "when-used", "status": "implemented",
+      "rationale": "Digital Agency publishes HTML and React examples, but no official Vue or Nuxt package.",
+      "artifacts": ["src/runtime/app/components/PageHeader.vue", "src/runtime/app/components/ReadState.vue", "src/module.ts", "src/runtime/core/index.ts"], "tests": ["test/module-contract.test.ts", "test/compliance.test.mjs"]
+    },
+    {
+      "id": "NJDS-CMP-EVIDENCE-001", "authority": "local", "title": "Keep stories, interaction tests and accessibility evidence beside reusable components",
+      "sourceId": "dads-html-snippets", "sourceUrl": "https://github.com/digital-go-jp/design-system-example-components-html", "section": "Storybook and tests",
+      "upstreamStrength": "informative", "localLevel": "must", "applicability": "when-used", "status": "planned",
+      "artifacts": [], "tests": []
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+@import '@digital-go-jp/tailwind-theme-plugin/v4';
+@import '@nuxt/ui';
+
+:root {
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+  font-size: 100%;
+  line-height: 1.7;
+  letter-spacing: .02em;
+}
+
+:where(a, button, input, select, textarea):focus-visible,
+.nuxtjp-skip-link:focus-visible,
+[tabindex='-1']:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+}
+
+.nuxtjp-skip-link {
+  position: fixed;
+  inset-block-start: 1rem;
+  inset-inline-start: 1rem;
+  z-index: 100;
+  min-block-size: 2.75rem;
+  padding: .625rem 1rem;
+  color: var(--ui-text-highlighted);
+  background: var(--ui-bg);
+  box-shadow: var(--ui-shadow-lg);
+  transform: translateY(-8rem);
+}
+
+.nuxtjp-skip-link:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, .nuxtjp-skip-link {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

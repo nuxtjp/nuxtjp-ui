@@ -1,0 +1,18 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "exactOptionalPropertyTypes": true,
+    "moduleResolution": "Bundler",
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    ".nuxt/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "test/**/*.ts",
+    "vitest.config.ts"
+  ]
+}

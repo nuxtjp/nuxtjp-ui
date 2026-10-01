@@ -1,0 +1,149 @@
+{
+  "$schema": "../compliance/schema/source-lock.schema.json",
+  "schemaVersion": 1, "checkedAt": "2026-08-05", "reviewPolicy": "review-required",
+  "sources": [
+    {
+      "id": "dads-core",
+      "title": "デジタル庁デザインシステムβ版",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-07-22", "observedVersion": "2.16.0",
+      "license": "PDL-1.0 plus DADS attribution notices",
+      "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/", "expected": "v2.16.0" }]
+    },
+    {
+      "id": "dads-component-index",
+      "title": "DADS component index (49 components)",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/components/",
+      "checkedAt": "2026-08-05", "observedVersion": "2.16.0",
+      "license": "PDL-1.0 plus DADS attribution notices",
+      "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/components/", "expected": "ランゲージセレクター" }]
+    },
+    {
+      "id": "dads-figma", "title": "DADS design data (Figma)", "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/updates-design/", "checkedAt": "2026-08-05", "publishedAt": "2026-07-08", "observedVersion": "2.16.0",
+      "license": "CC-BY-4.0; embedded Material Symbols are Apache-2.0", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/updates-design/", "expected": "v2.16.0を公開しました" }]
+    },
+    {
+      "id": "dads-markdown",
+      "title": "DADS documentation and accessibility guidelines (Markdown)",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/dads-markdown-20260722.zip",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-07-22", "observedVersion": "20260722",
+      "license": "PDL-1.0 plus DADS attribution notices",
+      "status": "current",
+      "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/updates-misc/", "expected": "2026年7月22日" }]
+    },
+    {
+      "id": "dads-accessibility-guidance",
+      "title": "DADS accessibility guidance",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/guidance/accessibility/",
+      "checkedAt": "2026-08-05", "publishedAt": "2025-10-29",
+      "license": "PDL-1.0 plus DADS attribution notices",
+      "status": "current",
+      "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/guidance/accessibility/", "expected": "JIS X 8341-3:2016" }]
+    },
+    {
+      "id": "dads-use-notices",
+      "title": "DADS use notices",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/introduction/notices/",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-07-14",
+      "license": "PDL-1.0, CC-BY-4.0, MIT and Apache-2.0 by asset type",
+      "status": "current",
+      "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/introduction/notices/", "expected": "MIT License" }]
+    },
+    {
+      "id": "dads-design-tokens",
+      "title": "@digital-go-jp/design-tokens",
+      "authority": "digital-go-jp",
+      "url": "https://github.com/digital-go-jp/design-tokens",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-05-28", "observedVersion": "2.0.1",
+      "compatibilityThrough": "DADS Figma 2.14.0 (README statement)",
+      "license": "MIT",
+      "status": "compatibility-lag",
+      "notes": "DADS 2.15 and 2.16 compatibility is not asserted upstream.",
+      "reviewRequired": true,
+      "probes": [{ "type": "github-release", "url": "https://api.github.com/repos/digital-go-jp/design-tokens/releases/latest", "expected": "v2.0.1" },
+        { "type": "github-head", "url": "https://api.github.com/repos/digital-go-jp/design-tokens/commits/develop", "expected": "cde7dfe58d53341bba5ebae565406992fbe1218b" }]
+    },
+    {
+      "id": "dads-tailwind-theme",
+      "title": "@digital-go-jp/tailwind-theme-plugin",
+      "authority": "digital-go-jp",
+      "url": "https://github.com/digital-go-jp/tailwind-theme-plugin",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-06-16", "observedVersion": "1.0.1",
+      "compatibilityThrough": "DADS Figma 2.14.0 (README statement)",
+      "license": "MIT",
+      "status": "compatibility-lag",
+      "notes": "Tailwind CSS v4 is supported; DADS 2.15 and 2.16 compatibility is unconfirmed.",
+      "reviewRequired": true,
+      "probes": [{ "type": "github-release", "url": "https://api.github.com/repos/digital-go-jp/tailwind-theme-plugin/releases/latest", "expected": "v1.0.1" },
+        { "type": "github-head", "url": "https://api.github.com/repos/digital-go-jp/tailwind-theme-plugin/commits/develop", "expected": "7bbe005eba0e2b6e283380f3ed4377bef41280ad" }]
+    },
+    {
+      "id": "dads-html-snippets",
+      "title": "DADS HTML example components",
+      "authority": "digital-go-jp",
+      "url": "https://github.com/digital-go-jp/design-system-example-components-html",
+      "checkedAt": "2026-08-05", "license": "MIT",
+      "status": "reference-only",
+      "notes": "No GitHub releases; the reviewed main commit is pinned.",
+      "reviewRequired": true,
+      "probes": [{ "type": "github-head", "url": "https://api.github.com/repos/digital-go-jp/design-system-example-components-html/commits/main", "expected": "55b5f3cc04fe51be73e8f26eff4811bf7cd64828" }]
+    },
+    {
+      "id": "dads-react-snippets",
+      "title": "DADS React example components",
+      "authority": "digital-go-jp",
+      "url": "https://github.com/digital-go-jp/design-system-example-components-react",
+      "checkedAt": "2026-08-05", "license": "MIT",
+      "status": "reference-only",
+      "notes": "No GitHub releases; this is reference material, not a Nuxt dependency.",
+      "reviewRequired": true,
+      "probes": [{ "type": "github-head", "url": "https://api.github.com/repos/digital-go-jp/design-system-example-components-react/commits/main", "expected": "88110f7f08c99845b2fd97e093a9fbfb1a334ea5" }]
+    },
+    {
+      "id": "dashboard-guide-2026",
+      "title": "ダッシュボードデザインの実践ガイドブックとデザインテンプレート",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://www.digital.go.jp/resources/dashboard-guidebook",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-07-17", "observedVersion": "page-2026-07-17; guidebook-2026-03-31",
+      "license": "PDL-1.0 unless an asset states otherwise",
+      "status": "current",
+      "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://www.digital.go.jp/resources/dashboard-guidebook", "expected": "2026年7月17日" }]
+    },
+    {
+      "id": "dashboard-color-palette-2026",
+      "title": "Dashboard template color codes",
+      "authority": "Digital Agency, Government of Japan",
+      "url": "https://www.digital.go.jp/resources/dashboard-guidebook/color-palette/color-code",
+      "checkedAt": "2026-08-05", "publishedAt": "2026-07-17", "observedVersion": "2026-07-17",
+      "license": "PDL-1.0",
+      "status": "current",
+      "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://www.digital.go.jp/resources/dashboard-guidebook/color-palette/color-code", "expected": "Light Blue（薄い青色）" }]
+    },
+    {
+      "id": "policy-dashboard-assets",
+      "title": "Policy dashboard assets",
+      "authority": "digital-go-jp",
+      "url": "https://github.com/digital-go-jp/policy-dashboard-assets",
+      "checkedAt": "2026-08-05", "observedVersion": "1.0.0",
+      "license": "PDL-1.0 for Power BI templates and color themes",
+      "status": "reference-only",
+      "notes": "Power BI assets are visual references, not Nuxt runtime dependencies.",
+      "reviewRequired": true,
+      "probes": [{ "type": "github-head", "url": "https://api.github.com/repos/digital-go-jp/policy-dashboard-assets/commits/main", "expected": "a520c070a2c1fb57fdccf8e89e44182110b11a4b" }]
+    }
+  ]
+}

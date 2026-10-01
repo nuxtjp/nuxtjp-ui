@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nuxt.jp/schemas/requirement-catalog.schema.json",
+  "title": "NuxtJP conformance requirement catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "catalog", "requirements"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "catalog": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/requirement" }
+    }
+  },
+  "$defs": {
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "authority", "title", "sourceId", "sourceUrl", "section", "upstreamStrength", "localLevel", "applicability", "status", "artifacts", "tests"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(DADS-V2|DASH-2026|NJDS)-[A-Z0-9-]+$", "maxLength": 120 },
+        "authority": { "enum": ["upstream", "local"] },
+        "title": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "sourceId": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 100 },
+        "sourceUrl": { "type": "string", "format": "uri" },
+        "section": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "upstreamStrength": { "enum": ["required", "recommended", "informative", "not-specified"] },
+        "localLevel": { "enum": ["must", "should", "may"] },
+        "applicability": { "enum": ["all", "when-used", "dashboard", "public-release"] },
+        "status": { "enum": ["not-assessed", "planned", "implemented", "verified", "exception", "not-applicable"] },
+        "rationale": { "type": "string", "maxLength": 2000 },
+        "artifacts": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/repositoryPath" } },
+        "tests": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/repositoryPath" } },
+        "evidence": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 1000 } },
+        "exceptionReason": { "type": "string", "minLength": 1, "maxLength": 2000 }
+      },
+      "allOf": [
+        { "if": { "properties": { "status": { "enum": ["implemented", "verified"] } }, "required": ["status"] }, "then": { "properties": { "artifacts": { "type": "array", "minItems": 1 }, "tests": { "type": "array", "minItems": 1 } } } },
+        { "if": { "properties": { "status": { "const": "verified" } } }, "then": { "required": ["evidence"], "properties": { "evidence": { "type": "array", "minItems": 1 } } } },
+        { "if": { "properties": { "status": { "const": "exception" } } }, "then": { "required": ["exceptionReason"], "properties": { "exceptionReason": { "type": "string", "minLength": 1 } } } }
+      ]
+    },
+    "repositoryPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    }
+  }
+}

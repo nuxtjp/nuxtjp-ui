@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema/requirement-catalog.schema.json",
+  "schemaVersion": 1,
+  "catalog": "dashboard",
+  "requirements": [
+    {
+      "id": "DASH-2026-PROCESS-001", "authority": "upstream", "title": "Define purpose, audience, decisions and requirements before choosing charts",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "ダッシュボードの品質向上と効率化のためのプロセス",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "DASH-2026-DECISION-001", "authority": "upstream", "title": "Present information that answers the viewer's question and supports a decision or action",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "見る人の行動や意思決定に寄与する情報表現",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "DASH-2026-GRID-001", "authority": "upstream", "title": "Use a consistent grid to establish hierarchy and align dashboard regions",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "整理されたレイアウトを簡単に作れる",
+      "upstreamStrength": "recommended", "localLevel": "should", "applicability": "dashboard", "status": "implemented",
+      "artifacts": ["src/runtime/app/components/MetricGrid.vue"], "tests": ["test/compliance.test.mjs", "test/module-contract.test.ts"]
+    },
+    {
+      "id": "DASH-2026-CHART-001", "authority": "upstream", "title": "Choose chart types from the comparison, trend, composition and relationship task",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "グラフの種類と選び方",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "DASH-2026-NOISE-001", "authority": "upstream", "title": "Remove decoration and encodings that obscure, distort or imply unsupported conclusions",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "Do’s / Don’ts",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "DASH-2026-COLOR-001", "authority": "upstream", "title": "Use the reviewed 17 July 2026 palette and preserve non-color meaning",
+      "sourceId": "dashboard-color-palette-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook/color-palette/color-code", "section": "7色のカラーパレット",
+      "upstreamStrength": "recommended", "localLevel": "should", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "NJDS-DASH-CURRENCY-001", "authority": "local", "title": "Display data source, observation time, freshness and unavailable state",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "要件定義と情報表現",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    },
+    {
+      "id": "NJDS-DASH-STATE-001", "authority": "local", "title": "Keep transport, lifecycle, health and actionability as separate state dimensions",
+      "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "誤解を生まない表現",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "dashboard", "status": "planned",
+      "artifacts": [], "tests": []
+    }
+  ]
+}

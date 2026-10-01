@@ -1,0 +1,99 @@
+{
+  "name": "@nuxtjp/ui",
+  "version": "0.1.0",
+  "description": "Nuxt UI derivative with a traceable Japanese public-design profile",
+  "keywords": [
+    "nuxt",
+    "nuxt-module",
+    "nuxt-ui",
+    "japan",
+    "design-system"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxtjp/nuxtjp-ui.git"
+  },
+  "homepage": "https://github.com/nuxtjp/nuxtjp-ui#readme",
+  "bugs": {
+    "url": "https://github.com/nuxtjp/nuxtjp-ui/issues"
+  },
+  "type": "module",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.29.3",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "pnpm": ">=10 <11"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
+    "THIRD_PARTY_NOTICES.md",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "main": "./dist/module.mjs",
+  "module": "./dist/module.mjs",
+  "types": "./dist/types.d.mts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts"
+      ],
+      "core": [
+        "./dist/runtime/core/index.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    },
+    "./core": {
+      "types": "./dist/runtime/core/index.d.ts",
+      "import": "./dist/runtime/core/index.js"
+    }
+  },
+  "scripts": {
+    "build": "pnpm run build:module && pnpm run build:playground",
+    "build:module": "nuxt-module-build build",
+    "build:playground": "nuxt build playground",
+    "compliance:verify": "node scripts/verify-compliance.mjs",
+    "dev": "pnpm run dev:prepare && nuxt dev playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
+    "typecheck": "pnpm run dev:prepare && vue-tsc --noEmit --project tsconfig.json && nuxt typecheck playground",
+    "test": "pnpm run dev:prepare && vitest run",
+    "upstream:check": "node scripts/check-upstream.mjs",
+    "prepack": "pnpm run compliance:verify && pnpm run test && pnpm run typecheck && pnpm run build"
+  },
+  "dependencies": {
+    "@digital-go-jp/tailwind-theme-plugin": "1.0.1",
+    "@iconify-json/lucide": "1.2.121",
+    "@nuxt/icon": "2.4.1",
+    "@nuxt/kit": "4.5.0",
+    "@nuxt/ui": "4.10.0",
+    "tailwindcss": "4.1.18"
+  },
+  "peerDependencies": {
+    "nuxt": "^4.5.0",
+    "vue": "^3.5.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "1.0.2",
+    "@nuxt/schema": "4.5.0",
+    "@nuxt/test-utils": "4.0.3",
+    "@types/node": "24.12.0",
+    "ajv": "8.20.0",
+    "nuxt": "4.5.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.6",
+    "vue": "3.5.39",
+    "vue-tsc": "3.2.8"
+  }
+}

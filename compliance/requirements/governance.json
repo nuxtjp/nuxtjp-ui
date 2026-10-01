@@ -1,0 +1,50 @@
+{
+  "$schema": "../schema/requirement-catalog.schema.json",
+  "schemaVersion": 1,
+  "catalog": "governance",
+  "requirements": [
+    {
+      "id": "DADS-V2-GUIDE-STYLE-001", "authority": "upstream",
+      "title": "Create a service-specific style guide instead of treating DADS as a finished brand",
+      "sourceId": "dads-core", "sourceUrl": "https://design.digital.go.jp/dads/guidance/style-guides/", "section": "スタイルガイドの作成方法",
+      "upstreamStrength": "required", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "artifacts": ["docs/style-guide/README.md", "docs/en/style-guide.md"], "tests": ["test/compliance.test.mjs"]
+    },
+    {
+      "id": "DADS-V2-LICENSE-001", "authority": "upstream",
+      "title": "Retain asset-specific licenses, attribution and modification notices",
+      "sourceId": "dads-use-notices", "sourceUrl": "https://design.digital.go.jp/dads/introduction/notices/", "section": "利用上の注意事項",
+      "upstreamStrength": "required", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "artifacts": ["THIRD_PARTY_NOTICES.md"], "tests": ["test/compliance.test.mjs"]
+    },
+    {
+      "id": "NJDS-GOV-DERIVATIVE-001", "authority": "local",
+      "title": "Describe this package as an independent Nuxt adaptation, never as an official or certified DADS release",
+      "sourceId": "dads-core", "sourceUrl": "https://design.digital.go.jp/dads/guidance/design-system/", "section": "デジタル庁デザインシステムの特徴",
+      "upstreamStrength": "informative", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "artifacts": ["docs/governance/upstream-policy.md", "docs/en/governance.md"], "tests": ["test/compliance.test.mjs"]
+    },
+    {
+      "id": "NJDS-GOV-REVIEW-001", "authority": "local",
+      "title": "Detect upstream change without automatically changing implementation or compliance status",
+      "sourceId": "dads-core", "sourceUrl": "https://design.digital.go.jp/dads/updates-dads/", "section": "お知らせ",
+      "upstreamStrength": "not-specified", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "artifacts": ["upstream/sources.lock.json", "scripts/check-upstream.mjs"], "tests": ["test/upstream-check.test.mjs"]
+    },
+    {
+      "id": "NJDS-GOV-VERSION-001", "authority": "local",
+      "title": "Track DADS documents, Figma, tokens, snippets and dashboard guidance as separate version axes",
+      "sourceId": "dads-design-tokens", "sourceUrl": "https://github.com/digital-go-jp/design-tokens", "section": "バージョン対応表",
+      "upstreamStrength": "informative", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "rationale": "The official package compatibility table stops at Figma 2.14 while DADS is 2.16.",
+      "artifacts": ["upstream/sources.lock.json", "docs/conformance/status.md"], "tests": ["test/compliance.test.mjs"]
+    },
+    {
+      "id": "NJDS-GOV-BOUNDARY-001", "authority": "local",
+      "title": "Keep reusable visual-component and interaction policy here while a Layer owns layout and applications own business behavior",
+      "sourceId": "dads-core", "sourceUrl": "https://design.digital.go.jp/dads/guidance/style-guides/", "section": "デザインシステムとスタイルガイドの違い",
+      "upstreamStrength": "recommended", "localLevel": "must", "applicability": "all", "status": "implemented",
+      "artifacts": ["README.md", "docs/style-guide/README.md"], "tests": ["test/compliance.test.mjs", "test/module-contract.test.ts"]
+    }
+  ]
+}
