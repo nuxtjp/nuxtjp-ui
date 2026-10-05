@@ -48,3 +48,17 @@ jobs:
 
       - name: Build package playground
         run: pnpm run build
+
+      - name: Pack with the existing prepack gates
+        run: |
+          mkdir -p "$RUNNER_TEMP/ui-package"
+          pnpm pack --pack-destination "$RUNNER_TEMP/ui-package"
+
+      - name: Check the actual archive
+        run: python3 .github/scripts/check-package.py "$RUNNER_TEMP/ui-package/nuxtjp-ui-0.1.0.tgz"
+
+      - name: Verify an independent archive consumer
+        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/nuxtjp-ui-0.1.0.tgz"
+
+      - name: Verify a pnpm archive consumer
+        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/nuxtjp-ui-0.1.0.tgz" pnpm

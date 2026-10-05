@@ -1,120 +1,70 @@
 # @nuxtjp/ui
 
-日本語サービスのUIを、共通の部品・テーマ・言語設定で揃えられます。
+## 日本語: 課題と解決
 
-## 利用前の確認
+日本語サービスごとにUIのテーマ、言語、読取状態が異なると、利用と保守が難しくなります。
+このNuxt moduleはNuxt UIを基盤に、共通の部品、DADS参照テーマ、`ja`／`en`のlocaleを提供します。
+route、API、認証、権限、業務状態は利用アプリが担当します。
 
-実装済みの範囲、必要な依存関係、検証コマンドを以下の英語説明に併記しています。操作・配備・公開は、それぞれの権限と設定を確認してから実施してください。
+## 使い方
 
-## 導入・使い方
-
-以下は現行インターフェースの利用例です。ローカル成果物の参照がある場合は、必要な版の成果物を先に準備してください。パッケージの公開配布は今回の作業では行いません。
-
-## パッケージ境界
-
-```text
-@nuxt/ui
-  └─ @nuxtjp/ui                 theme・汎用部品・locale
-       └─ @nuxtjp/management-layout  管理画面layout・navigation shell
-            └─ consumer             route・API・認証・業務状態
-```
-
-このmoduleは次を所有します。
-
-- `@nuxt/ui`の互換範囲、DADS Tailwind theme、semantic colors、日本語font stack
-- consumer依存にしない同梱Lucide collectionと、外部font取得を行わないNuxt UI設定
-- keyboard focus、reduced motion、skip linkの基礎規則
-- 汎用の見出し、読取状態、指標、状態ラベル、コピー、プロセス表示
-- localeと可視ページだけを更新する汎用composable
-- 一次情報、27要件、DADS 49コンポーネントの採否と証跡
-
-layout、route、API、認証、権限、秘密情報、製品固有文言は所有しません。管理画面の構造は
-別Layerの`@nuxtjp/management-layout`、業務固有の手順定義は利用アプリが担当します。
-
-## 導入
-
-通常のpackage配布後は、公式Nuxt moduleと同じ形で導入します。
+対象はNuxt `^4.5.2`、Vue `^3.5.40`、Node.js 22.19以降または24.11以降です。
+`0.1.0`は公開準備中です。初回bootstrapとnpm上の配布確認は未完了です。
+次のregistry導入は、公開確認後に使用できます。
 
 ```sh
-pnpm add @nuxtjp/ui
+pnpm add @nuxtjp/ui@0.1.0
 ```
 
 ```ts
+// nuxt.config.ts
 export default defineNuxtConfig({
   modules: ['@nuxtjp/ui'],
   nuxtJpUi: { locale: 'ja' }
 })
 ```
 
-アプリのrootで`NuxtJpApp`を一度使用します。管理Layerを使う場合はLayerが担当します。
-Toastの時間進捗はOS時計の補正で100%を超える表示値を生じないよう既定で非表示です。
-必要な製品だけ`toaster-progress`を明示的に有効化できます。
-
 ```vue
+<!-- app/app.vue -->
 <template><NuxtJpApp><NuxtPage /></NuxtJpApp></template>
 ```
 
-### ローカル成果物
+アプリのrootで`NuxtJpApp`を一度使います。`app.config.ts`のlocaleと`ui.colors`を優先します。
+Lucide collectionは同梱し、Nuxt UIの外部font取得は無効にします。
+Toastの時間進捗は既定で非表示です。必要なアプリだけ`toaster-progress`を有効にできます。
 
-consumerから本リポジトリのsource pathを直接参照しません。Wonderland rootの
-`.artifacts/npm/`で固定版tarballを集約し、各consumerの`vendor/`へ同じ成果物を配備します。
-consumerは自身のrepository内だけで解決できる相対`file:` packageを登録します。
+## 結果と公開surface
 
-```sh
-# Wonderland rootで実行
-./bin/nuxtjp-ui-package
+共通UIとlocaleをmoduleで揃え、利用アプリは業務固有の内容に集中できます。
+実装済みのcomponent、composable、純粋関数は
+[公開API](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/api.md)を参照してください。
+packageの入口は`@nuxtjp/ui`、framework非依存の型・関数は`@nuxtjp/ui/core`です。
+このmoduleは独立実装です。Nuxtやデジタル庁の公式・認証済み製品ではありません。
+アプリ全体のaccessibility適合を保証するものではありません。
 
-# consumer repositoryで確認される依存定義
-pnpm add "@nuxtjp/ui@file:./vendor/nuxtjp-ui-0.1.0.tgz"
-```
+## English: problem and solution
 
-lockfileを意図的に更新する場合に限り`./bin/nuxtjp-ui-package --refresh-locks`を使用します。
-`.artifacts/npm/`と各`vendor/*.tgz`は生成物としてGit管理対象外です。
-`playground`の`../src/module`参照は、このリポジトリ内の開発fixtureにだけ許可します。
+Different themes, locales and read states make Japanese services harder to use and maintain.
+This Nuxt module provides shared components, a DADS-referenced theme and `ja`/`en` locale behavior
+on Nuxt UI. The application keeps ownership of routes, APIs, authentication and business state.
 
-## 設定
+## Usage
 
-| option | type | default | purpose |
-|---|---|---|---|
-| `nuxtJpUi.locale` | `'ja' \| 'en'` | `'ja'` | Nuxt UI localeと`html[lang]`の初期値 |
+Use Nuxt `^4.5.2`, Vue `^3.5.40`, and Node.js 22.19+ or 24.11+.
+Version `0.1.0` is being prepared; first-publish bootstrap and registry delivery are not complete.
+After published availability is confirmed, install the exact version shown above,
+register `@nuxtjp/ui` in `nuxt.config.ts`, and wrap the app once with `NuxtJpApp`.
+Set `nuxtJpUi.locale` to `ja` or `en`. Application locale and color settings take precedence.
 
-利用側の`app.config.ts`にある`nuxtJpUi.locale`と`ui.colors`はmodule既定値より優先されます。
-Nuxt UIの自動font providerはmodule境界で無効化します。Lucideは`@nuxtjp/ui`がNuxt Iconの
-`customCollections`へ登録するため、consumerが`@iconify-json/lucide`を直接追加する必要はありません。
+## Result
 
-## 公開API
+The module supplies consistent UI foundations while the application supplies its own domain behavior.
+The package exports the Nuxt module and `@nuxtjp/ui/core`; it does not expose a service or credential API.
+Lucide icons are bundled and Nuxt UI remote font fetching is disabled.
+This independent implementation is not endorsed or certified by Nuxt or the Digital Agency.
+Application-level accessibility evidence is still required.
 
-| component / import | purpose |
-|---|---|
-| `NuxtJpApp` | `UApp`、locale、文書言語の境界 |
-| `NuxtJpPageHeader` | ページの主見出し、目的、eyebrow |
-| `NuxtJpReadState` | loading、error、empty、readyの明示 |
-| `NuxtJpMetricGrid` | 意味を保つ`dl`形式の指標群 |
-| `NuxtJpProcessStepper` | 業務非依存の手順、状態、前後移動shell |
-| `NuxtJpStatusBadge` | 色だけに依存しない短い状態ラベル |
-| `NuxtJpCopyField` | Clipboard拒否時の手動コピーfallback |
-| `NuxtJpSkipLink` | キーボード利用者向け本文リンク |
-| `useNuxtJpLocale` | 現在の`ja`／`en`を参照 |
-| `useNuxtJpProjectionRefresh` | 可視ページだけを定期更新 |
-| `@nuxtjp/ui/core` | framework非依存の型と純粋関数 |
-
-詳細は[公開API](docs/api.md)を参照してください。
-
-## 一次情報と対応状況
-
-- [DADS v2.16.0](https://design.digital.go.jp/dads/)
-- [DADSスタイルガイド方針](https://design.digital.go.jp/dads/guidance/style-guides/)
-- [Nuxt module author guide](https://nuxt.com/docs/4.x/guide/modules)
-- [Nuxt UI installation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
-- 参照版と検知条件: [`upstream/sources.lock.json`](upstream/sources.lock.json)
-- 要件とカバレッジ: [`compliance/`](compliance/)
-- release gate: [`docs/conformance/status.md`](docs/conformance/status.md)
-- 更新手順: [`docs/governance/upstream-policy.md`](docs/governance/upstream-policy.md)
-
-DADS文書はv2.16.0ですが、公式tokenとTailwind pluginの明示的な互換表はv2.14.0まで
-です。この差分を`compatibility-lag`として追跡し、完全互換を主張しません。
-
-## 開発と検証
+## Development and local distribution validation
 
 ```sh
 pnpm install --frozen-lockfile
@@ -122,44 +72,28 @@ pnpm compliance:verify
 pnpm test
 pnpm typecheck
 pnpm build
-pnpm upstream:check
+pnpm pack --pack-destination ./artifacts
 ```
 
-`upstream:check`は一次情報の変更を検知するだけで、source、依存関係、適合状態を
-自動変更しません。開発、テスト、配布手順は[開発ガイド](docs/development.md)にあります。
+`prepack` repeats the existing compliance/test/type/build gates.
+A local archive validates packaging; it does not establish registry availability.
+[Development guide](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/development.md)
+explains the archive and consumer checks. Upstream detection does not update dependencies or source.
 
-ソースはMIT Licenseです。外部資産は[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)
-に記載した各権利者の条件に従います。
+## License and attribution
 
-## English
+The current package manifest and `LICENSE` identify Apache-2.0.
+`LICENSE-PREVIOUS` retains the prior MIT notice; prior grants and third-party terms remain recorded.
+This release preparation changes descriptions only, not license files or grants.
+See [LICENSE](LICENSE), [NOTICE](NOTICE), [LICENSE-PREVIOUS](LICENSE-PREVIOUS),
+and [third-party notices](THIRD_PARTY_NOTICES.md).
 
-Add consistent Japanese-first UI components, theme tokens and locale behavior to a Nuxt application.
+DADS guidance, source and asset terms are tracked separately. Logos and official marks are not included.
+[Reference versions](https://github.com/nuxtjp/nuxtjp-ui/blob/main/upstream/sources.lock.json)
+and [conformance status](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/conformance/status.md)
+record coverage and compatibility gaps; full DADS compatibility is not claimed.
 
-## What you can do
+Nuxt UI 4.11.3とNuxt Icon 2.5.1へpinを更新し、appと共有するpeerとして宣言します。
+The pins are updated to Nuxt UI 4.11.3 and Nuxt Icon 2.5.1 and declared as host peers for module resolution.
 
-- Reuse common status, navigation-support and display components.
-- Review traced adoption of Japan’s public design-system guidance.
-
-## Current scope
-
-This is an independent derivative, not an official or certified Nuxt or Digital Agency implementation. Accessibility conformance still requires application-level evidence.
-
-Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
-
-## Getting started
-
-Use `pnpm@10.29.3` and the Node.js version declared in `engines` in `package.json`. Run from this repository:
-
-```sh
-pnpm install --frozen-lockfile
-pnpm compliance:verify
-pnpm typecheck
-pnpm test
-pnpm build:module
-```
-
-## Documentation and source
-
-[Usage guide](docs/getting-started.md)
-
-[Detailed documentation](docs) · [Implementation and public interfaces](src) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+Projection refresh permits one callback at a time and skips ticks while pending or hidden. Its returned readonly `error` ref exposes synchronous and Promise failures; `pending` reports active work. `stop()` and unmount clear scheduling and ignore later outcomes in these refs. The callback owns cancellation and any writes to application state.

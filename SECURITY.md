@@ -6,7 +6,7 @@ Until 1.0, security fixes are applied to the latest published minor version only
 
 ## Reporting a vulnerability
 
-Use GitHub private vulnerability reporting from the repository **Security** tab. If private reporting is not enabled, contact the repository owners through a private organization channel before sharing details. Do not open a public issue containing an exploit, credential, personal information, or an undisclosed vulnerability.
+Use [GitHub private vulnerability reporting](https://github.com/nuxtjp/nuxtjp-ui/security/advisories/new) from the repository **Security** tab. If private reporting is not enabled, contact the repository owners through a private organization channel before sharing details. Do not open a public issue containing an exploit, credential, personal information, or an undisclosed vulnerability.
 
 Include:
 
