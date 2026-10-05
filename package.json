@@ -31,7 +31,8 @@
     "SECURITY.md",
     "THIRD_PARTY_NOTICES.md",
     "NOTICE",
-    "LICENSE-PREVIOUS"
+    "LICENSE-PREVIOUS",
+    "README.ja.md"
   ],
   "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
