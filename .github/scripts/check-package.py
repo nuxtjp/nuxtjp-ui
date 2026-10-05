@@ -16,13 +16,13 @@ with tarfile.open(archive,'r:gz') as tar:
   assert member.isfile() and not member.issym() and not member.islnk(),'Unexpected archive link'
   path=pathlib.PurePosixPath(member.name);assert path.parts[0]=='package' and '..' not in path.parts
   name=path.relative_to('package').as_posix();assert name not in entries,'Duplicate entry'
-  assert name in required or name.startswith('dist/'),'Unexpected package file: '+name
+  assert name in required or name == 'README.ja.md' or name.startswith('dist/'),'Unexpected package file: '+name
   assert member.size<=5_000_000,'Oversized file';data=tar.extractfile(member).read();entries[name]=data
   text=data.decode('utf-8',errors='replace')
   for label,pattern in patterns.items():
    if re.search(pattern,text):findings.append({'file':name,'pattern':label})
 assert required<=entries.keys(),'Missing legal/documentation files'
-manifest=json.loads(entries['package.json']);assert manifest['name']=='@nuxtjp/ui' and manifest['version']=='0.1.0' and manifest['license']=='Apache-2.0'
+manifest=json.loads(entries['package.json']);assert manifest['name']=='@nuxtjp/ui' and manifest['version']=='0.1.1' and manifest['license']=='Apache-2.0'
 assert set(manifest['exports'])=={'.','./core'}
 for value in manifest['exports'].values():
  for target in value.values():assert target.removeprefix('./') in entries,'Missing export: '+target
