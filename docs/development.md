@@ -1,70 +1,61 @@
-# 開発・配布ガイド
+# 開発・配布ガイド / Development and distribution
 
-## 公式構成との対応
+## 課題と解決 / Problem and solution
 
-- [Nuxt module starter](https://github.com/nuxt/starter/tree/module)と`@nuxt/module-builder`を使用する。
-- module runtimeは`src/runtime/app`、純粋関数は`src/runtime/core`に置く。
-- component、composable、設定keyは`NuxtJp`／`nuxtJpUi`でprefixする。
-- Nuxt UIは`moduleDependencies`で互換範囲を宣言する。
-- app layout、page、route、業務APIはmoduleへ追加しない。
+source pathや共有TGZ配置に依存すると、利用repoを独立して構築できません。
+公開確認後はexact registry versionを使用し、lockfileを利用repoで管理します。
+Source paths and shared archive directories couple repositories together.
+An independently verified registry version gives consumers their own reproducible lockfile.
 
-## 試験層
+## 使い方 / Usage
 
-1. 純粋関数のunit test
-2. package、責務、公開pathのcontract test
-3. JSON Schemaとrepository-contained evidenceのcompliance test
-4. `@nuxt/test-utils` fixtureによるSSR module test
-5. playgroundのtypecheckとproduction build
+公式Nuxt module builderの構成を維持します。runtimeは`src/runtime/app`、純粋関数は
+`src/runtime/core`です。layout、route、API、認証、業務状態は追加しません。
+Use the existing Nuxt module-builder structure and keep domain behavior in the consuming app.
 
 ```sh
-pnpm dev:prepare
+pnpm install --frozen-lockfile
+pnpm compliance:verify
 pnpm test
 pnpm typecheck
 pnpm build
-pnpm compliance:verify
+pnpm pack --pack-destination ./artifacts
 ```
 
-## ローカル成果物
+`prepack`はcompliance/test/type/buildを実行します。配布検証でこれを省略しません。
+`pnpm pack --dry-run`で成功したと扱わず、実際のarchiveを検査します。
+Prepack runs the existing gates; validate an actual archive rather than claiming a dry-run result.
 
-module repositoryとconsumerのsource treeをpathで結合しません。
+試験は純粋関数、公開path、compliance、Nuxt SSR fixture、playground型とbuildを含みます。
+Existing tests cover pure functions, public paths, compliance, the SSR fixture and playground builds.
 
-1. Wonderland rootで`./bin/nuxtjp-ui-package`を実行する。
-2. scriptが`.artifacts/npm/`へ検証済みtarballを集約する。
-3. scriptが対象consumerの`vendor/nuxtjp-ui-<version>.tgz`へ成果物を配備する。
-4. consumerはrepo相対の`file:./vendor/nuxtjp-ui-<version>.tgz`だけを参照する。
-5. frozen lockfileで導入し、各consumerのtypecheck、test、buildを行う。
+## 結果と公開ゲート / Result and release gates
 
-依存lockfileを意図的に再生成する場合だけ、Wonderland rootで次を実行します。
+1. 空storeのfrozen installでlockを変更せず導入する。
+2. 既存のcompliance/test/type/buildを通し、pack lifecycleを実行する。
+3. archiveの公開exportsと型、README、全license/noticeを確認する。
+4. source checkoutを使わないconsumerへarchiveを導入し、core import、型、SSR buildを試す。
+5. 配布物の秘密pattern、製品固有文言、絶対path、不要なfixture/cache/logを限定検査する。
+6. 対象・内容の確認後にだけ公開し、実registryのversion/integrityを確認する。
+7. 利用repoをexact registry参照と新規install/build/testへ移行する。
 
-```sh
-./bin/nuxtjp-ui-package --refresh-locks
-```
+These gates establish an archive that an independent consumer can use. They do not publish it.
+Limited pattern checks are not a complete secret audit or dependency-vulnerability scan.
 
-`.artifacts/npm/`とconsumerの`vendor/*.tgz`は一時成果物であり、Gitへ追加しません。
+公開入口は`@nuxtjp/ui`と`@nuxtjp/ui/core`です。peer Nuxt/Vueとその他依存は公開registryを使います。
+The public entries are the module and core subpath; external dependencies resolve from the public registry.
 
-`pnpm pack`は`prepack`を通じてcompliance、test、typecheck、buildを再実行します。
+初回bootstrap、npm scope権限、独立repoのtrusted publishing設定はまだ確認・実行していません。
+共有private管理repoのtokenをこのpackageへ結び付けません。provenanceの設定だけで公開完了とはしません。
+First bootstrap, scope permission and trusted publishing remain separate release conditions.
+No shared private-management token is used, and a provenance setting is not proof of publication.
 
-成果物のdigestはstage directoryを作業directoryとして検証します。
+## Versioning and license
 
-```sh
-# Wonderland rootで実行
-(cd .artifacts/npm && sha256sum -c SHA256SUMS)
-```
+API変更はSemVerで管理し、0.xでも破壊的変更を説明します。今回は修正版へ更新し、Nuxt・Nuxt UI・Vueの互換性下限を引き上げます。
+This revision updates patched dependencies and raises the Nuxt, Nuxt UI and Vue compatibility floors; it adds no UI behavior.
+manifest/LICENSEはApache-2.0、従前MITはLICENSE-PREVIOUSに保持されています。
+LICENSE、NOTICE、LICENSE-PREVIOUS、THIRD_PARTY_NOTICESは改変せず配布物に残します。
 
-## 公開ゲート
-
-1. exact lockfileから導入し、compliance、test、typecheck、production buildを完了する。
-2. `pnpm pack --dry-run`で`dist`、license、README、Security方針、第三者通知だけが対象であることを確認する。
-3. archiveに秘密、顧客Data、絶対Path、fixture、test、開発script、cache、logがないことを確認する。
-4. trusted publishingまたは同等の短命Identityからexact versionとprovenanceを発行する。
-5. registry上のarchive digestを独立して照合してからconsumer lockを更新する。
-
-詳細な境界と脆弱性報告方法は[`SECURITY.md`](../SECURITY.md)を参照してください。
-
-## Versioning
-
-公開APIはpackage SemVerで管理します。0.xでも破壊的変更をrelease notesへ明記し、Nuxt互換性は
-`meta.compatibility.nuxt`、Nuxt UI互換性は`moduleDependencies`で別々に検証します。
-
-release前に、pack内容が`dist`と必須noticeへ限定され、秘密情報、fixture、内部script、
-生成cacheが含まれないことを確認します。commit、tag、publishは明示的な承認後にだけ行います。
+Nuxt UI 4.11.3とNuxt Icon 2.5.1へpinを更新し、appと共有するpeerとして宣言します。
+The pins are updated to Nuxt UI 4.11.3 and Nuxt Icon 2.5.1 and declared as host peers for module resolution.

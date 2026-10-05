@@ -1,17 +1,40 @@
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, readonly, shallowRef } from 'vue'
 
-/** Refreshes volatile projections only while the browser page remains visible. */
+/** Serial refresh while visible; failures are observable through the returned error ref. */
 export function useNuxtJpProjectionRefresh(
   refresh: () => Promise<unknown>,
   intervalMs = 15_000
 ) {
+  const error = shallowRef<unknown>(null)
+  const pending = shallowRef(false)
+  let active = true
   let timer: ReturnType<typeof setInterval> | undefined
+
+  async function tick() {
+    if (!active || pending.value || document.visibilityState !== 'visible') return
+    pending.value = true
+    if (!active) return
+    error.value = null
+    if (!active) return
+    try {
+      await refresh()
+    } catch (cause) {
+      if (active) error.value = cause
+    } finally {
+      if (active) pending.value = false
+    }
+  }
+
+  function stop() {
+    active = false
+    if (timer !== undefined) clearInterval(timer)
+    timer = undefined
+    pending.value = false
+  }
+
   onMounted(() => {
-    timer = setInterval(() => {
-      if (document.visibilityState === 'visible') void refresh()
-    }, intervalMs)
+    if (active) timer = setInterval(() => { void tick() }, intervalMs)
   })
-  onBeforeUnmount(() => {
-    if (timer) clearInterval(timer)
-  })
+  onBeforeUnmount(stop)
+  return { error: readonly(error), pending: readonly(pending), stop }
 }

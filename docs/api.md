@@ -65,3 +65,5 @@ route同期、認可、保存、実行、状態判定はconsumerが担います�
 
 `@nuxtjp/ui/core`はUI runtimeに依存しない型、clipboard fallback、read-state変換を公開します。
 このsubpath以外の`dist/runtime`内部pathは公開APIではありません。
+
+定期更新は非表示中と実行中の tick をスキップします。戻り値の readonly `error` は失敗、`pending` は実行状態を通知します。`stop()` は終了操作で再開 API はありません。unmount も停止し、その後は新規 callback を開始せず、遅延結果をこれらの ref に反映しません。開始済み callback の取消とアプリ状態への書込みは呼出側が管理します。

@@ -16,7 +16,7 @@ const nuxtJpUiModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions
   meta: {
     name: '@nuxtjp/ui',
     configKey: 'nuxtJpUi',
-    compatibility: { nuxt: '^4.5.0' }
+    compatibility: { nuxt: '^4.5.2' }
   },
   defaults: { locale: 'ja' },
   moduleDependencies(nuxt) {
@@ -24,11 +24,11 @@ const nuxtJpUiModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions
     nuxt.options.ui = { ...uiOptions, fonts: false }
     return {
       '@nuxt/ui': {
-        version: '^4.10.0',
+        version: '^4.11.3',
         overrides: { fonts: false }
       },
       '@nuxt/icon': {
-        version: '^2.4.1',
+        version: '^2.5.1',
         overrides: {
           customCollections: mergeIconCollections(nuxt.options.icon)
         }
