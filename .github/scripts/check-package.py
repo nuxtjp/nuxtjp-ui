@@ -16,7 +16,7 @@ with tarfile.open(archive,'r:gz') as tar:
   assert member.isfile() and not member.issym() and not member.islnk(),'Unexpected archive link'
   path=pathlib.PurePosixPath(member.name);assert path.parts[0]=='package' and '..' not in path.parts
   name=path.relative_to('package').as_posix();assert name not in entries,'Duplicate entry'
-  assert name in required or name == 'README.ja.md' or name.startswith('dist/'),'Unexpected package file: '+name
+  assert name in required or name == 'README.ja.md' or name.startswith(('dist/', 'security/')),'Unexpected package file: '+name
   assert member.size<=5_000_000,'Oversized file';data=tar.extractfile(member).read();entries[name]=data
   text=data.decode('utf-8',errors='replace')
   for label,pattern in patterns.items():
@@ -30,3 +30,8 @@ for section in ['dependencies','peerDependencies']:
  for version in manifest[section].values():assert not re.match(r'(?:file:|link:|workspace:|git|https?://)',version),'Non-registry dependency'
 assert not findings,json.dumps(findings)
 print(json.dumps({'archive':archive.name,'files':len(entries),'uncompressed_bytes':sum(map(len,entries.values())),'manifest_and_exports':'pass','legal_files':'present','limited_patterns':'pass','pattern_names':list(patterns),'complete_secret_audit':False,'files_scanned':sorted(entries)},indent=2))
+
+for relative, content in entries.items():
+ if relative.startswith('security/'):
+  expected = pathlib.Path(__file__).resolve().parents[2] / relative
+  assert expected.is_file() and expected.read_bytes() == content, 'Security input differs from reviewed source'

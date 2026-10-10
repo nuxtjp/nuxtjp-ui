@@ -1,0 +1,85 @@
+{
+  "name": "@nuxtjp/management-layout",
+  "version": "0.4.3",
+  "description": "Reusable Nuxt management dashboard Layer built on NuxtJP UI",
+  "type": "module",
+  "license": "Apache-2.0",
+  "keywords": [
+    "nuxt",
+    "nuxt-layer",
+    "dashboard",
+    "management-ui",
+    "accessibility",
+    "japanese-design-system"
+  ],
+  "homepage": "https://github.com/nuxtjp/nuxt-management-layout#readme",
+  "bugs": {
+    "url": "https://github.com/nuxtjp/nuxt-management-layout/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuxtjp/nuxtjp-ui.git",
+    "directory": "packages/nuxt-management-layout"
+  },
+  "packageManager": "pnpm@10.29.3",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "pnpm": ">=10 <11"
+  },
+  "files": [
+    "app",
+    "compliance",
+    "core",
+    "docs",
+    "scripts",
+    "test",
+    "upstream",
+    "nuxt.config.ts",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
+    "THIRD_PARTY_NOTICES.md",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "main": "./nuxt.config.ts",
+  "exports": {
+    ".": "./nuxt.config.ts",
+    "./core": "./core/index.ts"
+  },
+  "scripts": {
+    "build": "nuxt build playground",
+    "compliance:verify": "node scripts/verify-contract.mjs",
+    "typecheck": "vue-tsc --noEmit --project tsconfig.json && nuxt typecheck playground",
+    "test": "vitest run",
+    "upstream:check": "node scripts/check-upstream.mjs",
+    "prepack": "pnpm run compliance:verify && pnpm run test && pnpm run typecheck && pnpm run build"
+  },
+  "peerDependencies": {
+    "@nuxtjp/ui": "0.1.0",
+    "nuxt": "^4.5.0",
+    "vue": "^3.5.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "@nuxt/icon": "2.5.1",
+    "@nuxt/ui": "4.11.3",
+    "@nuxtjp/ui": "0.1.0",
+    "@types/node": "24.12.0",
+    "ajv": "8.20.0",
+    "nuxt": "4.6.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "vue": "3.5.43",
+    "vue-router": "5.2.0",
+    "vue-tsc": "3.2.8"
+  },
+  "pnpm": {
+    "overrides": {
+      "@nuxt/devtools>simple-git": "4.0.2"
+    }
+  }
+}

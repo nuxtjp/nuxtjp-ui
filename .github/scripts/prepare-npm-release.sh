@@ -21,3 +21,5 @@ fi
 python3 .github/scripts/check-package.py "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.1.tgz"
 node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.1.tgz"
 node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.1.tgz" pnpm
+
+node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.1.tgz" @nuxtjp/ui

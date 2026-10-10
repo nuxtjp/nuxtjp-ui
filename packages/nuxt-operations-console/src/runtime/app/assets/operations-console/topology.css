@@ -1,0 +1,67 @@
+.njo-topology-panel {
+  background: #071411;
+  border: 1px solid #1e473b;
+  border-radius: 1.25rem;
+  color: #eaf7f1;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.njo-topology-header {
+  align-items: start;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.njo-topology-header h2 { font-size: clamp(1.5rem, 3vw, 2.4rem); margin: 0; }
+.njo-topology-header p { color: #9bc7b7; }
+.njo-topology-eyebrow { color: #65e3b3 !important; font-size: .72rem; letter-spacing: .16em; }
+.njo-topology-summary { display: flex; gap: .75rem; margin: 0; }
+.njo-topology-summary div { background: #102a22; min-width: 5rem; padding: .75rem; }
+.njo-topology-summary dt { color: #9bc7b7; font-size: .7rem; }
+.njo-topology-summary dd { font-size: 1.5rem; margin: .25rem 0 0; }
+
+.njo-topology-canvas {
+  display: grid;
+  gap: 1.5rem 3rem;
+  grid-template-columns: repeat(var(--njo-topology-columns), minmax(9rem, 1fr));
+  grid-template-rows: repeat(var(--njo-topology-rows), minmax(8rem, auto));
+  margin-top: 2rem;
+  min-width: 42rem;
+  position: relative;
+}
+
+.njo-topology-canvas svg { height: 100%; inset: 0; overflow: visible; position: absolute; width: 100%; }
+.njo-topology-canvas line { stroke: #448a72; stroke-dasharray: 2 1; stroke-width: .45; vector-effect: non-scaling-stroke; }
+.njo-topology-canvas line.is-unknown { stroke: #d7a647; }
+.njo-topology-node {
+  align-self: center;
+  background: #10231d;
+  border: 1px solid #356b59;
+  border-left: 4px solid #69d7ad;
+  border-radius: .75rem;
+  display: grid;
+  gap: .45rem;
+  min-height: 6.5rem;
+  padding: .85rem;
+  position: relative;
+  z-index: 1;
+}
+
+.njo-topology-node.is-unknown { border-left-color: #e5ad3e; }
+.njo-topology-node.is-attention { border-left-color: #f36f61; }
+.njo-topology-node.evidence-declared { background: #17251f; border-style: dashed; }
+.njo-topology-node.evidence-not-connected { opacity: .72; }
+.njo-topology-node-head { display: flex; font-size: .67rem; justify-content: space-between; text-transform: uppercase; }
+.njo-topology-node-head span, .njo-topology-node small { color: #95b9ac; }
+.njo-topology-node p { color: #efc675; font-size: .72rem; margin: 0; }
+.njo-topology-legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+.njo-topology-legend span { align-items: center; display: flex; font-size: .75rem; gap: .4rem; }
+.njo-topology-legend i { background: #69d7ad; border-radius: 50%; height: .65rem; width: .65rem; }
+.njo-topology-legend .is-declared { background: #849d94; }
+.njo-topology-legend .is-disconnected { background: #e5ad3e; }
+
+@media (max-width: 760px) {
+  .njo-topology-header { display: grid; }
+  .njo-topology-panel { overflow-x: auto; }
+}

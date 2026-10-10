@@ -1,0 +1,33 @@
+{
+  "schema": "source-consolidation-v1",
+  "components": [
+    {
+      "id": "nuxt-management-layout",
+      "owner_id": "nuxtjp-ui",
+      "original_repository": "nuxtjp/nuxt-management-layout",
+      "owner_repository": "nuxtjp/nuxtjp-ui",
+      "subpath": "packages/nuxt-management-layout",
+      "source_head": "6c9205100e51c36009b1b8ffc3fced383890314a",
+      "history_ref": "refs/consolidated/nuxt-management-layout/original-HEAD"
+    },
+    {
+      "id": "nuxt-operations-console",
+      "owner_id": "nuxtjp-ui",
+      "original_repository": "nuxtjp/nuxt-operations-console",
+      "owner_repository": "nuxtjp/nuxtjp-ui",
+      "subpath": "packages/nuxt-operations-console",
+      "source_head": "e3df050b0d6dfad48c670df5be74c32356918f58",
+      "history_ref": "refs/consolidated/nuxt-operations-console/original-HEAD"
+    },
+    {
+      "id": "nuxt-managed-resources",
+      "owner_id": "nuxtjp-ui",
+      "original_repository": "nuxtjp/nuxt-managed-resources",
+      "owner_repository": "nuxtjp/nuxtjp-ui",
+      "subpath": "packages/nuxt-managed-resources",
+      "source_head": "8ef60dd07fb8a2ca2cd65207800d66c56aa3e6d3",
+      "history_ref": "refs/consolidated/nuxt-managed-resources/original-HEAD"
+    }
+  ],
+  "status": "local source consolidation; Rust/Vue ports and remote publication pending"
+}

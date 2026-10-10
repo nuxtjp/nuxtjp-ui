@@ -1,0 +1,110 @@
+.njo-console {
+  --njo-bg: #f4f7f9;
+  --njo-border: #cbd5dc;
+  --njo-ink: #17252f;
+  --njo-muted: #52636f;
+  --njo-accent: #006d77;
+  background: var(--njo-bg);
+  color: var(--njo-ink);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.njo-header,
+.njo-control-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.njo-header h1,
+.njo-section h2 {
+  margin: 0;
+}
+
+.njo-header > div > p:last-child {
+  color: var(--njo-muted);
+  margin-bottom: 0;
+}
+
+.njo-kicker {
+  color: var(--njo-accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.35rem;
+}
+
+.njo-summary {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  margin: 1.5rem 0;
+}
+
+.njo-summary > div,
+.njo-section {
+  background: #fff;
+  border: 1px solid var(--njo-border);
+  border-radius: 0.7rem;
+}
+
+.njo-summary > div {
+  padding: 1rem;
+}
+
+.njo-summary dt,
+.njo-section small,
+.njo-control-grid dt {
+  color: var(--njo-muted);
+}
+
+.njo-summary dd {
+  font-size: 1.55rem;
+  font-weight: 750;
+  margin: 0.2rem 0;
+}
+
+.njo-section {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.njo-status {
+  background: #e7edf0;
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 750;
+  padding: 0.25rem 0.55rem;
+  white-space: nowrap;
+}
+
+.njo-status[data-tone="positive"] {
+  background: #d7f4e3;
+  color: #146c43;
+}
+
+.njo-status[data-tone="warning"] {
+  background: #fff1c9;
+  color: #795400;
+}
+
+.njo-status[data-tone="negative"] {
+  background: #fde1df;
+  color: #a12a23;
+}
+
+.njo-alert {
+  background: #fff1c9;
+  border-left: 0.3rem solid #bb7900;
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+}
+
+.njo-empty {
+  color: var(--njo-muted);
+  margin-bottom: 0;
+}
+

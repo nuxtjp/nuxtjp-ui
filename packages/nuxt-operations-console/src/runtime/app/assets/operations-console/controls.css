@@ -1,0 +1,38 @@
+.njo-control-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  margin-top: 0.75rem;
+}
+
+.njo-control-grid article {
+  border: 1px solid #dde4e8;
+  border-radius: 0.55rem;
+  padding: 0.85rem;
+}
+
+.njo-control-grid dl,
+.njo-control-grid dd {
+  margin: 0.65rem 0;
+}
+
+.njo-receipts {
+  border-top: 1px solid #e4e9ed;
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0.75rem 0 0;
+}
+
+.njo-receipts li {
+  align-items: center;
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: auto 1fr;
+  margin-top: 0.4rem;
+}
+
+.njo-receipts time {
+  color: var(--njo-muted);
+  font-size: 0.78rem;
+  grid-column: 2;
+}

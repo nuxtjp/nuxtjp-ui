@@ -1,0 +1,57 @@
+{
+  "$schema": "../compliance/schema/source-lock.schema.json",
+  "schemaVersion": 1,
+  "checkedAt": "2026-08-05",
+  "reviewPolicy": "review-required",
+  "sources": [
+    {
+      "id": "nuxt-layers", "title": "Nuxt Layers", "authority": "Nuxt",
+      "url": "https://nuxt.com/docs/4.x/getting-started/layers", "checkedAt": "2026-08-05",
+      "license": "MIT documentation repository", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://nuxt.com/docs/4.x/getting-started/layers", "expected": "Layers" }]
+    },
+    {
+      "id": "nuxt-layer-authoring", "title": "Nuxt Layer author guide", "authority": "Nuxt",
+      "url": "https://nuxt.com/docs/4.x/guide/going-further/layers/", "checkedAt": "2026-08-05",
+      "license": "MIT documentation repository", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://nuxt.com/docs/4.x/guide/going-further/layers/", "expected": "Publishing Layers" }]
+    },
+    {
+      "id": "nuxt-ui-dashboard", "title": "Nuxt UI DashboardGroup", "authority": "Nuxt UI",
+      "url": "https://ui.nuxt.com/docs/components/dashboard-group", "checkedAt": "2026-08-05",
+      "license": "MIT documentation repository", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://ui.nuxt.com/docs/components/dashboard-group", "expected": "DashboardGroup" }]
+    },
+    {
+      "id": "dads-core", "title": "デジタル庁デザインシステムβ版 v2", "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/", "checkedAt": "2026-08-05", "observedVersion": "2.16.0",
+      "license": "PDL-1.0 plus asset-specific terms", "status": "delegated", "reviewRequired": true,
+      "notes": "Foundation tokens and primitives are implemented by @nuxtjp/ui, not this Layer.",
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/", "expected": "v2.16.0" }]
+    },
+    {
+      "id": "dads-style-guides", "title": "DADS style guide guidance", "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/guidance/style-guides/", "checkedAt": "2026-08-05",
+      "license": "PDL-1.0", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/guidance/style-guides/", "expected": "スタイルガイド" }]
+    },
+    {
+      "id": "dads-accessibility", "title": "DADS accessibility guidance", "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/guidance/accessibility/", "checkedAt": "2026-08-05",
+      "license": "PDL-1.0", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/guidance/accessibility/", "expected": "JIS X 8341-3:2016" }]
+    },
+    {
+      "id": "dads-use-notices", "title": "DADS use notices", "authority": "Digital Agency, Government of Japan",
+      "url": "https://design.digital.go.jp/dads/introduction/notices/", "checkedAt": "2026-08-05",
+      "license": "PDL-1.0, CC-BY-4.0, MIT and Apache-2.0 by asset", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://design.digital.go.jp/dads/introduction/notices/", "expected": "MIT License" }]
+    },
+    {
+      "id": "digital-dashboard-guide", "title": "ダッシュボードデザインの実践ガイドブック", "authority": "Digital Agency, Government of Japan",
+      "url": "https://www.digital.go.jp/resources/dashboard-guidebook", "checkedAt": "2026-08-05", "publishedAt": "2026-07-17",
+      "license": "PDL-1.0 unless an asset states otherwise", "status": "current", "reviewRequired": true,
+      "probes": [{ "type": "contains-text", "url": "https://www.digital.go.jp/resources/dashboard-guidebook", "expected": "2026年7月17日" }]
+    }
+  ]
+}

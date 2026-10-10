@@ -1,0 +1,77 @@
+{
+  "$schema": "./schema/requirements.schema.json",
+  "schemaVersion": 1,
+  "reviewedAt": "2026-08-05",
+  "requirements": [
+    {
+      "id": "NUXT-LAYER-PACKAGE-001", "title": "Publish the Layer as an npm package whose entry is nuxt.config.ts",
+      "sourceIds": ["nuxt-layer-authoring"], "level": "must", "status": "implemented",
+      "artifacts": ["package.json", "nuxt.config.ts"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "NUXT-LAYER-EXTEND-001", "title": "Consumers extend the package name instead of a repository source path",
+      "sourceIds": ["nuxt-layers", "nuxt-layer-authoring"], "level": "must", "status": "implemented",
+      "artifacts": ["README.md", "playground/nuxt.config.ts"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "NUXT-LAYER-PATH-001", "title": "Resolve Layer-owned file paths relative to import.meta.url",
+      "sourceIds": ["nuxt-layer-authoring"], "level": "must", "status": "implemented",
+      "artifacts": ["nuxt.config.ts"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "NUXT-LAYER-MODULE-001", "title": "Register the required NuxtJP UI module through a one-way package dependency",
+      "sourceIds": ["nuxt-layer-authoring"], "level": "must", "status": "implemented",
+      "artifacts": ["package.json", "nuxt.config.ts", "docs/architecture.md"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "NJDS-LAYOUT-BOUNDARY-001", "title": "Keep product routes, APIs, authorization and provider language in the consumer",
+      "sourceIds": ["nuxt-layers"], "level": "must", "status": "implemented",
+      "artifacts": ["app/app.config.ts", "docs/architecture.md"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "NJDS-LAYOUT-CONFIG-001", "title": "Validate consumer navigation and route configuration before rendering",
+      "sourceIds": ["nuxt-layers"], "level": "must", "status": "implemented",
+      "artifacts": ["core/config-validation.ts", "core/config.ts"], "tests": ["test/config.test.ts"]
+    },
+    {
+      "id": "DADS-LAYOUT-STYLE-001", "title": "Maintain a service-specific layout style guide over the delegated DADS foundation",
+      "sourceIds": ["dads-core", "dads-style-guides"], "level": "must", "status": "implemented",
+      "artifacts": ["docs/style-guide.md", "docs/en/style-guide.md"], "tests": ["test/compliance.test.mjs"]
+    },
+    {
+      "id": "DADS-LAYOUT-SEMANTICS-001", "title": "Provide skip, navigation, breadcrumb and main-content semantics",
+      "sourceIds": ["dads-accessibility", "nuxt-ui-dashboard"], "level": "must", "status": "implemented",
+      "artifacts": ["app/layouts/default.vue"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "DADS-LAYOUT-TARGET-001", "title": "Preserve visible focus and a 44px minimum target in Layer navigation chrome",
+      "sourceIds": ["dads-accessibility"], "level": "must", "status": "implemented",
+      "artifacts": ["app/assets/management-layout.css", "docs/style-guide.md"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "DASH-LAYOUT-HIERARCHY-001", "title": "Use a stable shell and grid hierarchy for overview-to-detail reading",
+      "sourceIds": ["digital-dashboard-guide", "nuxt-ui-dashboard"], "level": "should", "status": "implemented",
+      "artifacts": ["app/layouts/default.vue", "app/components/NuxtJpManagementStatusSummary.vue"], "tests": ["test/layer-contract.test.ts"]
+    },
+    {
+      "id": "DASH-LAYOUT-STATE-001", "title": "Keep transport, lifecycle, health and actionability as separate dimensions",
+      "sourceIds": ["digital-dashboard-guide"], "level": "must", "status": "implemented",
+      "artifacts": ["core/status-types.ts", "core/status.ts"], "tests": ["test/status.test.ts"]
+    },
+    {
+      "id": "DASH-LAYOUT-CURRENCY-001", "title": "Show data source, observation time, stale state and unavailable observation",
+      "sourceIds": ["digital-dashboard-guide"], "level": "must", "status": "implemented",
+      "artifacts": ["app/components/NuxtJpManagementStatusSummary.vue", "core/status-types.ts"], "tests": ["test/layer-contract.test.ts", "test/status.test.ts"]
+    },
+    {
+      "id": "NJDS-LAYOUT-JIS-001", "title": "Gate each consuming page on JIS X 8341-3:2016 AA and WCAG 2.2 evidence",
+      "sourceIds": ["dads-accessibility"], "level": "must", "status": "planned",
+      "artifacts": ["docs/status.md"], "tests": []
+    },
+    {
+      "id": "NJDS-LAYOUT-VISUALIZATION-001", "title": "Provide equivalent table or text for consumer charts and topology",
+      "sourceIds": ["digital-dashboard-guide", "dads-accessibility"], "level": "must", "status": "planned",
+      "artifacts": ["docs/status.md"], "tests": []
+    }
+  ]
+}

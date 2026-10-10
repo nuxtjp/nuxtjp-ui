@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nuxt.jp/schemas/managed-resources-v1.schema.json",
+  "title": "NuxtJP Managed Resources",
+  "description": "Closed presentation contract for caller-owned managed resources. It grants no execution capability.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/resources"
+    },
+    {
+      "$ref": "#/$defs/detail"
+    }
+  ],
+  "$defs": {
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "mode",
+        "observed_at_unix_seconds",
+        "external_actions",
+        "healthy",
+        "resource_count",
+        "resources"
+      ],
+      "properties": {
+        "schema": {
+          "const": "nuxtjp://managed-resources/list/v1"
+        },
+        "mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at_unix_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "external_actions": {
+          "const": false
+        },
+        "healthy": {
+          "type": "boolean"
+        },
+        "resource_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resource"
+          }
+        }
+      }
+    },
+    "detail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "mode",
+        "observed_at_unix_seconds",
+        "external_actions",
+        "resource"
+      ],
+      "properties": {
+        "schema": {
+          "const": "nuxtjp://managed-resources/detail/v1"
+        },
+        "mode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observed_at_unix_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "external_actions": {
+          "const": false
+        },
+        "resource": {
+          "$ref": "#/$defs/resource"
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "resource_kind",
+        "category",
+        "exposure",
+        "status",
+        "owner_organization",
+        "accountability",
+        "readiness",
+        "repositories",
+        "incoming_linkages",
+        "outgoing_linkages"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/text" },
+        "name": { "$ref": "#/$defs/text" },
+        "summary": { "$ref": "#/$defs/text" },
+        "resource_kind": { "$ref": "#/$defs/text" },
+        "category": { "$ref": "#/$defs/text" },
+        "exposure": { "$ref": "#/$defs/text" },
+        "status": { "$ref": "#/$defs/text" },
+        "owner_organization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "name"],
+          "properties": {
+            "id": { "$ref": "#/$defs/text" },
+            "name": { "$ref": "#/$defs/text" }
+          }
+        },
+        "accountability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["primary_department_id", "primary_team_id", "label"],
+          "properties": {
+            "primary_department_id": { "type": "string" },
+            "primary_team_id": { "type": "string" },
+            "label": { "$ref": "#/$defs/text" }
+          }
+        },
+        "readiness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "managed_repository_count",
+            "ready_repository_count",
+            "linkage_attention_count"
+          ],
+          "properties": {
+            "status": { "$ref": "#/$defs/text" },
+            "managed_repository_count": { "$ref": "#/$defs/count" },
+            "ready_repository_count": { "$ref": "#/$defs/count" },
+            "linkage_attention_count": { "$ref": "#/$defs/count" }
+          }
+        },
+        "repositories": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/repository" }
+        },
+        "incoming_linkages": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/linkage" }
+        },
+        "outgoing_linkages": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/linkage" }
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "organization_id",
+        "source_organization_id",
+        "placement_scope",
+        "lifecycle",
+        "kind",
+        "visibility",
+        "package_name",
+        "checks",
+        "readiness",
+        "observation"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/text" },
+        "name": { "$ref": "#/$defs/text" },
+        "organization_id": { "$ref": "#/$defs/text" },
+        "source_organization_id": {
+          "oneOf": [
+            { "$ref": "#/$defs/text" },
+            { "type": "null" }
+          ]
+        },
+        "placement_scope": { "$ref": "#/$defs/text" },
+        "lifecycle": { "$ref": "#/$defs/text" },
+        "kind": { "$ref": "#/$defs/text" },
+        "visibility": { "$ref": "#/$defs/text" },
+        "package_name": { "type": "string" },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "status"],
+            "properties": {
+              "name": { "$ref": "#/$defs/text" },
+              "status": { "$ref": "#/$defs/text" }
+            }
+          }
+        },
+        "readiness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "exists",
+            "identity_valid",
+            "git_initialized",
+            "manifest_valid",
+            "package_count",
+            "finding_codes"
+          ],
+          "properties": {
+            "status": { "$ref": "#/$defs/text" },
+            "exists": { "type": "boolean" },
+            "identity_valid": { "type": "boolean" },
+            "git_initialized": { "type": "boolean" },
+            "manifest_valid": { "type": "boolean" },
+            "package_count": { "$ref": "#/$defs/count" },
+            "finding_codes": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/text" }
+            }
+          }
+        },
+        "observation": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "$ref": "#/$defs/observation"
+            }
+          ]
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "observed_at_unix_seconds",
+        "dirty_entry_count",
+        "ready",
+        "content_read",
+        "external_actions"
+      ],
+      "properties": {
+        "mode": { "$ref": "#/$defs/text" },
+        "observed_at_unix_seconds": { "$ref": "#/$defs/count" },
+        "dirty_entry_count": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "ready": { "type": "boolean" },
+        "content_read": { "const": false },
+        "external_actions": { "const": false }
+      }
+    },
+    "linkage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "other_resource_id",
+        "other_resource_name",
+        "relationship",
+        "interface_kind",
+        "operation_mode",
+        "configuration_status",
+        "contract_status",
+        "machine_status",
+        "human_review_status",
+        "overall_status",
+        "external_actions"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/text" },
+        "name": { "$ref": "#/$defs/text" },
+        "other_resource_id": { "$ref": "#/$defs/text" },
+        "other_resource_name": { "$ref": "#/$defs/text" },
+        "relationship": { "$ref": "#/$defs/text" },
+        "interface_kind": { "$ref": "#/$defs/text" },
+        "operation_mode": { "$ref": "#/$defs/text" },
+        "configuration_status": { "$ref": "#/$defs/text" },
+        "contract_status": { "$ref": "#/$defs/text" },
+        "machine_status": { "$ref": "#/$defs/text" },
+        "human_review_status": { "$ref": "#/$defs/text" },
+        "overall_status": { "$ref": "#/$defs/text" },
+        "external_actions": { "const": false }
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

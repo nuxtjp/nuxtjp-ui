@@ -1,0 +1,69 @@
+.nuxtjp-management-shell { font-size: 1rem; }
+
+.nuxtjp-management-shell :where(nav a, header a, header button) {
+  min-block-size: 2.75rem;
+}
+
+.nuxtjp-management-brand-stack { display: grid; inline-size: 100%; gap: .75rem; }
+.nuxtjp-management-footer-stack,.nuxtjp-management-perspective-switcher {
+  display:grid; inline-size:100%; gap:.5rem;
+}
+.nuxtjp-management-session-trigger {
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; align-items:center;
+  inline-size:100%; min-block-size:3.5rem; gap:.6rem; padding:.55rem;
+  border:1px solid var(--ui-border); border-radius:.8rem; background:var(--ui-bg);
+  color:var(--ui-text); text-align:start; cursor:pointer;
+}
+.nuxtjp-management-session-trigger:hover { background:var(--ui-bg-elevated); }
+.nuxtjp-management-session-trigger:focus-visible {
+  outline:2px solid var(--ui-primary); outline-offset:2px;
+}
+.nuxtjp-management-session-avatar {
+  display:grid; place-items:center; inline-size:2rem; block-size:2rem;
+  border-radius:999px; background:var(--ui-primary); color:var(--ui-bg);
+}
+.nuxtjp-management-session-copy { display:grid; min-inline-size:0; line-height:1.2; }
+.nuxtjp-management-session-copy strong { overflow:hidden; text-overflow:ellipsis; }
+.nuxtjp-management-session-copy small { color:var(--ui-text-muted); }
+.nuxtjp-management-session-menu { inline-size:min(22rem,calc(100vw - 2rem)); padding:.4rem; }
+.nuxtjp-management-session-menu>header { display:grid; gap:.1rem; padding:.6rem .7rem .75rem; }
+.nuxtjp-management-session-menu>header p {
+  margin:0; color:var(--ui-text-muted); font-size:.72rem; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+.nuxtjp-management-session-options { display:grid; gap:.2rem; }
+.nuxtjp-management-session-option {
+  display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:.75rem;
+  min-block-size:3.4rem; padding:.55rem .7rem; border-radius:.65rem; color:var(--ui-text);
+  inline-size:100%; text-align:start;
+}
+.nuxtjp-management-session-option:hover { background:var(--ui-bg-elevated); }
+.nuxtjp-management-session-option>span { display:grid; gap:.15rem; }
+.nuxtjp-management-session-option small { color:var(--ui-text-muted); line-height:1.35; }
+.nuxtjp-management-session-option-active { background:var(--ui-bg-muted); }
+.nuxtjp-management-session-menu>footer {
+  display:flex; align-items:center; gap:.45rem; margin-block-start:.4rem; padding:.65rem .7rem .3rem;
+  border-block-start:1px solid var(--ui-border); color:var(--ui-text-muted); font-size:.75rem;
+}
+.nuxtjp-management-session-menu>footer span { flex:1; }
+.nuxtjp-management-perspective-label {
+  margin:0; color:var(--ui-text-muted); font-size:.7rem; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+.nuxtjp-management-perspectives {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(4.5rem,1fr)); gap: .25rem;
+  padding: .25rem; border: 1px solid var(--ui-border); border-radius: .75rem;
+  background: var(--ui-bg-muted);
+}
+.nuxtjp-management-perspective {
+  display: flex; align-items: center; justify-content: center; min-block-size: 2.25rem;
+  padding: .4rem .5rem; border-radius: .55rem; color: var(--ui-text-muted);
+  font-size: .78rem; font-weight: 650; text-align: center;
+}
+.nuxtjp-management-perspective-active {
+  background: var(--ui-bg); color: var(--ui-text-highlighted);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .08);
+}
+.nuxtjp-management-perspective-description {
+  margin: 0; color: var(--ui-text-muted); font-size: .75rem; line-height: 1.45;
+}
