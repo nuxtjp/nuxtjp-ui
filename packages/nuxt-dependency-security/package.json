@@ -1,0 +1,55 @@
+{
+  "name": "@nuxtjp/dependency-security",
+  "version": "0.1.0",
+  "description": "Explicit pnpm backport configuration and active dependency regression checks without Nuxt peers",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "packageManager": "pnpm@10.29.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxtjp/nuxtjp-ui.git",
+    "directory": "packages/nuxt-dependency-security"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "files": [
+    "*.mjs",
+    "*.cjs",
+    "*.d.cts",
+    "types",
+    "patches",
+    "dependency-versions.json",
+    "LICENSE",
+    "NOTICE",
+    "LICENSE-braces",
+    "LICENSE-node-forge",
+    "LICENSE-simple-git",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./types/index.d.mts",
+      "import": "./index.mjs"
+    },
+    "./policy": "./dependency-versions.json"
+  },
+  "types": "./types/index.d.mts",
+  "bin": {
+    "nuxtjp-security-config": "./apply.mjs",
+    "nuxtjp-security-check": "./check.mjs"
+  },
+  "scripts": {
+    "build": "node --check index.mjs && node --check project.mjs && node --check apply.mjs && node --check check.mjs && node --check resolved-dependency.cjs",
+    "test": "node --test test/*.test.mjs",
+    "typecheck": "tsc --strict --noEmit --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "24.12.0"
+  }
+}

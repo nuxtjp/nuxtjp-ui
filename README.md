@@ -62,3 +62,17 @@ DADS guidance, source and asset terms are tracked separately. Logos and official
 ## Consumer dependency security
 
 See [dependency security backports](security/README.md) before installing this package in a Nuxt application. pnpm consumers must explicitly apply the included backports and verify their locked dependency tree; ordinary npm installation does not apply them.
+
+## Consolidated packages
+
+| Package | Responsibility |
+| --- | --- |
+| `@nuxtjp/ui` | UI module and public-design profile |
+| `@nuxtjp/managed-resources` | Provider-neutral resource projections |
+| `@nuxtjp/operations-console` | Readiness/network observation presentation |
+| `@nuxtjp/management-layout` | Explicit management application shell |
+| `@nuxtjp/dependency-security` | Peer-free, explicit pnpm backport configuration and active regression checks |
+
+The dependency-security tool can be used by Nuxt 3/Vuetify or Nuxt 4 hosts
+without installing a different UI framework. It does not replace local source
+or endpoint auditing by vpremises-security.

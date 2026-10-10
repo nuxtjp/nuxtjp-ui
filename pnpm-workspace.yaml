@@ -3,3 +3,4 @@ packages:
   - "packages/nuxt-management-layout"
   - "packages/nuxt-operations-console"
   - "packages/nuxt-managed-resources"
+  - "packages/nuxt-dependency-security"

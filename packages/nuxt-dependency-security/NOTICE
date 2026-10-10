@@ -1,0 +1,4 @@
+NuxtJP dependency-security
+Apache-2.0 applies to the configuration and verification tool.
+Third-party patch inputs retain the included LICENSE-braces, LICENSE-node-forge
+and LICENSE-simple-git notices; these do not relicense the upstream packages.

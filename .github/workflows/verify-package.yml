@@ -42,7 +42,7 @@ jobs:
         run: |
           npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP"
           mkdir "$RUNNER_TEMP/consolidated-packages"
-          for package in nuxt-managed-resources nuxt-operations-console nuxt-management-layout; do
+          for package in nuxt-managed-resources nuxt-operations-console nuxt-management-layout nuxt-dependency-security; do
             (cd "packages/$package" && npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP/consolidated-packages")
           done
           printf '%s\n' "$GITHUB_SHA" > "$RUNNER_TEMP/consolidated-packages/source-sha.txt"
