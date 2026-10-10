@@ -22,7 +22,7 @@ with tarfile.open(archive,'r:gz') as tar:
   for label,pattern in patterns.items():
    if re.search(pattern,text):findings.append({'file':name,'pattern':label})
 assert required<=entries.keys(),'Missing legal/documentation files'
-manifest=json.loads(entries['package.json']);assert manifest['name']=='@nuxtjp/ui' and manifest['version']=='0.1.2' and manifest['license']=='Apache-2.0'
+manifest=json.loads(entries['package.json']);assert manifest['name']=='@nuxtjp/ui' and manifest['version']=='0.1.3' and manifest['license']=='Apache-2.0'
 assert set(manifest['exports'])=={'.','./core'}
 for value in manifest['exports'].values():
  for target in value.values():assert target.removeprefix('./') in entries,'Missing export: '+target
