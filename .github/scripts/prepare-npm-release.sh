@@ -12,14 +12,14 @@ if test "$MANAGER" = pnpm@10.29.3; then
   pnpm install --frozen-lockfile
   :
   pnpm pack --pack-destination "$RUNNER_TEMP/package-release"
-  node -e 'const fs=require("node:fs"),p=require("./package.json");fs.writeFileSync(process.env.RUNNER_TEMP+"/package-pack.json",JSON.stringify([{name:p.name,version:p.version,filename:"nuxtjp-ui-0.1.2.tgz"}]))'
+  node -e 'const fs=require("node:fs"),p=require("./package.json");fs.writeFileSync(process.env.RUNNER_TEMP+"/package-pack.json",JSON.stringify([{name:p.name,version:p.version,filename:"nuxtjp-ui-0.1.3.tgz"}]))'
 else
   test "$MANAGER" = npm@11.12.1
   npm ci --ignore-scripts
   npm pack --json --pack-destination "$RUNNER_TEMP/package-release" > "$RUNNER_TEMP/package-pack.json"
 fi
-python3 .github/scripts/check-package.py "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.2.tgz"
-node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.2.tgz"
-node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.2.tgz" pnpm
+python3 .github/scripts/check-package.py "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.3.tgz"
+node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.3.tgz"
+node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.3.tgz" pnpm
 
-node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.2.tgz" @nuxtjp/ui
+node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/package-release/nuxtjp-ui-0.1.3.tgz" @nuxtjp/ui
