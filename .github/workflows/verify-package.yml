@@ -48,4 +48,4 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - name: Verify backports in a fresh packed consumer
-        run: node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/nuxtjp-ui-0.1.1.tgz" @nuxtjp/ui
+        run: node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/nuxtjp-ui-0.1.2.tgz" @nuxtjp/ui
