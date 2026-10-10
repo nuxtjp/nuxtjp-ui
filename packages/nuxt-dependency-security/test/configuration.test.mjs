@@ -53,3 +53,20 @@ test('conflicting version selectors reject before project or patch mutation', ()
   assert.throws(() => applySecurityPatches(root, source), /override conflicts/)
   assert.equal(readFileSync(join(root, 'package.json'), 'utf8'), original)
 }));
+
+test('a declared workspace dependency stays inside the selected root', () => fixture(root => {
+  writeFileSync(join(root, 'package.json'), JSON.stringify({ dependencies: { sample: '1.0.0' } }))
+  mkdirSync(join(root, 'packages', 'sample'), { recursive: true })
+  mkdirSync(join(root, 'node_modules'))
+  writeFileSync(join(root, 'packages', 'sample', 'package.json'), '{"name":"sample","version":"1.0.0"}')
+  symlinkSync('../packages/sample', join(root, 'node_modules', 'sample'))
+  assert.deepEqual(installedDependencies(root, 'sample', '1.0.0'), [join(root, 'packages', 'sample', 'package.json')])
+}))
+
+test('a linked dependency outside the selected project remains rejected', () => fixture(root => fixture(outside => {
+  writeFileSync(join(root, 'package.json'), JSON.stringify({ dependencies: { sample: '1.0.0' } }))
+  mkdirSync(join(root, 'node_modules'))
+  writeFileSync(join(outside, 'package.json'), '{"name":"sample","version":"1.0.0"}')
+  symlinkSync(outside, join(root, 'node_modules', 'sample'))
+  assert.throws(() => installedDependencies(root, 'sample', '1.0.0'), /outside the selected project/)
+})))

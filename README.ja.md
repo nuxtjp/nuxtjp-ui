@@ -9,7 +9,7 @@
 `0.1.0`はnpmで公開済みです。Nuxt `^4.5.2`、Vue `^3.5.40`、Node.js 22.19以降または24.11以降を使用してください。
 
 ```sh
-pnpm add @nuxtjp/ui@0.1.3
+pnpm add @nuxtjp/ui@0.1.4
 ```
 
 ```ts

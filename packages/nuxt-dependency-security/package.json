@@ -36,7 +36,12 @@
       "types": "./types/index.d.mts",
       "import": "./index.mjs"
     },
-    "./policy": "./dependency-versions.json"
+    "./policy": "./dependency-versions.json",
+    "./installed-dependencies": {
+      "types": "./resolved-dependency.d.cts",
+      "import": "./resolved-dependency.cjs",
+      "require": "./resolved-dependency.cjs"
+    }
   },
   "types": "./types/index.d.mts",
   "bin": {

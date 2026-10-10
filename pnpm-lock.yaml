@@ -12,18 +12,15 @@ overrides:
   esbuild: 0.28.2
 
 patchedDependencies:
-  '@nuxt/devtools@3.4.2':
-    hash: 85cfba0e485f4baf72c0d230a008a0d69d4592f3e9b3dde132bfb58e5d5fa770
-    path: patches/nuxt-devtools@3.4.2.patch
   braces@3.0.3:
     hash: c91195ade8df38090f0aceda7e95c7fa288d0e84572fb00a2e024814e25130d5
-    path: patches/braces@3.0.3.patch
+    path: packages/nuxt-dependency-security/patches/braces-3.0.3.patch
   node-forge@1.4.0:
     hash: 94e77976057f722fec0a9c528e63a45f0c43c85a610983621a51eab03b3e5908
-    path: patches/node-forge@1.4.0.patch
+    path: packages/nuxt-dependency-security/patches/node-forge-1.4.0.patch
   simple-git@4.0.2:
     hash: 50c470233394ca7e0c6efd04151de90a48f150e2d420d64fa091c6c0a2380e5a
-    path: security/patches/simple-git@4.0.2.patch
+    path: packages/nuxt-dependency-security/patches/simple-git-4.0.2.patch
 
 importers:
 
@@ -38,6 +35,9 @@ importers:
       '@nuxt/kit':
         specifier: 4.5.2
         version: 4.5.2(magic-string@1.4.3)(magicast@0.5.5)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
+      '@nuxtjp/dependency-security':
+        specifier: 0.1.0
+        version: link:packages/nuxt-dependency-security
       tailwindcss:
         specifier: 4.1.18
         version: 4.1.18
@@ -5737,7 +5737,7 @@ snapshots:
       pkg-types: 2.3.3
       semver: 7.8.5
 
-  '@nuxt/devtools@3.4.2(patch_hash=85cfba0e485f4baf72c0d230a008a0d69d4592f3e9b3dde132bfb58e5d5fa770)(db0@0.3.4)(ioredis@5.11.1)(magic-string@1.4.3)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))':
+  '@nuxt/devtools@3.4.2(db0@0.3.4)(ioredis@5.11.1)(magic-string@1.4.3)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@nuxt/devtools-kit': 3.4.2(magic-string@1.4.3)(magicast@0.5.5)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@nuxt/devtools-wizard': 3.4.2
@@ -9058,7 +9058,7 @@ snapshots:
     dependencies:
       '@dxup/nuxt': 0.5.10(esbuild@0.28.2)(magicast@0.5.5)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@nuxt/cli': 3.37.0(@nuxt/schema@4.5.2)(magicast@0.5.5)
-      '@nuxt/devtools': 3.4.2(patch_hash=85cfba0e485f4baf72c0d230a008a0d69d4592f3e9b3dde132bfb58e5d5fa770)(db0@0.3.4)(ioredis@5.11.1)(magic-string@1.4.3)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))
+      '@nuxt/devtools': 3.4.2(db0@0.3.4)(ioredis@5.11.1)(magic-string@1.4.3)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))
       '@nuxt/kit': 4.5.2(magic-string@1.4.3)(magicast@0.5.5)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
       '@nuxt/nitro-server': 4.5.2(09f9bca2222b42f270c03dbe8dc30b0b)
       '@nuxt/schema': 4.5.2
@@ -9202,7 +9202,7 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
       '@nuxt/cli': 4.0.0(@nuxt/schema@4.6.0)(jiti@2.7.0)(rolldown@1.2.13)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@nuxt/devalue': 2.0.2
-      '@nuxt/devtools': 3.4.2(patch_hash=85cfba0e485f4baf72c0d230a008a0d69d4592f3e9b3dde132bfb58e5d5fa770)(db0@0.3.4)(ioredis@5.11.1)(magic-string@1.4.3)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))
+      '@nuxt/devtools': 3.4.2(db0@0.3.4)(ioredis@5.11.1)(magic-string@1.4.3)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(vue@3.5.43(typescript@5.9.3))
       '@nuxt/kit': 4.6.0(@nuxt/schema@4.6.0)(confbox@0.3.1)(dotenv@17.4.2)(giget@3.3.1)(jiti@2.7.0)(magic-string@1.4.3)(mlly@1.8.2)(rolldown@1.2.13)(unplugin@3.4.0(esbuild@0.28.2)(rolldown@1.2.13)(rollup@4.64.2)(vite@8.3.3(@types/node@24.12.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))
       '@nuxt/nitro-server': 4.6.0(7220b8f6685d0ea18a1972390c537f0e)
       '@nuxt/schema': 4.6.0

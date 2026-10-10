@@ -13,7 +13,7 @@ if (args.length !== 3 || args[0] !== '--project-root' || args[2] !== '--apply') 
     applySecurityPatches(args[1], dirname(fileURLToPath(import.meta.url)))
     console.log('Reviewed backports configured. Run pnpm install --no-frozen-lockfile to refresh the lockfile.')
   } catch (error) {
-    console.error(error.message)
+    console.error('Selected project configuration could not be applied; review manifest and patch conflicts.')
     process.exitCode = 1
   }
 }

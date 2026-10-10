@@ -11,6 +11,10 @@ function regular(path) {
   }
   return readFileSync(path)
 }
+function parseJson(bytes) {
+  try { return JSON.parse(bytes.toString('utf8')) }
+  catch { throw new Error('Invalid JSON document') }
+}
 function object(value) {
   return value !== null && typeof value === 'object' && !Array.isArray(value)
 }
@@ -20,14 +24,14 @@ export function applySecurityPatches(project, source) {
   const root = realpathSync(resolve(project))
   const manifest = join(root, 'package.json')
   const original = regular(manifest)
-  const data = JSON.parse(original)
+  const data = parseJson(original)
   if (!object(data) || (data.pnpm !== undefined && !object(data.pnpm))) {
     throw new Error('Expected a package manifest with object-valued pnpm settings')
   }
   const pnpm = data.pnpm ?? {}
   const existing = pnpm.patchedDependencies ?? {}
   if (!object(existing)) throw new Error('Expected object-valued patchedDependencies')
-  const pinned = JSON.parse(regular(join(source, 'dependency-versions.json')))
+  const pinned = parseJson(regular(join(source, 'dependency-versions.json')))
   if (pinned.schemaVersion !== 1 || !object(pinned.overrides)) throw new Error('Invalid dependency version policy')
   const overrides = pnpm.overrides ?? {}
   if (!object(overrides)) throw new Error('Expected object-valued dependency overrides')

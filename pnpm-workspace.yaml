@@ -4,3 +4,14 @@ packages:
   - "packages/nuxt-operations-console"
   - "packages/nuxt-managed-resources"
   - "packages/nuxt-dependency-security"
+linkWorkspacePackages: true
+overrides:
+  "@nuxt/devtools>simple-git": "4.0.2"
+  "esbuild@0.27.7": "0.28.2"
+  "simple-git": "4.0.2"
+  "@simple-git/argv-parser": "2.0.1"
+  "esbuild": "0.28.2"
+patchedDependencies:
+  "braces@3.0.3": "packages/nuxt-dependency-security/patches/braces-3.0.3.patch"
+  "node-forge@1.4.0": "packages/nuxt-dependency-security/patches/node-forge-1.4.0.patch"
+  "simple-git@4.0.2": "packages/nuxt-dependency-security/patches/simple-git-4.0.2.patch"

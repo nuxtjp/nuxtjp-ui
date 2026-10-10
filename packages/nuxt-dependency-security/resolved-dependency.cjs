@@ -13,7 +13,10 @@ function installedDependencies(root, target, version) {
     const file = pending.pop();
     if (seen.has(file)) continue;
     seen.add(file);
-    const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+    if (!fs.statSync(file).isFile() || fs.statSync(file).size > 1024 * 1024) throw new Error('Dependency manifest exceeds verification budget');
+    let data;
+    try { data = JSON.parse(fs.readFileSync(file, 'utf8')); }
+    catch { throw new Error('Malformed dependency manifest'); }
     if (data.name === target) {
       if (version !== undefined && data.version !== version) throw new Error('Dependency version changed; review its security patch');
       found.add(file);
@@ -26,7 +29,7 @@ function installedDependencies(root, target, version) {
         const candidate = path.join(location, name, 'package.json');
         if (!fs.existsSync(candidate)) continue;
         const real = fs.realpathSync(candidate);
-        if (!real.startsWith(path.join(root, 'node_modules') + path.sep)) {
+        if (!real.startsWith(root + path.sep)) {
           throw new Error('Dependency resolves outside the selected project; select the workspace root');
         }
         pending.push(real);

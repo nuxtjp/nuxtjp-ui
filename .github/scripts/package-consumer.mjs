@@ -7,6 +7,7 @@ import { createServer } from 'node:net'
 
 const archive = resolve(process.argv[2])
 const manager = process.argv[3] ?? 'npm'
+const helperArchive = process.argv[4] ? resolve(process.argv[4]) : null
 assert.ok(['npm', 'pnpm'].includes(manager))
 const root = mkdtempSync(join(tmpdir(), 'nuxtjp-ui-consumer-'))
 const env = { ...process.env, NPM_CONFIG_CACHE: join(root, 'empty-cache'), CI: 'true', NUXT_TELEMETRY_DISABLED: '1' }
@@ -14,7 +15,7 @@ for (const key of ['NPM_TOKEN', 'NODE_AUTH_TOKEN', 'GH_TOKEN', 'GITHUB_TOKEN']) 
 writeFileSync(join(root, '.npmrc'), '')
 env.NPM_CONFIG_USERCONFIG = join(root, '.npmrc')
 writeFileSync(join(root, 'package.json'), JSON.stringify({
-  private: true, type: 'module', dependencies: { '@nuxtjp/ui': `file:${archive}`, nuxt: '4.5.2', vue: '3.5.43' },
+  private: true, type: 'module', ...(helperArchive && manager === 'pnpm' ? {pnpm: {overrides: {'@nuxtjp/dependency-security': `file:${helperArchive}`}}} : {}), dependencies: { ...(helperArchive ? {'@nuxtjp/dependency-security': `file:${helperArchive}`} : {}), '@nuxtjp/ui': `file:${archive}`, nuxt: '4.5.2', vue: '3.5.43' },
   devDependencies: { typescript: '5.9.3', 'vue-tsc': '3.2.8' }
 }, null, 2))
 function run(command, args) {
@@ -60,6 +61,7 @@ try {
     const lock = JSON.parse(readFileSync(join(root, 'package-lock.json'), 'utf8'))
     for (const [name, item] of Object.entries(lock.packages)) {
       if (name === '' || name === 'node_modules/@nuxtjp/ui') continue
+      if (name === 'node_modules/@nuxtjp/dependency-security' && helperArchive) { assert.equal(resolve(root, item.resolved.slice(5)), helperArchive); continue }
       if (item.resolved) assert.ok(item.resolved.startsWith('https://registry.npmjs.org/'), `Non-public dependency: ${name}`)
     }
   } else {
@@ -68,7 +70,9 @@ try {
     function checkPackages(groups) {
       for (const [name, item] of Object.entries(groups ?? {})) {
         assert.equal(typeof item.resolved, 'string', `Missing resolved source: ${name}`)
-        if (name === '@nuxtjp/ui') {
+        if (name === '@nuxtjp/dependency-security' && helperArchive) {
+          assert.ok(item.resolved.startsWith('file:'));assert.equal(resolve(root,item.resolved.slice(5)),helperArchive)
+        } else if (name === '@nuxtjp/ui') {
           assert.ok(item.resolved.startsWith('file:'))
           assert.equal(resolve(root, item.resolved.slice(5)), archive)
         } else assert.ok(item.resolved.startsWith('https://registry.npmjs.org/'), `Non-public source: ${name}`)
