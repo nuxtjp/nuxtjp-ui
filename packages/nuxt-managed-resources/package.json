@@ -1,0 +1,75 @@
+{
+  "name": "@nuxtjp/managed-resources",
+  "version": "0.1.0",
+  "description": "Provider-neutral managed-resource presentation for Nuxt",
+  "type": "module",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.29.3",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "pnpm": ">=10 <11"
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "LICENSE",
+    "README.md",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    },
+    "./types": {
+      "types": "./dist/runtime/shared/types.d.ts",
+      "import": "./dist/runtime/shared/types.js"
+    },
+    "./guards": {
+      "types": "./dist/runtime/shared/guards.d.ts",
+      "import": "./dist/runtime/shared/guards.js"
+    },
+    "./core": {
+      "types": "./dist/runtime/shared/resources.d.ts",
+      "import": "./dist/runtime/shared/resources.js"
+    },
+    "./schema": "./schemas/managed-resources-v1.schema.json"
+  },
+  "scripts": {
+    "build": "nuxt-module-build build",
+    "typecheck": "vue-tsc --noEmit --project tsconfig.json",
+    "test": "vitest run",
+    "prepack": "pnpm run build"
+  },
+  "peerDependencies": {
+    "nuxt": "^4.5.0",
+    "vue": "^3.5.0"
+  },
+  "dependencies": {
+    "@nuxt/kit": "4.5.2",
+    "@nuxt/schema": "4.5.0"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "1.0.2",
+    "@types/node": "24.12.0",
+    "ajv": "8.20.0",
+    "nuxt": "4.5.2",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "vue": "3.5.43",
+    "vue-tsc": "3.2.8"
+  },
+  "pnpm": {
+    "overrides": {
+      "@nuxt/devtools>simple-git": "4.0.2"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuxtjp/nuxtjp-ui.git",
+    "directory": "packages/nuxt-managed-resources"
+  }
+}

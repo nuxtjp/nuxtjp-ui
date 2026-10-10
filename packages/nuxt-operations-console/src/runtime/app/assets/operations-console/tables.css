@@ -1,0 +1,30 @@
+.njo-table-scroll {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+}
+
+.njo-table-scroll:focus-visible {
+  outline: 3px solid #54a8b0;
+  outline-offset: 2px;
+}
+
+.njo-section table {
+  border-collapse: collapse;
+  min-width: 44rem;
+  width: 100%;
+}
+
+.njo-section th,
+.njo-section td {
+  border-bottom: 1px solid #e4e9ed;
+  padding: 0.65rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.njo-section th small {
+  display: block;
+  font-weight: 400;
+  margin-top: 0.15rem;
+}
+

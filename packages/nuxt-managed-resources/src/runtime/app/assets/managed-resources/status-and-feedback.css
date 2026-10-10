@@ -1,0 +1,63 @@
+.nj-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: none;
+  border: 1px solid var(--nj-border);
+  border-radius: 999px;
+  padding: 0.28rem 0.5rem;
+  color: var(--nj-muted);
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.nj-status__dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.nj-status--positive {
+  border-color: rgb(110 231 183 / 35%);
+  color: var(--nj-positive);
+}
+
+.nj-status--warning {
+  border-color: rgb(251 191 36 / 35%);
+  color: var(--nj-warning);
+}
+
+.nj-empty-state,
+.nj-empty-inline {
+  color: var(--nj-muted);
+}
+
+.nj-empty-state {
+  border: 1px dashed var(--nj-border);
+  border-radius: 0.9rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.nj-empty-state strong {
+  color: var(--nj-text);
+}
+
+.nj-section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.nj-section-heading h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.nj-section-heading span {
+  color: var(--nj-muted);
+  font-size: 0.68rem;
+}

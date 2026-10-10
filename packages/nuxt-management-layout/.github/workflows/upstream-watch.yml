@@ -1,0 +1,51 @@
+name: Watch primary sources
+
+on:
+  schedule:
+    - cron: "23 21 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upstream-watch
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out reviewed source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+
+      - name: Detect without updating repository state
+        id: detect
+        shell: bash
+        run: |
+          set +e
+          node scripts/check-upstream.mjs > upstream-report.json
+          result=$?
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+          {
+            echo '## Primary-source review'
+            echo
+            echo 'Detection only: no lock, dependency, implementation, or status is changed.'
+            echo
+            echo '```json'
+            cat upstream-report.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Require human review
+        if: steps.detect.outputs.result != '0'
+        run: |
+          echo "Review required (exit ${{ steps.detect.outputs.result }})."
+          exit 1

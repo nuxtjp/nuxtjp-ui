@@ -1,0 +1,53 @@
+{
+  "schema": "crowsi://network/control-receipts/v1",
+  "generated_at": "2026-07-27T00:00:00.000Z",
+  "external_actions": false,
+  "decision_count": 2,
+  "receipt_count": 2,
+  "decisions": [
+    {
+      "id": "decision-local-runtime",
+      "target_id": "local-runtime",
+      "action": "restrict-egress",
+      "status": "allowed-dry-run",
+      "decided_at": "2026-07-26T23:45:00.000Z",
+      "expires_at": "2026-07-27T00:05:00.000Z",
+      "reason_code": "allowlist-match",
+      "requested_by": "workflow-example",
+      "decided_by": "operator-example",
+      "matched_rule_id": "rule-local-runtime"
+    },
+    {
+      "id": "decision-egress-observe",
+      "target_id": "egress-gateway",
+      "action": "quarantine-interface",
+      "status": "denied",
+      "decided_at": "2026-07-26T23:58:00.000Z",
+      "expires_at": "2026-07-27T00:58:00.000Z",
+      "reason_code": "latency-review",
+      "requested_by": "workflow-example",
+      "decided_by": "policy-example",
+      "matched_rule_id": null
+    }
+  ],
+  "receipts": [
+    {
+      "id": "receipt-local-runtime",
+      "decision_id": "decision-local-runtime",
+      "target_id": "local-runtime",
+      "status": "recorded",
+      "recorded_at": "2026-07-26T23:46:00.000Z",
+      "result_code": "allowlist-match",
+      "changed_state": false
+    },
+    {
+      "id": "receipt-egress-observe",
+      "decision_id": "decision-egress-observe",
+      "target_id": "egress-gateway",
+      "status": "recorded",
+      "recorded_at": "2026-07-26T23:58:30.000Z",
+      "result_code": "latency-review",
+      "changed_state": false
+    }
+  ]
+}

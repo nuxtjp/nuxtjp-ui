@@ -1,0 +1,135 @@
+{
+  "schema": "nuxtjp://operations/network-topology/v1",
+  "generated_at": "2026-07-27T00:00:00.000Z",
+  "external_actions": false,
+  "projection_mode": "mixed-local-and-declared",
+  "overall_status": "unknown",
+  "summary": {
+    "node_count": 6,
+    "edge_count": 4,
+    "healthy_count": 3,
+    "attention_count": 0,
+    "unknown_count": 1,
+    "observed_count": 2
+  },
+  "nodes": [
+    {
+      "id": "crowsi-local-observer",
+      "label": "Crowsi local observer",
+      "kind": "observer",
+      "zone": "local-host",
+      "status": "observed",
+      "source": "crowsi-network-observer",
+      "evidence_mode": "live-observation",
+      "isolation_mode": null,
+      "finding_codes": [],
+      "column": 1,
+      "row": 1,
+      "metrics": { "project_count": 0, "network_count": 0, "instance_count": 0 }
+    },
+    {
+      "id": "crowsi-boundary-monitor",
+      "label": "Crowsi boundary monitor",
+      "kind": "boundary-monitor",
+      "zone": "control-plane",
+      "status": "healthy",
+      "source": "crowsi-boundary-monitor",
+      "evidence_mode": "declared",
+      "isolation_mode": null,
+      "finding_codes": [],
+      "column": 2,
+      "row": 1,
+      "metrics": { "project_count": 0, "network_count": 0, "instance_count": 0 }
+    },
+    {
+      "id": "interface-lo",
+      "label": "Interface lo",
+      "kind": "interface",
+      "zone": "local-host",
+      "status": "observed",
+      "source": "proc-net-dev",
+      "evidence_mode": "live-observation",
+      "isolation_mode": null,
+      "finding_codes": [],
+      "column": 1,
+      "row": 2,
+      "metrics": { "project_count": 0, "network_count": 0, "instance_count": 0 }
+    },
+    {
+      "id": "coela-local-control",
+      "label": "Coela local control",
+      "kind": "environment",
+      "zone": "local-control",
+      "status": "healthy",
+      "source": "crowsi-boundary-monitor",
+      "evidence_mode": "declared",
+      "isolation_mode": "process-loopback",
+      "finding_codes": [],
+      "column": 2,
+      "row": 2,
+      "metrics": { "project_count": 1, "network_count": 1, "instance_count": 1 }
+    },
+    {
+      "id": "incus-development",
+      "label": "Incus development",
+      "kind": "environment",
+      "zone": "development",
+      "status": "healthy",
+      "source": "incus-isolation-adapter",
+      "evidence_mode": "declared",
+      "isolation_mode": "incus-project",
+      "finding_codes": [],
+      "column": 3,
+      "row": 2,
+      "metrics": { "project_count": 1, "network_count": 1, "instance_count": 2 }
+    },
+    {
+      "id": "incus-production",
+      "label": "Incus production",
+      "kind": "environment",
+      "zone": "production",
+      "status": "unknown",
+      "source": "incus-isolation-adapter",
+      "evidence_mode": "not-connected",
+      "isolation_mode": "incus-project",
+      "finding_codes": ["provider-not-connected"],
+      "column": 4,
+      "row": 2,
+      "metrics": { "project_count": 0, "network_count": 0, "instance_count": 0 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "observer-observes-interface-lo",
+      "source_node_id": "crowsi-local-observer",
+      "target_node_id": "interface-lo",
+      "relation": "observes",
+      "status": "observed",
+      "evidence_mode": "live-observation"
+    },
+    {
+      "id": "monitor-observes-coela-local-control",
+      "source_node_id": "crowsi-boundary-monitor",
+      "target_node_id": "coela-local-control",
+      "relation": "observes",
+      "status": "healthy",
+      "evidence_mode": "declared"
+    },
+    {
+      "id": "monitor-observes-incus-development",
+      "source_node_id": "crowsi-boundary-monitor",
+      "target_node_id": "incus-development",
+      "relation": "observes",
+      "status": "healthy",
+      "evidence_mode": "declared"
+    },
+    {
+      "id": "monitor-observes-incus-production",
+      "source_node_id": "crowsi-boundary-monitor",
+      "target_node_id": "incus-production",
+      "relation": "observes",
+      "status": "unknown",
+      "evidence_mode": "not-connected"
+    }
+  ]
+}

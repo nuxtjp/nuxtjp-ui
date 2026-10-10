@@ -1,0 +1,75 @@
+{
+  "name": "@nuxtjp/operations-console",
+  "version": "0.2.1",
+  "description": "Provider-neutral operational readiness and network-control presentation for Nuxt",
+  "type": "module",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@10.29.3",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "pnpm": ">=10 <11"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "samples",
+    "schemas",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "README.md",
+    "SECURITY.md",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "main": "./dist/module.mjs",
+  "types": "./dist/types.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    },
+    "./core": {
+      "types": "./dist/runtime/core/index.d.ts",
+      "import": "./dist/runtime/core/index.js"
+    },
+    "./schema/credential-readiness": "./schemas/credential-readiness-v1.schema.json",
+    "./schema/network-observations": "./schemas/network-observations-v1.schema.json",
+    "./schema/network-controls": "./schemas/network-controls-v1.schema.json",
+    "./schema/control-coverage": "./schemas/control-coverage-snapshot-v2.schema.json",
+    "./schema/network-topology": "./schemas/network-topology-v1.schema.json"
+  },
+  "scripts": {
+    "build": "nuxt-module-build build && nuxt build playground",
+    "typecheck": "vue-tsc --noEmit --project tsconfig.json",
+    "test": "vitest run",
+    "prepack": "pnpm run build"
+  },
+  "peerDependencies": {
+    "nuxt": "^4.5.0",
+    "vue": "^3.5.0"
+  },
+  "dependencies": {
+    "@nuxt/kit": "4.5.2",
+    "@nuxt/schema": "4.5.0"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "1.0.2",
+    "@types/node": "24.12.0",
+    "ajv": "8.20.0",
+    "nuxt": "4.5.2",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11",
+    "vue": "3.5.43",
+    "vue-tsc": "3.2.8"
+  },
+  "pnpm": {
+    "overrides": {
+      "@nuxt/devtools>simple-git": "4.0.2"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nuxtjp/nuxtjp-ui.git",
+    "directory": "packages/nuxt-operations-console"
+  }
+}

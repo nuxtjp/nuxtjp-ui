@@ -32,7 +32,8 @@
     "THIRD_PARTY_NOTICES.md",
     "NOTICE",
     "LICENSE-PREVIOUS",
-    "README.ja.md"
+    "README.ja.md",
+    "security"
   ],
   "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
@@ -63,11 +64,13 @@
     "build:playground": "nuxt build playground",
     "compliance:verify": "node scripts/verify-compliance.mjs",
     "dev": "pnpm run dev:prepare && nuxt dev playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
+    "dev:prepare": "nuxt-module-build prepare && nuxt-module-build build --stub && nuxt prepare playground",
     "typecheck": "pnpm run dev:prepare && vue-tsc --noEmit --project tsconfig.json && nuxt typecheck playground",
-    "test": "pnpm run dev:prepare && vitest run",
+    "test": "pnpm run dev:prepare && vitest run && pnpm run test:dependency-security && pnpm run test:consumer-security",
     "upstream:check": "node scripts/check-upstream.mjs",
-    "prepack": "pnpm run compliance:verify && pnpm run test && pnpm run typecheck && pnpm run build"
+    "prepack": "pnpm run compliance:verify && pnpm run test && pnpm run typecheck && pnpm run build",
+    "test:dependency-security": "node --test scripts/dependency-security.check.cjs",
+    "test:consumer-security": "node --test scripts/consumer-security.test.mjs"
   },
   "dependencies": {
     "@digital-go-jp/tailwind-theme-plugin": "1.0.1",
@@ -98,5 +101,16 @@
     "vue-tsc": "3.2.8",
     "@nuxt/ui": "4.11.3",
     "@nuxt/icon": "2.5.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@nuxt/devtools>simple-git": "4.0.2",
+      "esbuild@0.27.7": "0.28.2"
+    },
+    "patchedDependencies": {
+      "braces@3.0.3": "patches/braces@3.0.3.patch",
+      "node-forge@1.4.0": "patches/node-forge@1.4.0.patch",
+      "@nuxt/devtools@3.4.2": "patches/nuxt-devtools@3.4.2.patch"
+    }
   }
 }

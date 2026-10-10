@@ -1,0 +1,57 @@
+.nj-resource-filters {
+  display: grid;
+  grid-template-columns: minmax(14rem, 2fr) repeat(2, minmax(10rem, 1fr)) auto;
+  align-items: end;
+  gap: 0.7rem;
+  border: 1px solid var(--nj-border);
+  border-radius: 0.9rem;
+  background: var(--nj-panel);
+  padding: 0.9rem;
+}
+
+.nj-resource-filters label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.nj-resource-filters label span {
+  color: var(--nj-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.nj-resource-filters input,
+.nj-resource-filters select,
+.nj-resource-filters button,
+.nj-empty-state button {
+  min-height: 2.65rem;
+  border: 1px solid var(--nj-border);
+  border-radius: 0.55rem;
+  background: #07100f;
+  color: var(--nj-text);
+  padding: 0.6rem 0.75rem;
+}
+
+.nj-resource-filters button,
+.nj-empty-state button {
+  cursor: pointer;
+}
+
+.nj-result-count {
+  margin: 0.9rem 0;
+  color: var(--nj-muted);
+  font-size: 0.78rem;
+}
+
+.nj-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .nj-resource-filters,
+  .nj-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -58,3 +58,7 @@ The package manifest and [LICENSE](LICENSE) identify Apache-2.0. [LICENSE-PREVIO
 This README reorganization does not change license files or grants.
 DADS guidance, source and asset terms are tracked separately. Logos and official marks are not included.
 [Reference versions](https://github.com/nuxtjp/nuxtjp-ui/blob/main/upstream/sources.lock.json) and [conformance status](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/conformance/status.md) record coverage and compatibility gaps. Application-level accessibility evidence is still required.
+
+## Consumer dependency security
+
+See [dependency security backports](security/README.md) before installing this package in a Nuxt application. pnpm consumers must explicitly apply the included backports and verify their locked dependency tree; ordinary npm installation does not apply them.

@@ -1,0 +1,48 @@
+{
+  "schema": "crowsi://network/control-coverage-snapshot/v2",
+  "generated_at_epoch_s": 1785322800,
+  "external_actions": false,
+  "overall_state": "unmanaged",
+  "summary": {
+    "asset_count": 4,
+    "controlled_count": 1,
+    "gap_count": 3
+  },
+  "assets": [
+    {
+      "id": "local-incus",
+      "state": "controlled",
+      "isolation_ready": true,
+      "finding_codes": []
+    },
+    {
+      "id": "remote-wsl",
+      "state": "partial",
+      "isolation_ready": false,
+      "finding_codes": [
+        "sensor-not-connected",
+        "enforcer-not-ready",
+        "required-control-action-missing",
+        "management-lifeline-unverified",
+        "isolation-drill-stale"
+      ]
+    },
+    {
+      "id": "edge-unknown",
+      "state": "unknown",
+      "isolation_ready": false,
+      "finding_codes": [
+        "sensor-not-connected",
+        "observation-stale"
+      ]
+    },
+    {
+      "id": "external-cloud",
+      "state": "unmanaged",
+      "isolation_ready": false,
+      "finding_codes": [
+        "management-authority-missing"
+      ]
+    }
+  ]
+}
