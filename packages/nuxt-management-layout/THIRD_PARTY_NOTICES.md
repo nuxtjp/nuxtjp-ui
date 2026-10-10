@@ -7,7 +7,7 @@ This repository is an independent NuxtJP implementation. It is not official or c
 - [Nuxt](https://github.com/nuxt/nuxt) — MIT License
 - [Nuxt UI](https://github.com/nuxt/ui) — MIT License, used indirectly through `@nuxtjp/ui`
 - [Ajv](https://github.com/ajv-validator/ajv) — MIT License, development-time schema validation
-- `@nuxtjp/ui` — MIT License; its distribution contains the DADS asset-specific notices
+- `@nuxtjp/ui` — Apache-2.0 for the derivative; its distribution preserves upstream licenses and asset-specific notices
 
 ## Digital Agency guidance
 

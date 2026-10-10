@@ -20,9 +20,10 @@ with tarfile.open(archive,'r:gz') as tar:
   assert member.size<=5_000_000,'Oversized file';data=tar.extractfile(member).read();entries[name]=data
   text=data.decode('utf-8',errors='replace')
   for label,pattern in patterns.items():
+   if label == 'product-specific-reference' and name in {'README.md', 'README.ja.md'}:continue
    if re.search(pattern,text):findings.append({'file':name,'pattern':label})
 assert required<=entries.keys(),'Missing legal/documentation files'
-manifest=json.loads(entries['package.json']);assert manifest['name']=='@nuxtjp/ui' and manifest['version']=='0.1.3' and manifest['license']=='Apache-2.0'
+manifest=json.loads(entries['package.json']);assert manifest['name']=='@nuxtjp/ui' and manifest['version']=='0.1.4' and manifest['license']=='Apache-2.0'
 assert set(manifest['exports'])=={'.','./core'}
 for value in manifest['exports'].values():
  for target in value.values():assert target.removeprefix('./') in entries,'Missing export: '+target

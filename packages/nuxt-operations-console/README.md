@@ -8,14 +8,14 @@
 
 ## 導入・使い方
 
-以下は現行インターフェースの利用例です。ローカル成果物の参照がある場合は、必要な版の成果物を先に準備してください。パッケージの公開配布は今回の作業では行いません。
+以下は現行インターフェースの利用例です。公式npmの固定バージョンを使用し、Nuxtアプリ側で依存関係の補修を明示的に適用してください。
 
 ## 導入と組み合わせ
 
-Version固定したArtifactを導入します。
+公式レジストリのバージョンを固定して導入します。
 
 ```bash
-pnpm add ./vendor/nuxtjp-operations-console-0.2.1.tgz
+pnpm add @nuxtjp/operations-console@0.2.1
 ```
 
 ```ts
@@ -76,7 +76,7 @@ Credential文書にはSecret専用fieldがありません。ただし、Producer
 ## 検証用Playground
 
 ```bash
-pnpm install --offline --frozen-lockfile
+pnpm install --frozen-lockfile --ignore-scripts
 pnpm typecheck
 pnpm test
 pnpm build
@@ -118,3 +118,9 @@ pnpm build
 [Usage guide](docs/getting-started.md)
 
 [Schemas](schemas) · [Detailed documentation](docs) · [Implementation and public interfaces](src) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE) · [Third-party notices](THIRD_PARTY_NOTICES.md)
+
+## English: installation boundary and dependency security
+
+The core exports validate and summarize caller-supplied, read-only operational documents. No host observation, credential access or network control is performed by this package. Nuxt/Vue peers are optional for a Node-only core consumer; the rendering application must explicitly install Nuxt 4 and Vue 3.
+
+For a Nuxt host, follow the public `@nuxtjp/ui@0.1.3` dependency backport procedure before installation/build validation. Apply root patches explicitly, regenerate and freeze the pnpm lockfile, and run the actual dependency regression checks. Installing this module does not apply a consuming application's patches.

@@ -1,7 +1,5 @@
-import type {
-  OperationsSummary,
-  ValidOperationsDocuments
-} from '.'
+import type { OperationsSummary } from './types/index'
+import type { ValidOperationsDocuments } from './validation'
 import { isFreshProjection, isFuture } from './freshness'
 
 export function summarizeOperations(

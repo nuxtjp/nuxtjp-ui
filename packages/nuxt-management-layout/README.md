@@ -20,7 +20,7 @@ The Layer registers its declared `@nuxtjp/ui` dependency. Consumers install the 
 Following [Nuxt Layers](https://nuxt.com/docs/4.x/getting-started/layers), install fixed package versions and extend the package name.
 
 ```sh
-pnpm add @nuxtjp/ui@0.1.0 @nuxtjp/management-layout@0.1.0
+pnpm add @nuxtjp/ui@0.1.3 @nuxtjp/management-layout@0.4.3
 ```
 
 ```ts
@@ -42,15 +42,18 @@ export default defineAppConfig({
 })
 ```
 
-## Local package artifact
+## Consumer dependency security
 
-Before registry publication, run this from the Wonderland root:
+Use the official registry versions and apply the root backports shipped by `@nuxtjp/ui@0.1.3` before building the host.
 
 ```sh
-./bin/nuxtjp-ui-package --refresh-locks
+node node_modules/@nuxtjp/ui/security/apply.mjs --project-root . --apply
+pnpm install --no-frozen-lockfile
+pnpm install --frozen-lockfile
+node node_modules/@nuxtjp/ui/security/dependency-security.check.cjs
 ```
 
-The command stages artifacts in Wonderland root `.artifacts/npm/`, copies a fixed tarball into each consumer's `vendor/*.tgz`, and refreshes lockfiles. Consumers use only their own vendored artifact; they never reference the temporary stage or another repository's source tree.
+Review and commit the root configuration and generated patch files. Installation of this Layer does not implicitly modify the host's package manager configuration.
 
 ## Verification
 

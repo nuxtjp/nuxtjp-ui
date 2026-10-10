@@ -41,7 +41,7 @@ export async function verifyContract(root) {
 
 function verifyDependencyBoundary(manifest, config, errors) {
   if (manifest.main !== './nuxt.config.ts') errors.push('package main must be nuxt.config.ts')
-  if (manifest.peerDependencies?.['@nuxtjp/ui'] !== '0.1.0') {
+  if (manifest.peerDependencies?.['@nuxtjp/ui'] !== '0.1.3') {
     errors.push('@nuxtjp/ui must be an explicit peer dependency')
   }
   for (const name of ['@nuxt/ui', '@digital-go-jp/tailwind-theme-plugin', 'tailwindcss']) {

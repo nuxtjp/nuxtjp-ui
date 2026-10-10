@@ -8,9 +8,9 @@ describe('NuxtJP management Layer boundary', () => {
   it('publishes an npm Layer and depends on the UI module contract', () => {
     const manifest = JSON.parse(source('package.json'))
     expect(manifest.main).toBe('./nuxt.config.ts')
-    expect(manifest.peerDependencies['@nuxtjp/ui']).toBe('0.1.0')
+    expect(manifest.peerDependencies['@nuxtjp/ui']).toBe('0.1.3')
     expect(manifest.devDependencies['@nuxtjp/ui'])
-      .toBe('0.1.0')
+      .toBe('0.1.3')
     expect(manifest.repository.url).toContain('nuxtjp/nuxtjp-ui')
     expect(manifest.repository.directory).toBe('packages/nuxt-management-layout')
     expect(source('nuxt.config.ts')).toMatch(/modules:\s*\['@nuxtjp\/ui'\]/u)

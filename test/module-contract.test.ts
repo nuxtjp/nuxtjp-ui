@@ -17,7 +17,7 @@ describe('NuxtJP UI module boundary', () => {
     expect(manifest.files).not.toContain('scripts')
     expect(manifest.homepage).toBe('https://github.com/nuxtjp/nuxtjp-ui#readme')
     expect(manifest.bugs.url).toBe('https://github.com/nuxtjp/nuxtjp-ui/issues')
-    expect(manifest.publishConfig).toEqual({ access: 'public', provenance: true })
+    expect(manifest.publishConfig).toEqual({ access: 'public', provenance: true, registry: 'https://registry.npmjs.org' })
     expect(manifest.peerDependencies['@nuxt/ui']).toBe('4.11.3')
     expect(manifest.peerDependencies['@nuxt/icon']).toBe('2.5.1')
     expect(manifest.dependencies['@iconify-json/lucide']).toBe('1.2.121')

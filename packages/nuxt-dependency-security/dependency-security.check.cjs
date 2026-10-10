@@ -5,12 +5,10 @@ const { generateKeyPairSync, sign, privateEncrypt, constants } = require('node:c
 const path = require('node:path');
 const fs = require('node:fs');
 function dependency(name, version) {
-  const explicit = process.env['SECURITY_TEST_' + name.toUpperCase().replace('-', '_')];
-  if (explicit) return require(path.resolve(explicit));
-  const store = path.resolve(__dirname, '../node_modules/.pnpm');
-  const matches = fs.readdirSync(store).filter(entry => entry === name + '@' + version || entry.startsWith(name + '@' + version + '_'));
-  assert.equal(matches.length, 1, 'Install the locked dependency tree before security tests');
-  return createRequire(path.join(store, matches[0], 'node_modules', name, 'package.json'))(name);
+  const { installedDependencies } = require('./resolved-dependency.cjs');
+  const matches = installedDependencies(process.cwd(), name, version);
+  assert.equal(matches.length, 1, 'Expected one active locked dependency implementation');
+  return createRequire(matches[0])(name);
 }
 const braces = dependency('braces', '3.0.3');
 const forge = dependency('node-forge', '1.4.0');
@@ -47,5 +45,26 @@ test('RSA verifier accepts standard signatures and rejects extra or malformed Di
     let accepted = false;
     try { accepted = publicKey.verify(digest, signature); } catch { /* Rejection is the expected result for a malformed signature. */ }
     assert.equal(accepted, false, 'Malformed algorithm must not verify');
+  }
+});
+
+test('active dependency graph uses every required upstream security version', () => {
+  const policy = JSON.parse(fs.readFileSync(path.join(__dirname, 'dependency-versions.json'), 'utf8'));
+  const { installedDependencies } = require('./resolved-dependency.cjs');
+  for (const [name, version] of Object.entries(policy.overrides)) {
+    const matches = installedDependencies(process.cwd(), name);
+    assert.ok(matches.length > 0, 'Required dependency is absent: ' + name);
+    for (const manifest of matches) assert.equal(JSON.parse(fs.readFileSync(manifest, 'utf8')).version, version, name);
+  }
+});
+
+// Preserve the ESM entry point expected by current Nuxt devtools without downgrading Git protections.
+test('fixed simple-git retains named and legacy ESM factory exports', async () => {
+  const { pathToFileURL } = require('node:url');
+  const { installedDependencies } = require('./resolved-dependency.cjs');
+  for (const manifest of installedDependencies(process.cwd(), 'simple-git', '4.0.2')) {
+    const module = await import(pathToFileURL(path.join(path.dirname(manifest), 'dist/index.mjs')).href);
+    assert.equal(typeof module.simpleGit, 'function');
+    assert.equal(module.default, module.simpleGit);
   }
 });

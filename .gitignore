@@ -82,6 +82,6 @@ __pycache__/
 /*.egg-info/
 **/target/
 **/dist/
-**/build/
+/packages/*/build/
 **/__pycache__/
 .local/
