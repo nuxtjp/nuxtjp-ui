@@ -25,7 +25,7 @@ Display managed resources, repository readiness and responsibility relationships
 
 The module renders supplied metadata; discovery, provider access and authorization belong to the application.
 
-Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
+Install `@nuxtjp/managed-resources@0.1.0` from the public npm registry. The core/guard entrypoints can be used independently; rendering requires an explicitly configured Nuxt 4 and Vue 3 host.
 
 ## Getting started
 
@@ -85,3 +85,7 @@ accessible presentation.
 [Usage guide](docs/getting-started.md)
 
 [Schemas](schemas) · [Implementation and public interfaces](src) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
+
+## Consumer dependency security
+
+Nuxt hosts must apply the reviewed root backports documented by `@nuxtjp/ui@0.1.3`, regenerate and freeze their pnpm lockfile, and run the dependency regression checks. Installing this module or its optional peers does not apply root overrides or patches. Node-only core/guard consumers do not need a Nuxt application.

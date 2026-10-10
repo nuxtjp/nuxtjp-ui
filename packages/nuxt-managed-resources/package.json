@@ -62,14 +62,21 @@
     "vue": "3.5.43",
     "vue-tsc": "3.2.8"
   },
-  "pnpm": {
-    "overrides": {
-      "@nuxt/devtools>simple-git": "4.0.2"
-    }
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nuxtjp/nuxtjp-ui.git",
+    "url": "git+https://github.com/nuxtjp/nuxtjp-ui.git",
     "directory": "packages/nuxt-managed-resources"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "nuxt": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
   }
 }

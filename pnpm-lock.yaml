@@ -122,8 +122,8 @@ importers:
         specifier: 4.11.3
         version: 4.11.3(226ff1db94ec03f1dec7d6d4aea2bc00)
       '@nuxtjp/ui':
-        specifier: 0.1.0
-        version: 0.1.0(8de9ab5758f886c4364eb1d917e3cfb0)
+        specifier: 0.1.3
+        version: 0.1.3(8de9ab5758f886c4364eb1d917e3cfb0)
       '@types/node':
         specifier: 24.12.0
         version: 24.12.0
@@ -948,8 +948,8 @@ packages:
       nuxt: ^4.6.0
       vite: ^8.3.2
 
-  '@nuxtjp/ui@0.1.0':
-    resolution: {integrity: sha512-3VyqUxUy0che0vFbXw+Cjfs5dP5Mv55/iGSvK5la2enTFLFSw5GvQNXaDnrEpsV5xTp6PpcHJjkodXbi0aQ5+A==}
+  '@nuxtjp/ui@0.1.3':
+    resolution: {integrity: sha512-MuWEJ6chaqnSsLmlSwyIf3j7k6RFGN6XIFjbQ1ZnaS/I7hcCdfaM0iZQZ8swCt2Q+lTrNVWPsL5j2oDLyNWKLQ==}
     engines: {node: ^22.19.0 || ^24.11.0, pnpm: '>=10 <11'}
     peerDependencies:
       '@nuxt/icon': 2.5.1
@@ -6643,7 +6643,7 @@ snapshots:
       - rolldown
       - unplugin
 
-  '@nuxtjp/ui@0.1.0(8de9ab5758f886c4364eb1d917e3cfb0)':
+  '@nuxtjp/ui@0.1.3(8de9ab5758f886c4364eb1d917e3cfb0)':
     dependencies:
       '@digital-go-jp/tailwind-theme-plugin': 1.0.1(tailwindcss@4.1.18)
       '@iconify-json/lucide': 1.2.121

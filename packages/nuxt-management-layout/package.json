@@ -12,13 +12,13 @@
     "accessibility",
     "japanese-design-system"
   ],
-  "homepage": "https://github.com/nuxtjp/nuxt-management-layout#readme",
+  "homepage": "https://github.com/nuxtjp/nuxtjp-ui/tree/main/packages/nuxt-management-layout#readme",
   "bugs": {
-    "url": "https://github.com/nuxtjp/nuxt-management-layout/issues"
+    "url": "https://github.com/nuxtjp/nuxtjp-ui/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nuxtjp/nuxtjp-ui.git",
+    "url": "git+https://github.com/nuxtjp/nuxtjp-ui.git",
     "directory": "packages/nuxt-management-layout"
   },
   "packageManager": "pnpm@10.29.3",
@@ -31,9 +31,6 @@
     "compliance",
     "core",
     "docs",
-    "scripts",
-    "test",
-    "upstream",
     "nuxt.config.ts",
     "LICENSE",
     "README.md",
@@ -44,8 +41,14 @@
   ],
   "main": "./nuxt.config.ts",
   "exports": {
-    ".": "./nuxt.config.ts",
-    "./core": "./core/index.ts"
+    ".": {
+      "types": "./nuxt.config.ts",
+      "import": "./nuxt.config.ts"
+    },
+    "./core": {
+      "types": "./core/index.ts",
+      "import": "./core/index.ts"
+    }
   },
   "scripts": {
     "build": "nuxt build playground",
@@ -56,18 +59,19 @@
     "prepack": "pnpm run compliance:verify && pnpm run test && pnpm run typecheck && pnpm run build"
   },
   "peerDependencies": {
-    "@nuxtjp/ui": "0.1.0",
+    "@nuxtjp/ui": "0.1.3",
     "nuxt": "^4.5.0",
     "vue": "^3.5.0"
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": true,
+    "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
     "@nuxt/icon": "2.5.1",
     "@nuxt/ui": "4.11.3",
-    "@nuxtjp/ui": "0.1.0",
+    "@nuxtjp/ui": "0.1.3",
     "@types/node": "24.12.0",
     "ajv": "8.20.0",
     "nuxt": "4.6.0",
@@ -76,10 +80,5 @@
     "vue": "3.5.43",
     "vue-router": "5.2.0",
     "vue-tsc": "3.2.8"
-  },
-  "pnpm": {
-    "overrides": {
-      "@nuxt/devtools>simple-git": "4.0.2"
-    }
   }
 }
