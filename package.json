@@ -70,7 +70,7 @@
     "upstream:check": "node scripts/check-upstream.mjs",
     "prepack": "pnpm run compliance:verify && pnpm run test && pnpm run typecheck && pnpm run build",
     "test:dependency-security": "node --test scripts/dependency-security.check.cjs",
-    "test:consumer-security": "node --test scripts/consumer-security.test.mjs"
+    "test:consumer-security": "node --test scripts/consumer-security.check.mjs"
   },
   "dependencies": {
     "@digital-go-jp/tailwind-theme-plugin": "1.0.1",

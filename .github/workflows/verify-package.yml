@@ -28,10 +28,14 @@ jobs:
         run: pnpm exec nuxt prepare playground
       - name: Test APIs and dependency regression cases
         run: pnpm test
+      - name: Test consolidated Vue packages
+        run: pnpm --filter './packages/*' run test
       - name: Check types
         run: pnpm typecheck
       - name: Build module and playground
         run: pnpm build
+      - name: Build consolidated Vue packages
+        run: pnpm --filter './packages/*' run build
       - name: Inspect actual archive inputs
         run: npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP"
       - name: Retain reviewed distribution archive
