@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjp/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Nuxt UI derivative with a traceable Japanese public-design profile",
   "keywords": [
     "nuxt",
@@ -105,7 +105,10 @@
   "pnpm": {
     "overrides": {
       "@nuxt/devtools>simple-git": "4.0.2",
-      "esbuild@0.27.7": "0.28.2"
+      "esbuild@0.27.7": "0.28.2",
+      "simple-git": "4.0.2",
+      "@simple-git/argv-parser": "2.0.1",
+      "esbuild": "0.28.2"
     },
     "patchedDependencies": {
       "braces@3.0.3": "patches/braces@3.0.3.patch",
