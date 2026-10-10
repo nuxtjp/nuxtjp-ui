@@ -36,6 +36,8 @@ jobs:
         run: pnpm build
       - name: Build consolidated Vue packages
         run: pnpm --filter './packages/*' run build
+      - name: Check consolidated Vue package types
+        run: pnpm --filter './packages/*' run typecheck
       - name: Inspect actual archive inputs
         run: npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP"
       - name: Retain reviewed distribution archive
