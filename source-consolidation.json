@@ -12,7 +12,7 @@
       "history_archive": {
         "path": "source-history/nuxt-management-layout/original.bundle",
         "format": "git-bundle-v2",
-        "sha256": "8f2a993fbf7e3c6fe3483ac025032cacc989bf7a751088cb0dbb2f37ece3101a",
+        "sha256": "4a2e1118925902f90cc8d728d1713b1f286ae207a42b825543b585f3fcf89f7e",
         "original_head": "6c9205100e51c36009b1b8ffc3fced383890314a",
         "observed_source_refs": [
           {
@@ -22,6 +22,16 @@
           {
             "sha": "6c9205100e51c36009b1b8ffc3fced383890314a",
             "ref": "refs/heads/main"
+          }
+        ],
+        "observed_source_pull_refs": [
+          {
+            "ref": "refs/pull/2/head",
+            "sha": "f9fd9674dcbb17a367bcfe7db81306ec7df34378"
+          },
+          {
+            "ref": "refs/pull/1/head",
+            "sha": "ab56d1dbb2fc61b411580b008a645d02c7f9ef20"
           }
         ]
       }
@@ -37,12 +47,18 @@
       "history_archive": {
         "path": "source-history/nuxt-operations-console/original.bundle",
         "format": "git-bundle-v2",
-        "sha256": "c4268aa47e22830bb8fe02eca3d4fd74d1d5b81b18a117e6e5bd2cec2b51c1d6",
+        "sha256": "f5c82f52ead171bfd343976e42a80d5429223555865be788b600e6d191454b7d",
         "original_head": "e3df050b0d6dfad48c670df5be74c32356918f58",
         "observed_source_refs": [
           {
             "sha": "e3df050b0d6dfad48c670df5be74c32356918f58",
             "ref": "refs/heads/main"
+          }
+        ],
+        "observed_source_pull_refs": [
+          {
+            "ref": "refs/pull/1/head",
+            "sha": "614b40b11e96082910204710e88c42a5783a1b72"
           }
         ]
       }
@@ -58,12 +74,18 @@
       "history_archive": {
         "path": "source-history/nuxt-managed-resources/original.bundle",
         "format": "git-bundle-v2",
-        "sha256": "e27613c5ff80e909730effd072e6d433227a2dd5a21237b55cdbfadc13234916",
+        "sha256": "b91a00c0b9bc3b45188f8cd510f788ce1f6c999da0e9185d968b8e3dbe6e8dac",
         "original_head": "8ef60dd07fb8a2ca2cd65207800d66c56aa3e6d3",
         "observed_source_refs": [
           {
             "sha": "8ef60dd07fb8a2ca2cd65207800d66c56aa3e6d3",
             "ref": "refs/heads/main"
+          }
+        ],
+        "observed_source_pull_refs": [
+          {
+            "ref": "refs/pull/1/head",
+            "sha": "1450ec7a8b02f4e8f18cdf665ede308abc59b8c4"
           }
         ]
       }
