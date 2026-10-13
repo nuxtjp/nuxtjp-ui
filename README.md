@@ -78,3 +78,5 @@ without installing a different UI framework. It does not replace local source
 or endpoint auditing by vpremises-security.
 
 The published management-layout 0.4.3 intentionally selects UI 0.1.3 in its exact peer/dev declarations, README and lockfile. Preserve that tested pair when using the layout. The root UI 0.1.4 package is a separate version; the bundled archives are not an interchangeable UI 0.1.4 set.
+
+[OSS responsibility and source completion](docs/oss-source-contract.md) defines the supported package boundary and required acceptance. It does not declare unexecuted source, distribution or production checks complete.
