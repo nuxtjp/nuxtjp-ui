@@ -24,7 +24,7 @@ NuxtJP UIの上に、管理画面のシェル、ナビゲーション、パン�
 [Nuxt Layers](https://nuxt.com/docs/4.x/getting-started/layers)の方針に沿い、公開後は固定版npm packageをインストールしてpackage名で継承します。
 
 ```sh
-pnpm add @nuxtjp/ui@0.1.0 @nuxtjp/management-layout@0.2.0
+pnpm add @nuxtjp/ui @nuxtjp/management-layout
 ```
 
 ```ts

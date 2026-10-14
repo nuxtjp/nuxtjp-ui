@@ -9,7 +9,7 @@ Different themes, locales and read states make Japanese services harder to use a
 Install the package version `0.1.4` after it is available on npm. Use Nuxt `^4.5.2`, Vue `^3.5.40`, and Node.js 22.19+ or 24.11+.
 
 ```sh
-pnpm add @nuxtjp/ui@0.1.4
+pnpm add @nuxtjp/ui
 ```
 
 ```ts
@@ -80,3 +80,6 @@ or endpoint auditing by vpremises-security.
 The published management-layout 0.4.3 intentionally selects UI 0.1.3 in its exact peer/dev declarations, README and lockfile. Preserve that tested pair when using the layout. The root UI 0.1.4 package is a separate version; the bundled archives are not an interchangeable UI 0.1.4 set.
 
 [OSS responsibility and source completion](docs/oss-source-contract.md) defines the supported package boundary and required acceptance. It does not declare unexecuted source, distribution or production checks complete.
+
+Dependency updates: [repository policy](docs/dependency-updates.md).
+Registry releases: [version tags and GitHub OIDC](docs/registry-release.md).

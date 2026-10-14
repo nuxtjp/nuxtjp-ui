@@ -16,6 +16,8 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           persist-credentials: false
+      - name: Resolve archive names from current package manifests
+        run: python3 "$GITHUB_WORKSPACE/.github/scripts/archive_names.py"
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '24.15.0'
@@ -42,7 +44,7 @@ jobs:
         run: |
           npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP"
           mkdir "$RUNNER_TEMP/consolidated-packages"
-          cp "$RUNNER_TEMP/nuxtjp-ui-0.1.4.tgz" "$RUNNER_TEMP/consolidated-packages/"
+          cp "$RUNNER_TEMP/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" "$RUNNER_TEMP/consolidated-packages/"
           for package in nuxt-managed-resources nuxt-operations-console nuxt-management-layout nuxt-dependency-security; do
             (cd "packages/$package" && npm pack --ignore-scripts --json --pack-destination "$RUNNER_TEMP/consolidated-packages")
           done
@@ -63,4 +65,4 @@ jobs:
           if-no-files-found: error
           retention-days: 3
       - name: Verify backports in a fresh packed consumer
-        run: node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/nuxtjp-ui-0.1.4.tgz" @nuxtjp/ui "$RUNNER_TEMP/consolidated-packages/nuxtjp-dependency-security-0.1.0.tgz"
+        run: node .github/scripts/package-consumer-security.mjs "$RUNNER_TEMP/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" @nuxtjp/ui "$RUNNER_TEMP/consolidated-packages/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"

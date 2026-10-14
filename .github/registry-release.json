@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "repository": "nuxtjp/nuxtjp-ui",
+  "defaultBranch": "main",
+  "requiredWorkflows": [
+    "oss-policy.yml",
+    "verify-package.yml",
+    "verify.yml"
+  ],
+  "packages": [
+    {
+      "ecosystem": "npm",
+      "manifest": "package.json",
+      "name": "@nuxtjp/ui",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/nuxt-dependency-security/package.json",
+      "name": "@nuxtjp/dependency-security",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/nuxt-managed-resources/package.json",
+      "name": "@nuxtjp/managed-resources",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/nuxt-management-layout/package.json",
+      "name": "@nuxtjp/management-layout",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/nuxt-operations-console/package.json",
+      "name": "@nuxtjp/operations-console",
+      "installDirectory": "."
+    }
+  ]
+}

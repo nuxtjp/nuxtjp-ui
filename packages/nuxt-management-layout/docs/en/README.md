@@ -20,7 +20,7 @@ The Layer registers its declared `@nuxtjp/ui` dependency. Consumers install the 
 Following [Nuxt Layers](https://nuxt.com/docs/4.x/getting-started/layers), install fixed package versions and extend the package name.
 
 ```sh
-pnpm add @nuxtjp/ui@0.1.3 @nuxtjp/management-layout@0.4.3
+pnpm add @nuxtjp/ui @nuxtjp/management-layout
 ```
 
 ```ts
@@ -44,7 +44,7 @@ export default defineAppConfig({
 
 ## Consumer dependency security
 
-Use the official registry versions and apply the root backports shipped by `@nuxtjp/ui@0.1.3` before building the host.
+Use the official registry versions and apply the root backports shipped by `@nuxtjp/ui` before building the host.
 
 ```sh
 node node_modules/@nuxtjp/ui/security/apply.mjs --project-root . --apply

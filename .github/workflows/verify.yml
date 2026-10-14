@@ -22,6 +22,8 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Resolve archive names from current package manifests
+        run: python3 "$GITHUB_WORKSPACE/.github/scripts/archive_names.py"
       - name: Set up pnpm
         uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
         with:
@@ -58,10 +60,10 @@ jobs:
           (cd packages/nuxt-dependency-security && npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/ui-package")
 
       - name: Check the actual archive
-        run: python3 .github/scripts/check-package.py "$RUNNER_TEMP/ui-package/nuxtjp-ui-0.1.4.tgz"
+        run: python3 .github/scripts/check-package.py "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}"
 
       - name: Verify an independent archive consumer
-        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/nuxtjp-ui-0.1.4.tgz" npm "$RUNNER_TEMP/ui-package/nuxtjp-dependency-security-0.1.0.tgz"
+        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" npm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
 
       - name: Verify a pnpm archive consumer
-        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/nuxtjp-ui-0.1.4.tgz" pnpm "$RUNNER_TEMP/ui-package/nuxtjp-dependency-security-0.1.0.tgz"
+        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" pnpm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
