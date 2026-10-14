@@ -9,7 +9,7 @@
 `0.1.0`はnpmで公開済みです。Nuxt `^4.5.2`、Vue `^3.5.40`、Node.js 22.19以降または24.11以降を使用してください。
 
 ```sh
-pnpm add @nuxtjp/ui@0.1.4
+pnpm add @nuxtjp/ui
 ```
 
 ```ts
@@ -58,3 +58,6 @@ package manifestと[LICENSE](LICENSE)はApache-2.0を指定します。[LICENSE-
 DADSのガイド、ソース、素材の条件は別に管理します。ロゴや公式markは含みません。[参照版](https://github.com/nuxtjp/nuxtjp-ui/blob/main/upstream/sources.lock.json)と[適合状況](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/conformance/status.md)に対象範囲と互換性の不足を記録しています。アプリ全体のaccessibilityを示す検証は別途必要です。
 
 公開済み management-layout 0.4.3 は、peer/dev・README・lockfile で UI 0.1.3 を選択しています。Layer を利用する場合は検証済みのこの組合せを維持します。root UI 0.1.4 は別の版であり、同梱 archive 全体を UI 0.1.4 の互換セットとは扱いません。
+
+Dependency updates: [repository policy](docs/dependency-updates.md).
+Registry releases: [version tags and GitHub OIDC](docs/registry-release.md).

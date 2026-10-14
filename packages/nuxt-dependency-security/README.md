@@ -7,7 +7,7 @@ It does not inspect arbitrary source, monitor endpoints, install dependencies,
 contact a registry or silently modify a project during installation.
 
 ```sh
-pnpm add -D @nuxtjp/dependency-security@0.1.0
+pnpm add -D @nuxtjp/dependency-security
 pnpm exec nuxtjp-security-config --project-root . --apply
 pnpm install --no-frozen-lockfile
 pnpm install --frozen-lockfile
