@@ -2,6 +2,7 @@
 import { existsSync, lstatSync, readFileSync, mkdirSync, writeFileSync, renameSync, unlinkSync, realpathSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { randomUUID } from 'node:crypto'
+import resolver from './resolved-dependency.cjs'
 
 const patches = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2']
 function regular(path) {
@@ -50,6 +51,7 @@ export function applySecurityPatches(project, source) {
   if (existsSync(dir) && (lstatSync(dir).isSymbolicLink() || !lstatSync(dir).isDirectory())) {
     throw new Error('Security patch directory must be a real directory')
   }
+  const activeSimpleGit = resolver.installedDependencies(root, 'simple-git', undefined, { allowMissing: true }).length > 0
   const inputs = patches.map(name => {
     const relative = `.nuxtjp-security/${name.replace('@', '-')}.patch`
     if (existing[name] !== undefined && existing[name] !== relative) {
@@ -60,11 +62,15 @@ export function applySecurityPatches(project, source) {
     if (existsSync(target) && !regular(target).equals(bytes)) {
       throw new Error('An existing patch differs; no files were overwritten')
     }
-    return { name, relative, bytes, target }
+    return { name, relative, bytes, target, required: name !== 'simple-git@4.0.2' || activeSimpleGit }
   })
   if (!readFileSync(manifest).equals(original)) throw new Error('Manifest changed during preparation')
   mkdirSync(dir, { recursive: true })
   for (const patch of inputs) {
+    if (!patch.required) {
+      delete existing[patch.name]
+      continue
+    }
     if (!existsSync(patch.target)) writeFileSync(patch.target, patch.bytes, { flag: 'wx' })
     existing[patch.name] = patch.relative
   }

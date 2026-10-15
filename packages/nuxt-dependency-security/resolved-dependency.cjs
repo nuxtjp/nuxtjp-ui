@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createRequire } = require('node:module');
 
-function installedDependencies(root, target, version) {
+function installedDependencies(root, target, version, options = {}) {
   root = fs.realpathSync(root);
   const pending = [path.join(root, 'package.json')];
   const seen = new Set();
@@ -37,7 +37,7 @@ function installedDependencies(root, target, version) {
       }
     }
   }
-  if (found.size === 0) throw new Error('Dependency not present in the installed application graph');
+  if (found.size === 0 && options.allowMissing !== true) throw new Error('Dependency not present in the installed application graph');
   return [...found].sort();
 }
 module.exports = { installedDependencies };

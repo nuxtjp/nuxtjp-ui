@@ -18,7 +18,7 @@ test('explicit application preserves unrelated settings and is idempotent', () =
   assert.deepEqual(readFileSync(join(root, 'package.json')), before)
   const data = JSON.parse(before)
   assert.deepEqual(data.pnpm.overrides, { sample: '1.0.0', 'simple-git': '4.0.2', '@simple-git/argv-parser': '2.0.1', esbuild: '0.28.2' })
-  assert.equal(Object.keys(data.pnpm.patchedDependencies).length, 3)
+  assert.equal(Object.keys(data.pnpm.patchedDependencies).length, 2)
 }))
 test('conflicting configuration is rejected without changing the manifest', () => fixture(root => {
   const original = JSON.stringify({ pnpm: { patchedDependencies: { 'braces@3.0.3': 'custom.patch' } } })
@@ -70,3 +70,24 @@ test('a linked dependency outside the selected project remains rejected', () => 
   symlinkSync(outside, join(root, 'node_modules', 'sample'))
   assert.throws(() => installedDependencies(root, 'sample', '1.0.0'), /outside the selected project/)
 })))
+
+test('optional absence is distinct from a malformed active dependency', () => fixture(root => {
+  writeFileSync(join(root, 'package.json'), JSON.stringify({ dependencies: { 'simple-git': '4.0.2' } }))
+  assert.deepEqual(installedDependencies(root, 'simple-git', undefined, { allowMissing: true }), [])
+  assert.throws(() => installedDependencies(root, 'simple-git'), /not present/)
+  const folder = join(root, 'node_modules/simple-git')
+  mkdirSync(folder, { recursive: true })
+  writeFileSync(join(folder, 'package.json'), '{invalid')
+  assert.throws(() => installedDependencies(root, 'simple-git', undefined, { allowMissing: true }), /Malformed/)
+}))
+
+test('an absent optional target does not leave an unused generated patch binding', () => fixture(root => {
+  writeFileSync(join(root, 'package.json'), '{}')
+  applySecurityPatches(root, source)
+  const f = join(root, 'package.json')
+  const data = JSON.parse(readFileSync(f, 'utf8'))
+  data.pnpm.patchedDependencies['simple-git@4.0.2'] = '.nuxtjp-security/simple-git-4.0.2.patch'
+  writeFileSync(f, JSON.stringify(data))
+  applySecurityPatches(root, source)
+  assert.equal(JSON.parse(readFileSync(f, 'utf8')).pnpm.patchedDependencies['simple-git@4.0.2'], undefined)
+}))

@@ -15,9 +15,12 @@ pnpm exec nuxtjp-security-check --project-root .
 pnpm audit --json
 ```
 
-The preset requires an installed Nuxt host with the selected braces, node-forge
-and simple-git targets. A bare core-only library graph does not need these
-backports, and an absent target remains an error rather than a passing check.
+The preset requires an installed Nuxt host with the selected braces and node-forge
+targets. The simple-git compatibility patch applies only when that dependency is
+active. Newer DevTools no longer needs it; absence is not a reason to install an
+unused Git process library. Present targets still require the reviewed fixed
+versions and malformed/escaping graphs fail closed. A bare core-only library
+graph does not need these backports.
 Use an initial install with `--ignore-scripts` before configuring a new host.
 
 Commit the generated `.nuxtjp-security` patches, manifest and lockfile. Run the
