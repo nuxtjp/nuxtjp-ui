@@ -4,10 +4,14 @@
   "description": "Nuxt UI derivative with a traceable Japanese public-design profile",
   "keywords": [
     "nuxt",
+    "vue",
+    "component-library",
+    "design-system",
+    "accessibility",
+    "typescript",
     "nuxt-module",
     "nuxt-ui",
-    "japan",
-    "design-system"
+    "japan"
   ],
   "repository": {
     "type": "git",
