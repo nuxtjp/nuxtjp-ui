@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { watch, version } from 'vue'
 
@@ -25,7 +26,8 @@ afterEach(() => {
 
 describe('real Vue synchronous observer cleanup', () => {
   it.each(['stop', 'unmount'] as const)('checks active after pending observer %s', async (kind) => {
-    expect(version).toBe('3.5.43')
+    const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
+    expect(version).toBe(manifest.devDependencies.vue)
     const failure = new Error('synthetic earlier failure')
     const refresh = vi.fn().mockRejectedValueOnce(failure).mockResolvedValue(undefined)
     const state = useNuxtJpProjectionRefresh(refresh, 100)
