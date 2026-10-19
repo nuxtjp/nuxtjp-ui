@@ -78,8 +78,8 @@
   },
   "dependencies": {
     "@digital-go-jp/tailwind-theme-plugin": "1.0.1",
-    "@iconify-json/lucide": "1.2.144",
-    "@nuxt/kit": "4.6.1",
+    "@iconify-json/lucide": "1.2.145",
+    "@nuxt/kit": "4.6.2",
     "tailwindcss": "4.3.3",
     "@nuxtjp/dependency-security": "0.1.0"
   },
@@ -96,13 +96,13 @@
   },
   "devDependencies": {
     "@nuxt/module-builder": "1.0.3",
-    "@nuxt/schema": "4.6.1",
-    "@nuxt/test-utils": "4.3.3",
+    "@nuxt/schema": "4.6.2",
+    "@nuxt/test-utils": "4.3.4",
     "@types/node": "24.12.0",
     "ajv": "8.20.0",
     "nuxt": "4.6.1",
     "typescript": "5.9.3",
-    "vitest": "5.0.4",
+    "vitest": "5.0.5",
     "vue": "3.5.44",
     "vue-tsc": "3.3.13",
     "@nuxt/ui": "4.12.0",
