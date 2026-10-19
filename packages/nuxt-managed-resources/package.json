@@ -78,5 +78,12 @@
     "vue": {
       "optional": true
     }
-  }
+  },
+  "keywords": [
+    "nuxt",
+    "vue",
+    "resource-management",
+    "data-projection",
+    "typescript"
+  ]
 }

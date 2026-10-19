@@ -6,10 +6,11 @@
   "license": "Apache-2.0",
   "keywords": [
     "nuxt",
+    "vue",
     "nuxt-layer",
     "dashboard",
-    "management-ui",
     "accessibility",
+    "management-ui",
     "japanese-design-system"
   ],
   "homepage": "https://github.com/nuxtjp/nuxtjp-ui/tree/main/packages/nuxt-management-layout#readme",

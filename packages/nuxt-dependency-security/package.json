@@ -56,5 +56,12 @@
   "devDependencies": {
     "typescript": "5.9.3",
     "@types/node": "24.12.0"
-  }
+  },
+  "keywords": [
+    "dependency-security",
+    "supply-chain-security",
+    "pnpm",
+    "security",
+    "nuxt"
+  ]
 }
