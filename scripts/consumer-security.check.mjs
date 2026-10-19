@@ -18,7 +18,12 @@ test('explicit application preserves unrelated settings and is idempotent', () =
   assert.deepEqual(readFileSync(join(root, 'package.json')), before)
   const data = JSON.parse(before)
   assert.deepEqual(data.pnpm.overrides, { sample: '1.0.0', 'simple-git': '4.0.2', '@simple-git/argv-parser': '2.0.1', esbuild: '0.28.2' })
-  assert.equal(Object.keys(data.pnpm.patchedDependencies).length, 2)
+  const reviewed = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2']
+  for (const name of reviewed.slice(0, 2)) assert.ok(Object.hasOwn(data.pnpm.patchedDependencies, name))
+  for (const [name, patch] of Object.entries(data.pnpm.patchedDependencies)) {
+    assert.ok(reviewed.includes(name), `unexpected patch ${name}`)
+    assert.equal(patch, `.nuxtjp-security/${name.replace('@', '-')}.patch`)
+  }
 }))
 test('conflicting configuration is rejected without changing the manifest', () => fixture(root => {
   const original = JSON.stringify({ pnpm: { patchedDependencies: { 'braces@3.0.3': 'custom.patch' } } })
