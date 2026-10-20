@@ -58,12 +58,14 @@ jobs:
         env:
           INSTALL_DIRECTORY: ${{ steps.plan.outputs.install-directory }}
           PACKAGE_DIRECTORY: ${{ steps.plan.outputs.directory }}
+          PACKAGE_NAME: ${{ steps.plan.outputs.name }}
           NUXT_TELEMETRY_DISABLED: '1'
         run: |
           set -euo pipefail
           if test -f "$INSTALL_DIRECTORY/pnpm-lock.yaml"; then
             pnpm --dir "$INSTALL_DIRECTORY" install --frozen-lockfile --ignore-scripts
-            pnpm --dir "$INSTALL_DIRECTORY" -r --include-workspace-root --if-present run build
+            pnpm --dir "$INSTALL_DIRECTORY" --filter "$PACKAGE_NAME..." -r --include-workspace-root --if-present run dev:prepare
+            pnpm --dir "$INSTALL_DIRECTORY" --filter "$PACKAGE_NAME..." -r --include-workspace-root --if-present run build
           elif test -f "$INSTALL_DIRECTORY/package-lock.json"; then
             npm --prefix "$INSTALL_DIRECTORY" ci --ignore-scripts
             npm --prefix "$INSTALL_DIRECTORY" run build --if-present
