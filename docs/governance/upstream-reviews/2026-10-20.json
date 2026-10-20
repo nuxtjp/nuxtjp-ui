@@ -1,0 +1,50 @@
+{
+  "observedAt": "2026-10-20T00:47:32.655Z",
+  "sourceMain": "ca9d5d1c820000413cb7c1b04c97998181764792",
+  "reviewedImplementationBaseline": "DADS 2.16.0 (2026-08-05)",
+  "observedDocumentVersion": "DADS 2.18.1",
+  "counts": {
+    "match": 11,
+    "mismatch": 4,
+    "unavailable": 0
+  },
+  "disposition": "review-required; baseline and conformance are not updated",
+  "changed": [
+    {
+      "sourceId": "dads-core",
+      "type": "contains-text",
+      "url": "https://design.digital.go.jp/dads/",
+      "expected": "v2.16.0",
+      "actual": "marker-absent",
+      "result": "mismatch",
+      "disposition": "review-required"
+    },
+    {
+      "sourceId": "dads-design-tokens",
+      "type": "github-head",
+      "url": "https://api.github.com/repos/digital-go-jp/design-tokens/commits/develop",
+      "expected": "cde7dfe58d53341bba5ebae565406992fbe1218b",
+      "actual": "d532a91dfb13044a521a5a65ae288f1ba17fe4f4",
+      "result": "mismatch",
+      "disposition": "review-required"
+    },
+    {
+      "sourceId": "dads-html-snippets",
+      "type": "github-head",
+      "url": "https://api.github.com/repos/digital-go-jp/design-system-example-components-html/commits/main",
+      "expected": "55b5f3cc04fe51be73e8f26eff4811bf7cd64828",
+      "actual": "af8b6656c8d864a22ef444d088e5568f3416f6aa",
+      "result": "mismatch",
+      "disposition": "review-required"
+    },
+    {
+      "sourceId": "dads-react-snippets",
+      "type": "github-head",
+      "url": "https://api.github.com/repos/digital-go-jp/design-system-example-components-react/commits/main",
+      "expected": "88110f7f08c99845b2fd97e093a9fbfb1a334ea5",
+      "actual": "68b452e16d40ffaebcb195a7289696f88890cc3e",
+      "result": "mismatch",
+      "disposition": "review-required"
+    }
+  ]
+}
