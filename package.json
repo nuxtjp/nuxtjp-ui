@@ -78,7 +78,7 @@
   },
   "dependencies": {
     "@digital-go-jp/tailwind-theme-plugin": "1.0.1",
-    "@iconify-json/lucide": "1.2.145",
+    "@iconify-json/lucide": "1.2.146",
     "@nuxt/kit": "4.6.2",
     "tailwindcss": "4.3.3",
     "@nuxtjp/dependency-security": "0.1.0"
