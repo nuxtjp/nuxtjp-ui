@@ -8,33 +8,7 @@
       "owner_repository": "nuxtjp/nuxtjp-ui",
       "subpath": "packages/nuxt-management-layout",
       "source_head": "6c9205100e51c36009b1b8ffc3fced383890314a",
-      "local_history_ref": "refs/consolidated/nuxt-management-layout/original-HEAD",
-      "history_archive": {
-        "path": "source-history/nuxt-management-layout/original.bundle",
-        "format": "git-bundle-v2",
-        "sha256": "4a2e1118925902f90cc8d728d1713b1f286ae207a42b825543b585f3fcf89f7e",
-        "original_head": "6c9205100e51c36009b1b8ffc3fced383890314a",
-        "observed_source_refs": [
-          {
-            "sha": "ab56d1dbb2fc61b411580b008a645d02c7f9ef20",
-            "ref": "refs/heads/docs/outcome-first-2026-10-02"
-          },
-          {
-            "sha": "6c9205100e51c36009b1b8ffc3fced383890314a",
-            "ref": "refs/heads/main"
-          }
-        ],
-        "observed_source_pull_refs": [
-          {
-            "ref": "refs/pull/2/head",
-            "sha": "f9fd9674dcbb17a367bcfe7db81306ec7df34378"
-          },
-          {
-            "ref": "refs/pull/1/head",
-            "sha": "ab56d1dbb2fc61b411580b008a645d02c7f9ef20"
-          }
-        ]
-      }
+      "retired_archive_sha256": "4a2e1118925902f90cc8d728d1713b1f286ae207a42b825543b585f3fcf89f7e"
     },
     {
       "id": "nuxt-operations-console",
@@ -43,25 +17,7 @@
       "owner_repository": "nuxtjp/nuxtjp-ui",
       "subpath": "packages/nuxt-operations-console",
       "source_head": "e3df050b0d6dfad48c670df5be74c32356918f58",
-      "local_history_ref": "refs/consolidated/nuxt-operations-console/original-HEAD",
-      "history_archive": {
-        "path": "source-history/nuxt-operations-console/original.bundle",
-        "format": "git-bundle-v2",
-        "sha256": "f5c82f52ead171bfd343976e42a80d5429223555865be788b600e6d191454b7d",
-        "original_head": "e3df050b0d6dfad48c670df5be74c32356918f58",
-        "observed_source_refs": [
-          {
-            "sha": "e3df050b0d6dfad48c670df5be74c32356918f58",
-            "ref": "refs/heads/main"
-          }
-        ],
-        "observed_source_pull_refs": [
-          {
-            "ref": "refs/pull/1/head",
-            "sha": "614b40b11e96082910204710e88c42a5783a1b72"
-          }
-        ]
-      }
+      "retired_archive_sha256": "f5c82f52ead171bfd343976e42a80d5429223555865be788b600e6d191454b7d"
     },
     {
       "id": "nuxt-managed-resources",
@@ -70,26 +26,9 @@
       "owner_repository": "nuxtjp/nuxtjp-ui",
       "subpath": "packages/nuxt-managed-resources",
       "source_head": "8ef60dd07fb8a2ca2cd65207800d66c56aa3e6d3",
-      "local_history_ref": "refs/consolidated/nuxt-managed-resources/original-HEAD",
-      "history_archive": {
-        "path": "source-history/nuxt-managed-resources/original.bundle",
-        "format": "git-bundle-v2",
-        "sha256": "b91a00c0b9bc3b45188f8cd510f788ce1f6c999da0e9185d968b8e3dbe6e8dac",
-        "original_head": "8ef60dd07fb8a2ca2cd65207800d66c56aa3e6d3",
-        "observed_source_refs": [
-          {
-            "sha": "8ef60dd07fb8a2ca2cd65207800d66c56aa3e6d3",
-            "ref": "refs/heads/main"
-          }
-        ],
-        "observed_source_pull_refs": [
-          {
-            "ref": "refs/pull/1/head",
-            "sha": "1450ec7a8b02f4e8f18cdf665ede308abc59b8c4"
-          }
-        ]
-      }
+      "retired_archive_sha256": "b91a00c0b9bc3b45188f8cd510f788ce1f6c999da0e9185d968b8e3dbe6e8dac"
     }
   ],
-  "status": "Source consolidated and maintained; original Git history is preserved in source-history bundles. Registry availability is recorded separately for each released package and version."
+  "status": "Current source is maintained only in this owner. Original repository and fixed SHA are provenance, not active sources. History archives and restoration are retired. Package manifests and the owner publication workflow define registry identities; registry availability must be checked independently.",
+  "owner_repository": "nuxtjp/nuxtjp-ui"
 }
