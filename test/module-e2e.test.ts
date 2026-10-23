@@ -44,6 +44,21 @@ describe('reviewed upstream changes against the existing Vue candidates', async 
     } finally { await page.close() }
   })
 
+  it('compiles the published v2 tokens through the real Tailwind and Nuxt UI import order', async () => {
+    const page = await createPage('/')
+    try {
+      const styles = await page.getByTestId('theme-proof').evaluate(element => {
+        const style = getComputedStyle(element)
+        return { background: style.backgroundColor, lineHeight: style.lineHeight, fontSize: style.fontSize }
+      })
+      const alpha = Number(/rgba\(0, 0, 0, ([\d.]+)\)/.exec(styles.background)?.[1])
+      // CSSOM may serialize an 8-bit quantized alpha; .54 must still fail.
+      expect(alpha).toBeGreaterThanOrEqual(0.535)
+      expect(alpha).toBeLessThanOrEqual(0.538)
+      expect(parseFloat(styles.lineHeight) / parseFloat(styles.fontSize)).toBeCloseTo(1.7)
+    } finally { await page.close() }
+  })
+
   it('exposes named states and description terms in the browser accessibility tree', async () => {
     const page = await createPage('/')
     try {

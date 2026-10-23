@@ -24,8 +24,8 @@ importers:
   .:
     dependencies:
       '@digital-go-jp/tailwind-theme-plugin':
-        specifier: 1.0.1
-        version: 1.0.1(tailwindcss@4.3.3)
+        specifier: 2.0.0
+        version: 2.0.0(tailwindcss@4.3.3)
       '@iconify-json/lucide':
         specifier: 1.2.146
         version: 1.2.146
@@ -131,7 +131,7 @@ importers:
         specifier: 4.12.0
         version: 4.12.0(ad01ac572af3285c0282f14a94b00659)
       '@nuxtjp/ui':
-        specifier: 0.1.5
+        specifier: 0.2.0
         version: link:../..
       '@types/node':
         specifier: 24.12.0
@@ -365,8 +365,8 @@ packages:
     resolution: {integrity: sha512-OoKoR0f76dCY666JlcbhmVTs2drYj1GUXZTYTcbUgJjh9Nv41aFfZ21bPQTERm5+L5cBDo466NltB2lplS5GBw==}
     engines: {node: '>=20.19.0'}
 
-  '@digital-go-jp/tailwind-theme-plugin@1.0.1':
-    resolution: {integrity: sha512-Srw+lQFW2ubZBM6GTgiX0PVliQDyfQwNi8B3E/kcARHaDfqnwzemxKVwppG3E8h+VMSLBPQHjdIrkuz9ri13Yg==}
+  '@digital-go-jp/tailwind-theme-plugin@2.0.0':
+    resolution: {integrity: sha512-u77xBcxBshOhV75dN/1W5eVA0R0Ko0lGwni1jnG+fN7dP1TMycmFyDsvNfiWzKCCxg2+bFRINvBjnXloLUEfHQ==}
     peerDependencies:
       tailwindcss: ^3.4.17 || ^4.0.0
 
@@ -4811,7 +4811,7 @@ snapshots:
 
   '@csstools/css-tokenizer@4.0.2': {}
 
-  '@digital-go-jp/tailwind-theme-plugin@1.0.1(tailwindcss@4.3.3)':
+  '@digital-go-jp/tailwind-theme-plugin@2.0.0(tailwindcss@4.3.3)':
     dependencies:
       tailwindcss: 4.3.3
 

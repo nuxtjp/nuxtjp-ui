@@ -16,6 +16,7 @@ Use the existing Nuxt module-builder structure and keep domain behavior in the c
 ```sh
 pnpm install --frozen-lockfile
 pnpm compliance:verify
+pnpm exec playwright install --with-deps chromium
 pnpm test
 pnpm typecheck
 pnpm build
@@ -45,17 +46,17 @@ Limited pattern checks are not a complete secret audit or dependency-vulnerabili
 公開入口は`@nuxtjp/ui`と`@nuxtjp/ui/core`です。peer Nuxt/Vueとその他依存は公開registryを使います。
 The public entries are the module and core subpath; external dependencies resolve from the public registry.
 
-初回bootstrap、npm scope権限、独立repoのtrusted publishing設定はまだ確認・実行していません。
+既存のTrusted Publisherによるstage作成と、npm所有者による正式公開の二段階を維持します。
 共有private管理repoのtokenをこのpackageへ結び付けません。provenanceの設定だけで公開完了とはしません。
-First bootstrap, scope permission and trusted publishing remain separate release conditions.
+Existing Trusted Publisher staging and npm owner approval remain separate release gates.
 No shared private-management token is used, and a provenance setting is not proof of publication.
 
 ## Versioning and license
 
-API変更はSemVerで管理し、0.xでも破壊的変更を説明します。今回は修正版へ更新し、Nuxt・Nuxt UI・Vueの互換性下限を引き上げます。
-This revision updates patched dependencies and raises the Nuxt, Nuxt UI and Vue compatibility floors; it adds no UI behavior.
+API変更はSemVerで管理し、0.xでも破壊的変更を説明します。UI 0.2.0ではtheme v2の旧CSSクラス削除を明示し、Layer 0.5.0のUI peerを更新します。Nuxt・Nuxt UI・Vueの互換性下限は維持します。
+UI 0.2.0 documents the theme v2 utility removals; Layer 0.5.0 selects that exact UI peer. Existing Nuxt, Nuxt UI and Vue compatibility floors remain unchanged.
 manifest/LICENSEはApache-2.0、従前MITはLICENSE-PREVIOUSに保持されています。
 LICENSE、NOTICE、LICENSE-PREVIOUS、THIRD_PARTY_NOTICESは改変せず配布物に残します。
 
-Nuxt UI 4.11.3とNuxt Icon 2.5.1へpinを更新し、appと共有するpeerとして宣言します。
-The pins are updated to Nuxt UI 4.11.3 and Nuxt Icon 2.5.1 and declared as host peers for module resolution.
+Nuxt UI 4.12.0とNuxt Icon 2.5.1のpinを維持し、appと共有するpeerとして宣言します。
+Nuxt UI 4.12.0 and Nuxt Icon 2.5.1 remain pinned host peers for module resolution.

@@ -27,7 +27,7 @@
         "build": "pnpm run build:module && pnpm run build:playground",
         "build:module": "nuxt-module-build build",
         "build:playground": "nuxt build playground",
-        "compliance:verify": "node scripts/verify-compliance.mjs",
+        "compliance:verify": "node scripts/verify-compliance.mts",
         "dev": "pnpm run dev:prepare && nuxt dev playground",
         "dev:prepare": "nuxt-module-build prepare && nuxt-module-build build --stub && nuxt prepare playground",
         "typecheck": "pnpm run dev:prepare && vue-tsc --noEmit --project tsconfig.json && nuxt typecheck playground",
@@ -212,7 +212,7 @@
     "packages/nuxt-operations-console/test/summary.test.ts",
     "packages/nuxt-operations-console/test/topology-guards.test.ts",
     "test/clipboard.test.ts",
-    "test/compliance.test.mjs",
+    "test/compliance.test.ts",
     "test/fixtures/basic/app/app.vue",
     "test/fixtures/basic/nuxt.config.ts",
     "test/hierarchy.test.ts",
@@ -226,7 +226,10 @@
     "test/repository-path.test.mjs",
     "test/schema-validation.test.mjs",
     "test/source-line-limit.test.ts",
+    "test/theme-migration.test.ts",
+    "test/theme-review.test.ts",
     "test/upstream-check.test.mjs",
+    "test/upstream-review.test.ts",
     "test/upstream-security.test.mjs"
   ],
   "example_sources": [
@@ -631,13 +634,19 @@
             },
             {
               "name": "Verify compliance graph",
-              "run": "node scripts/verify-compliance.mjs",
+              "run": "node scripts/verify-compliance.mts",
               "uses": null,
               "condition": null
             },
             {
               "name": "Prepare Nuxt types",
               "run": "pnpm exec nuxt prepare playground",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Install the locked browser for keyboard and accessibility-tree regression tests",
+              "run": "pnpm exec playwright install --with-deps chromium",
               "uses": null,
               "condition": null
             },
@@ -661,7 +670,7 @@
             },
             {
               "name": "Pack with the existing prepack gates",
-              "run": "mkdir -p \"$RUNNER_TEMP/ui-package\"\npnpm pack --pack-destination \"$RUNNER_TEMP/ui-package\"\n(cd packages/nuxt-dependency-security && npm pack --ignore-scripts --pack-destination \"$RUNNER_TEMP/ui-package\")\n",
+              "run": "mkdir -p \"$RUNNER_TEMP/ui-package\"\npnpm pack --pack-destination \"$RUNNER_TEMP/ui-package\"\npnpm --dir packages/nuxt-management-layout pack --pack-destination \"$RUNNER_TEMP/ui-package\"\n(cd packages/nuxt-dependency-security && npm pack --ignore-scripts --pack-destination \"$RUNNER_TEMP/ui-package\")\n",
               "uses": null,
               "condition": null
             },
@@ -680,6 +689,18 @@
             {
               "name": "Verify a pnpm archive consumer",
               "run": "node .github/scripts/package-consumer.mts \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}\" pnpm \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}\"",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify the management Layer with the candidate UI in an independent npm consumer",
+              "run": "node .github/scripts/package-consumer.mts \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}\" npm \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}\" \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_MANAGEMENT_LAYOUT_NPM}\"",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify the management Layer with the candidate UI in an independent pnpm consumer",
+              "run": "node .github/scripts/package-consumer.mts \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}\" pnpm \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}\" \"$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_MANAGEMENT_LAYOUT_NPM}\"",
               "uses": null,
               "condition": null
             }

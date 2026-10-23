@@ -2,22 +2,24 @@ import { readFile, readdir } from "node:fs/promises"
 import { resolve } from "node:path"
 import { repositoryFileExists } from "./repository-path.mjs"
 import { validateComplianceSchemas } from "./schema-validate.mjs"
+import type { Catalog, Coverage, Requirement, SourceLock } from "./compliance-types.ts"
+import { sourceVersionErrors } from "./source-versions.mts"
 import { assertUpstreamUrl } from "./upstream-http.mjs"
 
-async function readJson(path) {
+async function readJson<T>(path: string): Promise<T> {
   return JSON.parse(await readFile(path, "utf8"))
 }
 
-function duplicates(values) {
-  const seen = new Set()
+function duplicates(values: string[]) {
+  const seen = new Set<string>()
   return values.filter((value) => seen.size === seen.add(value).size)
 }
 
-function addUniqueErrors(errors, label, values) {
+function addUniqueErrors(errors: string[], label: string, values: string[]) {
   for (const value of duplicates(values)) errors.push(`${label}: duplicate ${value}`)
 }
 
-function verifyRequirementShape(requirement, errors) {
+function verifyRequirementShape(requirement: Requirement, errors: string[]) {
   const statuses = new Set(["not-assessed", "planned", "implemented", "verified", "exception", "not-applicable"])
   const levels = new Set(["must", "should", "may"])
   if (!/^(DADS-V2|DASH-2026|NJDS)-[A-Z0-9-]+$/.test(requirement.id ?? "")) {
@@ -25,21 +27,21 @@ function verifyRequirementShape(requirement, errors) {
   }
   if (!statuses.has(requirement.status)) errors.push(`${requirement.id}: invalid status`)
   if (!levels.has(requirement.localLevel)) errors.push(`${requirement.id}: invalid local level`)
-  for (const field of ["title", "sourceId", "sourceUrl", "section"]) {
+  for (const field of ["title", "sourceId", "sourceUrl", "section"] as const) {
     if (!requirement[field]) errors.push(`${requirement.id}: missing ${field}`)
   }
 }
 
-async function loadCatalogs(root) {
+async function loadCatalogs(root: string): Promise<Catalog[]> {
   const directory = resolve(root, "compliance/requirements")
   const files = (await readdir(directory)).filter((name) => name.endsWith(".json")).sort()
   return Promise.all(files.map(async (name) => ({
     name,
-    data: await readJson(resolve(directory, name))
+    data: await readJson<Catalog["data"]>(resolve(directory, name))
   })))
 }
 
-async function verifyEvidence(root, requirement, errors) {
+async function verifyEvidence(root: string, requirement: Requirement, errors: string[]) {
   if (["implemented", "verified"].includes(requirement.status)) {
     if (!requirement.artifacts?.length) errors.push(`${requirement.id}: missing artifacts`)
     if (!requirement.tests?.length) errors.push(`${requirement.id}: missing tests`)
@@ -55,10 +57,10 @@ async function verifyEvidence(root, requirement, errors) {
   }
 }
 
-export async function verifyRepository(root) {
-  const errors = []
-  const lock = await readJson(resolve(root, "upstream/sources.lock.json"))
-  const coverage = await readJson(resolve(root, "compliance/coverage/components.json"))
+export async function verifyRepository(root: string) {
+  const errors: string[] = []
+  const lock = await readJson<SourceLock>(resolve(root, "upstream/sources.lock.json"))
+  const coverage = await readJson<Coverage>(resolve(root, "compliance/coverage/components.json"))
   const catalogs = await loadCatalogs(root)
   errors.push(...await validateComplianceSchemas(root, { lock, coverage, catalogs }))
   const sources = Array.isArray(lock.sources) ? lock.sources : []
@@ -87,8 +89,8 @@ export async function verifyRepository(root) {
     if (!sourceIds.has(requirement.sourceId)) errors.push(`${requirement.id}: unknown source`)
     await verifyEvidence(root, requirement, errors)
   }
-  if (coverage.sourceVersion !== "2.16.0") errors.push("coverage: DADS version must be 2.16.0")
-  if (components.length !== 49) errors.push("coverage: expected 49 components")
+  const manifest = await readJson<{ dependencies: Record<string, string> }>(resolve(root, "package.json"))
+  errors.push(...sourceVersionErrors(lock, coverage, manifest.dependencies))
   for (const component of components) {
     if (!/^[a-z0-9-]+$/.test(component.id ?? "")) errors.push("coverage: invalid component id")
     if (!new Set(["core", "conditional", "not-default"]).has(component.profile)) {
@@ -102,12 +104,6 @@ export async function verifyRepository(root) {
     }
     if (component.localComponent && !(await repositoryFileExists(root, component.localComponent))) {
       errors.push(`${component.id}: invalid or missing ${component.localComponent}`)
-    }
-  }
-  for (const id of ["dads-design-tokens", "dads-tailwind-theme"]) {
-    const source = sources.find((item) => item.id === id)
-    if (source?.status !== "compatibility-lag" || !source.compatibilityThrough?.includes("2.14.0")) {
-      errors.push(`${id}: DADS 2.14 compatibility lag is not recorded`)
     }
   }
   return {

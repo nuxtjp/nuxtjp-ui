@@ -104,3 +104,5 @@ pnpm upstream:check
 - [セキュリティ方針](SECURITY.md)
 
 JIS X 8341-3:2016 AA、WCAG 2.2 A/AA、読み上げ、拡大、ハイコントラストはconsumerページ単位の公開ゲートです。このLayer単体の自動試験は、その適合を保証しません。
+
+UI peer: `@nuxtjp/ui@0.2.0`; Layer: `@nuxtjp/management-layout@0.5.0`. The theme upgrade belongs to the UI module; this Layer does not add its own Tailwind or DADS dependency. See [theme migration](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/migration-theme-v2.md).

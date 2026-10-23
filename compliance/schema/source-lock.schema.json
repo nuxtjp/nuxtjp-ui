@@ -4,54 +4,173 @@
   "title": "NuxtJP upstream evidence lock",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "checkedAt", "reviewPolicy", "sources"],
+  "required": [
+    "schemaVersion",
+    "checkedAt",
+    "reviewPolicy",
+    "sources",
+    "implementationBaseline"
+  ],
   "properties": {
-    "$schema": { "type": "string" },
-    "schemaVersion": { "const": 1 },
-    "checkedAt": { "type": "string", "format": "date" },
-    "reviewPolicy": { "const": "review-required" },
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "checkedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "reviewPolicy": {
+      "const": "review-required"
+    },
     "sources": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
-      "items": { "$ref": "#/$defs/source" }
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "implementationBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "checkedAt",
+        "componentCount"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "componentCount": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
     }
   },
   "$defs": {
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "authority", "url", "checkedAt", "license", "status", "reviewRequired", "probes"],
+      "required": [
+        "id",
+        "title",
+        "authority",
+        "url",
+        "checkedAt",
+        "license",
+        "status",
+        "reviewRequired",
+        "probes"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9-]+$", "maxLength": 100 },
-        "title": { "type": "string", "minLength": 1, "maxLength": 300 },
-        "authority": { "type": "string", "minLength": 1, "maxLength": 200 },
-        "url": { "type": "string", "format": "uri" },
-        "checkedAt": { "type": "string", "format": "date" },
-        "publishedAt": { "type": "string", "format": "date" },
-        "observedVersion": { "type": "string", "maxLength": 200 },
-        "compatibilityThrough": { "type": "string", "maxLength": 300 },
-        "license": { "type": "string", "minLength": 1, "maxLength": 300 },
-        "status": { "enum": ["current", "compatibility-lag", "reference-only"] },
-        "notes": { "type": "string", "maxLength": 1000 },
-        "reviewRequired": { "const": true },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "maxLength": 100
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "authority": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "publishedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "observedVersion": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "compatibilityThrough": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "status": {
+          "enum": [
+            "current",
+            "compatibility-lag",
+            "reference-only"
+          ]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "reviewRequired": {
+          "const": true
+        },
         "probes": {
           "type": "array",
           "minItems": 1,
           "maxItems": 10,
           "uniqueItems": true,
-          "items": { "$ref": "#/$defs/probe" }
+          "items": {
+            "$ref": "#/$defs/probe"
+          }
+        },
+        "compatibilityVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "consumedVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
         }
       }
     },
     "probe": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "url", "expected"],
+      "required": [
+        "type",
+        "url",
+        "expected"
+      ],
       "properties": {
-        "type": { "enum": ["contains-text", "github-head", "github-release"] },
-        "url": { "type": "string", "format": "uri" },
-        "expected": { "type": "string", "minLength": 1, "maxLength": 256 }
+        "type": {
+          "enum": [
+            "contains-text",
+            "github-head",
+            "github-release"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "expected": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
       }
     }
   }

@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Verify compliance graph
-        run: node scripts/verify-compliance.mjs
+        run: node scripts/verify-compliance.mts
 
       - name: Prepare Nuxt types
         run: pnpm exec nuxt prepare playground
@@ -60,6 +60,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/ui-package"
           pnpm pack --pack-destination "$RUNNER_TEMP/ui-package"
+          pnpm --dir packages/nuxt-management-layout pack --pack-destination "$RUNNER_TEMP/ui-package"
           (cd packages/nuxt-dependency-security && npm pack --ignore-scripts --pack-destination "$RUNNER_TEMP/ui-package")
 
       - name: Check the actual archive
@@ -70,3 +71,9 @@ jobs:
 
       - name: Verify a pnpm archive consumer
         run: node .github/scripts/package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" pnpm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
+
+      - name: Verify the management Layer with the candidate UI in an independent npm consumer
+        run: node .github/scripts/package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" npm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}" "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_MANAGEMENT_LAYOUT_NPM}"
+
+      - name: Verify the management Layer with the candidate UI in an independent pnpm consumer
+        run: node .github/scripts/package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" pnpm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}" "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_MANAGEMENT_LAYOUT_NPM}"

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { verifyRepository } from "./lib/compliance-verify.mjs"
+import { verifyRepository } from "./lib/compliance-verify.mts"
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
 const repositoryRoot = resolve(scriptDirectory, "..")

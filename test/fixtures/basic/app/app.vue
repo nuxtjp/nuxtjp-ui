@@ -12,6 +12,7 @@ const steps = [
     <NuxtJpSkipLink />
     <main id="main-content" tabindex="-1" class="p-4">
       <NuxtJpPageHeader title="NuxtJP UI fixture" />
+      <p data-testid="theme-proof" class="leading-170 bg-opacity-gray-536">トークン互換確認</p>
       <NuxtJpStatusBadge label="確認済み" color="success" />
       <UIcon name="i-lucide-shield-check" data-testid="bundled-lucide" />
       <NuxtJpProcessStepper v-model="activeStep" :items="steps">

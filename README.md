@@ -43,6 +43,7 @@ This independent implementation is not endorsed or certified by Nuxt or the Digi
 ```sh
 pnpm install --frozen-lockfile
 pnpm compliance:verify
+pnpm exec playwright install --with-deps chromium
 pnpm test
 pnpm typecheck
 pnpm build
@@ -77,7 +78,7 @@ The dependency-security tool can be used by Nuxt 3/Vuetify or Nuxt 4 hosts
 without installing a different UI framework. It does not replace local source
 or endpoint auditing by vpremises-security.
 
-The published management-layout 0.4.3 intentionally selects UI 0.1.3 in its exact peer/dev declarations, README and lockfile. Preserve that tested pair when using the layout. The root UI 0.1.4 package is a separate version; the bundled archives are not an interchangeable UI 0.1.4 set.
+This source pairs UI 0.2.0 with management-layout 0.5.0 using an exact UI peer. Use registry versions only after publication is independently verified. [Theme v2 migration](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/migration-theme-v2.md) explains the removed CSS utilities and retained component baseline.
 
 [OSS responsibility and source completion](docs/oss-source-contract.md) defines the supported package boundary and required acceptance. It does not declare unexecuted source, distribution or production checks complete.
 

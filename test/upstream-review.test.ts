@@ -74,7 +74,6 @@ test('review decisions name real requirement IDs and do not import reference fra
     for (const id of decision.requirements) expect(ids.has(id)).toBe(true)
   }
   const pkg = await read('package.json')
-  expect(pkg.dependencies['@digital-go-jp/tailwind-theme-plugin']).toBe('1.0.1')
   expect(pkg.dependencies.react).toBeUndefined()
   const css = await readFile(resolve('src/runtime/app/assets/nuxtjp-ui.css'), 'utf8')
   expect(css).not.toMatch(/-apple-system|BlinkMacSystemFont|--spacing\s*:/)
