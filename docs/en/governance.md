@@ -10,12 +10,16 @@ This repository records the exact primary source, decision, implementation, and 
 
 The important current gap is explicit:
 
-- DADS documents and Figma are version 2.16.0.
+- The retained DADS document/Figma implementation baseline is 2.16.0, not the latest upstream version.
 - `@digital-go-jp/design-tokens` 2.0.1 explicitly maps only through Figma/DADS 2.14.0.
 - `@digital-go-jp/tailwind-theme-plugin` 1.0.1 also explicitly maps only through 2.14.0.
 - Official HTML and React examples exist; there is no official Vue or Nuxt implementation.
 
 The official packages are therefore not represented as proven fully compatible with DADS 2.16.0.
+
+The [bounded 2.18.1 review](../governance/upstream-reviews/2026-10-23.md) records applicability without promoting the baseline or planned component candidates.
+It adds Chromium keyboard, accessibility-tree and display regressions. Real screen-reader, browser zoom and Windows high-contrast evaluation remain separate gates.
+Later 2.18.2 / tokens 2.1.0 / theme 2.0.0 changes remain review-required; watcher expectations are unchanged.
 
 ## Review workflow
 
