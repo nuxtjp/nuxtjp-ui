@@ -36,7 +36,7 @@
     {
       "id": "DADS-LAYOUT-STYLE-001", "title": "Maintain a service-specific layout style guide over the delegated DADS foundation",
       "sourceIds": ["dads-core", "dads-style-guides"], "level": "must", "status": "implemented",
-      "artifacts": ["docs/style-guide.md", "docs/en/style-guide.md"], "tests": ["test/compliance.test.mjs"]
+      "artifacts": ["docs/style-guide.md", "docs/en/style-guide.md"], "tests": ["test/compliance.test.mts"]
     },
     {
       "id": "DADS-LAYOUT-SEMANTICS-001", "title": "Provide skip, navigation, breadcrumb and main-content semantics",
