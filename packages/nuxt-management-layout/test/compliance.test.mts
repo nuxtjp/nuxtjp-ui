@@ -1,6 +1,6 @@
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { verifyContract } from '../scripts/lib/contract-verify.mjs'
+import { verifyContract } from '../scripts/lib/contract-verify.mts'
 
 describe('machine-readable repository contract', () => {
   it('keeps schemas, evidence, boundaries and source limits valid', async () => {

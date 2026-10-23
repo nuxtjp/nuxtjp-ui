@@ -63,7 +63,7 @@ jobs:
         run: python3 .github/scripts/check-package.py "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}"
 
       - name: Verify an independent archive consumer
-        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" npm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
+        run: node .github/scripts/package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" npm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
 
       - name: Verify a pnpm archive consumer
-        run: node .github/scripts/package-consumer.mjs "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" pnpm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
+        run: node .github/scripts/package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" pnpm "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"

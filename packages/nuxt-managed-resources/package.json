@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjp/managed-resources",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provider-neutral managed-resource presentation for Nuxt",
   "type": "module",
   "license": "Apache-2.0",
@@ -45,7 +45,7 @@
     "prepack": "pnpm run build"
   },
   "peerDependencies": {
-    "nuxt": "^4.5.0",
+    "nuxt": "^4.6.2",
     "vue": "^3.5.0"
   },
   "dependencies": {
@@ -56,7 +56,7 @@
     "@nuxt/module-builder": "1.0.3",
     "@types/node": "24.12.0",
     "ajv": "8.20.0",
-    "nuxt": "4.6.1",
+    "nuxt": "4.6.2",
     "typescript": "5.9.3",
     "vitest": "5.0.5",
     "vue": "3.5.44",

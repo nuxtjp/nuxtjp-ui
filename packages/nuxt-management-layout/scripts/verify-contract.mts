@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { verifyContract } from './lib/contract-verify.mjs'
+import { verifyContract } from './lib/contract-verify.mts'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
