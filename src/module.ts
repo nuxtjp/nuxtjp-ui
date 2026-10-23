@@ -16,7 +16,7 @@ const nuxtJpUiModule: NuxtModule<ModuleOptions> = defineNuxtModule<ModuleOptions
   meta: {
     name: '@nuxtjp/ui',
     configKey: 'nuxtJpUi',
-    compatibility: { nuxt: '^4.5.2' }
+    compatibility: { nuxt: '^4.6.2' }
   },
   defaults: { locale: 'ja' },
   moduleDependencies(nuxt) {
