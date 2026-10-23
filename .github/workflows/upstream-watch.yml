@@ -43,6 +43,7 @@ jobs:
             cat upstream-report.json
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          cat upstream-report.json
 
       - name: Require review for a change or unavailable source
         if: steps.detect.outputs.result != '0'
