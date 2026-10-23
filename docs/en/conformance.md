@@ -1,13 +1,16 @@
 # Conformance Status
 
-Reviewed: 2026-08-05
+Implementation baseline reviewed: 2026-08-05. Bounded upstream applicability reviewed: 2026-10-23.
+
+The [2.18.1 applicability record](../governance/upstream-reviews/2026-10-23.md) maps every changed file to a reason and requirement.
+No runtime port, coverage promotion or implementation baseline change is adopted. Upstream is now 2.18.2; the table records our retained baseline.
 
 ## Baselines
 
 | Source | Reviewed version | Status |
 |---|---|---|
-| DADS documents | v2.16.0, updated 2026-07-22 | tracked current |
-| DADS Figma | v2.16.0, published 2026-07-08 | tracked current |
+| DADS documents | v2.16.0, updated 2026-07-22 | retained implementation baseline |
+| DADS Figma | v2.16.0, published 2026-07-08 | retained implementation baseline |
 | design-tokens | v2.0.1 | explicit compatibility through 2.14.0 |
 | Tailwind theme plugin | v1.0.1 | explicit compatibility through 2.14.0 |
 | Dashboard web page | updated 2026-07-17 | tracked current |

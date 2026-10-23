@@ -28,6 +28,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Generate Nuxt playground types
         run: pnpm exec nuxt prepare playground
+      - name: Install the locked regression browser
+        run: pnpm exec playwright install --with-deps chromium
       - name: Test APIs and dependency regression cases
         run: pnpm test
       - name: Test consolidated Vue packages

@@ -9,7 +9,8 @@ const steps = [
 
 <template>
   <NuxtJpApp>
-    <main id="main-content">
+    <NuxtJpSkipLink />
+    <main id="main-content" tabindex="-1" class="p-4">
       <NuxtJpPageHeader title="NuxtJP UI fixture" />
       <NuxtJpStatusBadge label="確認済み" color="success" />
       <UIcon name="i-lucide-shield-check" data-testid="bundled-lucide" />
@@ -17,6 +18,9 @@ const steps = [
         <template #prepare><p>準備内容</p></template>
         <template #connect><p>接続内容</p></template>
       </NuxtJpProcessStepper>
+      <NuxtJpMetricGrid title="接続の概要" :items="[{ label: '接続先', value: '公開API' }]" />
+      <NuxtJpReadState transport="loading" />
+      <NuxtJpReadState transport="error" />
     </main>
   </NuxtJpApp>
 </template>

@@ -1,0 +1,1064 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-10-23",
+  "issue": 38,
+  "documentVersion": "2.18.1",
+  "implementationBaseline": "2.16.0",
+  "runtimeChanged": false,
+  "conformancePromoted": false,
+  "decisions": {
+    "font": {
+      "reason": "Only Figma Sans drops Apple/system font names. The Vue module already omits those names and deliberately retains Japanese offline fallbacks; no generated token or remote font import is adopted.",
+      "requirements": [
+        "NJDS-CMP-NUXT-001"
+      ],
+      "disposition": "retain-local"
+    },
+    "docs": {
+      "reason": "Guideline links, Storybook presentation and documentation are reference material, not shipped Vue code. Record links without copying their implementation or claiming conformance.",
+      "requirements": [
+        "DADS-V2-CMP-USAGE-001"
+      ],
+      "disposition": "reference-only"
+    },
+    "tools": {
+      "reason": "Reference-repository CI, agents, development dependencies and exports do not control this Nuxt package. No upstream instruction, workflow, React dependency or removed v1 export is imported.",
+      "requirements": [
+        "NJDS-CMP-NUXT-001"
+      ],
+      "disposition": "reference-only"
+    },
+    "breadcrumb": {
+      "reason": "Upstream changes ol/li to p/span while retaining labelled navigation/current-page semantics. No NuxtJp breadcrumb exists; keep coverage planned, and assess semantics when implementing it instead of replacing unrelated lists.",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "disposition": "not-adopted"
+    },
+    "modal": {
+      "reason": "The fixed-width example changes placeholder content; React v1 Dialog is retired. No local DADS modal exists. Future adoption must test focus entry/return, Escape and accessible naming.",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "disposition": "not-adopted"
+    },
+    "switch": {
+      "reason": "New HTML custom elements/React controlled switches require state, keyboard and disabled-state contracts. No local DADS switch exists; do not install custom-element JavaScript into Vue.",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "disposition": "not-adopted"
+    },
+    "controls": {
+      "reason": "React button sizing and native-disabled checkbox/radio styling are reference implementation changes. This module uses Nuxt UI controls, not copied React CSS. Existing step navigation receives browser keyboard/disabled/focus regression coverage.",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001",
+        "NJDS-CMP-NUXT-001"
+      ],
+      "disposition": "retain-local"
+    },
+    "list": {
+      "reason": "React renames its private spacing variable to avoid a Tailwind collision. No copied list CSS or --spacing override exists in this module; semantic MetricGrid dl/dt/dd is retained and browser-tested.",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "disposition": "retain-local"
+    },
+    "badge": {
+      "reason": "React changes the rounded utility to its DADS token name. StatusBadge uses Nuxt UI UBadge with textual state and does not import that class. Keep planned DADS chip-label coverage and test text exposure.",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "disposition": "retain-local"
+    },
+    "new-components": {
+      "reason": "React v2 Card/PageNavigation/ResourceList/SearchBox/StepNavigation are separate reference implementations. No framework port is adopted; ProcessStepper stays a generic UStepper wrapper with planned DADS coverage and browser regression tests.",
+      "requirements": [
+        "DADS-V2-CMP-USAGE-001",
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "disposition": "not-adopted"
+    },
+    "assets": {
+      "reason": "Example-only images are not copied or bundled. Their third-party rights and example content are not required by the Vue runtime.",
+      "requirements": [
+        "NJDS-CMP-NUXT-001"
+      ],
+      "disposition": "not-adopted"
+    }
+  },
+  "sources": [
+    {
+      "id": "tokens",
+      "repository": "digital-go-jp/design-tokens",
+      "base": "cde7dfe58d53341bba5ebae565406992fbe1218b",
+      "head": "d532a91dfb13044a521a5a65ae288f1ba17fe4f4",
+      "commits": 2,
+      "changedFiles": 1,
+      "comparisonUrl": "https://github.com/digital-go-jp/design-tokens/compare/cde7dfe58d53341bba5ebae565406992fbe1218b...d532a91dfb13044a521a5a65ae288f1ba17fe4f4",
+      "files": [
+        {
+          "path": "figma/tokens.json",
+          "status": "modified",
+          "blob": "15a452caa289ef9ddb4a56079f20410c1b870aed",
+          "decision": "font"
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "repository": "digital-go-jp/design-system-example-components-html",
+      "base": "55b5f3cc04fe51be73e8f26eff4811bf7cd64828",
+      "head": "af8b6656c8d864a22ef444d088e5568f3416f6aa",
+      "commits": 18,
+      "changedFiles": 61,
+      "comparisonUrl": "https://github.com/digital-go-jp/design-system-example-components-html/compare/55b5f3cc04fe51be73e8f26eff4811bf7cd64828...af8b6656c8d864a22ef444d088e5568f3416f6aa",
+      "files": [
+        {
+          "path": ".agents/skills/write-document/SKILL.md",
+          "status": "modified",
+          "blob": "d2a67fd58f31921a33d2968ae779d422641faa38",
+          "decision": "docs"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "status": "added",
+          "blob": "5151d51d99a2537e7babde11b95dc85adc77e447",
+          "decision": "tools"
+        },
+        {
+          "path": ".storybook/preview.ts",
+          "status": "modified",
+          "blob": "73bc469d3d4dfc86275c81b69910a54041cb883c",
+          "decision": "tools"
+        },
+        {
+          "path": "src/components/accordion/accordion.mdx",
+          "status": "modified",
+          "blob": "6786ddce9995707d159564c980ee04c1746e577b",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/blockquote/blockquote.mdx",
+          "status": "modified",
+          "blob": "616dc0e19adab59fcec46e33ced65a437e04a5a9",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/breadcrumb/breadcrumb.css",
+          "status": "modified",
+          "blob": "6b748ed3d7f9af8860f3b86b9de44de25bd402f9",
+          "decision": "breadcrumb"
+        },
+        {
+          "path": "src/components/breadcrumb/breadcrumb.mdx",
+          "status": "modified",
+          "blob": "dacf0a830079f688870ebdb973d9a894b4fca456",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/breadcrumb/breadcrumb.stories.ts",
+          "status": "modified",
+          "blob": "67793d96120bcc2a63282dfdce51c3086ee9295e",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/breadcrumb/plain.html",
+          "status": "modified",
+          "blob": "e7fd494545390338fc7fe4eb6b6f4344076ea57f",
+          "decision": "breadcrumb"
+        },
+        {
+          "path": "src/components/breadcrumb/with-home-icon.html",
+          "status": "modified",
+          "blob": "f6d23b702b7723922a093e9825656478dae715c1",
+          "decision": "breadcrumb"
+        },
+        {
+          "path": "src/components/breadcrumb/with-visible-label.html",
+          "status": "modified",
+          "blob": "9c5c66b2ec5748a6f1d864dbb1a8a2ba2eccf297",
+          "decision": "breadcrumb"
+        },
+        {
+          "path": "src/components/button/button.mdx",
+          "status": "modified",
+          "blob": "2d752226df3a6dd4ac7ef4c5d61f2b76aea78ed8",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/calendar/calendar.mdx",
+          "status": "modified",
+          "blob": "f86ccb09621f1bd79455eff873e9aab3b391e1b5",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/card/card.mdx",
+          "status": "modified",
+          "blob": "9e736f352a0f5aaa7635553214bc5f59226b6064",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/carousel/carousel.mdx",
+          "status": "modified",
+          "blob": "e2ff9f074f2f87862fd9f768129a4df832d8370a",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.mdx",
+          "status": "modified",
+          "blob": "bdf3540d1d9e3bd4c586d86c9fd9a16cfc34ed6b",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/chip-label/chip-label.mdx",
+          "status": "modified",
+          "blob": "759637b14126aef0e4bb0534edea49be6670ca93",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/date-picker/date-picker.mdx",
+          "status": "modified",
+          "blob": "2953d44946d4ba72ee4b201e095e0c7d252594b0",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/description-list/description-list.mdx",
+          "status": "modified",
+          "blob": "85bc616461c8d8f72e364ce630834704b9a73807",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/disclosure/disclosure.mdx",
+          "status": "modified",
+          "blob": "e81d4abd7f45abadbd2b9b41b5782920b4c3a1ac",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/divider/divider.mdx",
+          "status": "modified",
+          "blob": "b2bcb1ffd9977c94094249f8dba48e513ea0daf7",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/drawer/drawer.mdx",
+          "status": "modified",
+          "blob": "5c77e443331b31fc2189e61aa2581091e2aca014",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/emergency-banner/emergency-banner.mdx",
+          "status": "modified",
+          "blob": "7822b286ddc15ebef32b18e9b530170aeeb43ec4",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/file-upload/file-upload.mdx",
+          "status": "modified",
+          "blob": "2bbdb1fb73c122a07e78cce0e2df834a95335eff",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/hamburger-menu-button/hamburger-menu-button.mdx",
+          "status": "modified",
+          "blob": "4d636c9260f2d0d319ecc64118d639aa16a41774",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/heading/heading.mdx",
+          "status": "modified",
+          "blob": "8dd30821a3eaf6d06dc98bd1f979a00211f173de",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/horizontal-menu/horizontal-menu.mdx",
+          "status": "modified",
+          "blob": "4eb4974a74a36836c6e73bc000fd6fb5e9185377",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/image/image.mdx",
+          "status": "modified",
+          "blob": "a92a64db38e112c8e0bc77fb846ac4cc2c4061eb",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/input-text/input-text.mdx",
+          "status": "modified",
+          "blob": "2237407eb66f8c21ef1678a5691d5dc9694d1409",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/language-selector/language-selector.mdx",
+          "status": "modified",
+          "blob": "a00a3cc836eba017ccd20f09b128abc69c1068e2",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/list/list.mdx",
+          "status": "modified",
+          "blob": "ee97a5e9d93e4cfef0fa95ceb5aa6c946f8f1e94",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/menu-list-box/menu-list-box.mdx",
+          "status": "modified",
+          "blob": "677393bf9d665fbc088a27598786964a06201433",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/menu-list/menu-list.mdx",
+          "status": "modified",
+          "blob": "809f0c9ec1e9655a9f8799a40e8e92b8011346c5",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/modal-dialog/fixed-width.html",
+          "status": "modified",
+          "blob": "45890105014632629b3e2076b10f27e4cfa3158c",
+          "decision": "modal"
+        },
+        {
+          "path": "src/components/modal-dialog/modal-dialog.mdx",
+          "status": "modified",
+          "blob": "50655ecf9dce908c7320f49164a4c207e5ca0776",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/notification-banner/notification-banner.mdx",
+          "status": "modified",
+          "blob": "c9e212e3f971ef51fcf366c8bd353617b181e372",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/page-navigation/page-navigation.mdx",
+          "status": "modified",
+          "blob": "a0fbdd1397edf3780e22d00848495b10d9128846",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/progress-indicator/progress-indicator.mdx",
+          "status": "modified",
+          "blob": "f885e107d39061da6955982a74992fe2336622ef",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/radio/radio.mdx",
+          "status": "modified",
+          "blob": "6364b1808e4357fd10201b696ad9285b201b5a1b",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/resource-list/resource-list.mdx",
+          "status": "modified",
+          "blob": "fa6ad949d6c1737598484c0cedd02a0b4c39c3a5",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/search-box/search-box.mdx",
+          "status": "modified",
+          "blob": "e58e66c809a41a80330333c05f7ec39b04b476fe",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/select/select.mdx",
+          "status": "modified",
+          "blob": "f237d7dd0aeb1fe59405b1aa74012494c1c9b844",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/step-navigation/step-navigation.mdx",
+          "status": "modified",
+          "blob": "30dfceef13e35803131d586d1f729b610b2ca658",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/switch/playground-mode.html",
+          "status": "added",
+          "blob": "6c2edf6c3b481966115dc5b5acc82e32d2a35d95",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/playground-on-off.html",
+          "status": "added",
+          "blob": "b17a087b4d95e92a16485a6d547579ec51e661c4",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/switch-mode.css",
+          "status": "added",
+          "blob": "60ae5bc9cdc1e807da84bd3bfbeeea4f081c6dac",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/switch-mode.js",
+          "status": "added",
+          "blob": "7de3c2e70ae5fd930c770fd529aa6c08a5f8a905",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/switch-on-off.css",
+          "status": "added",
+          "blob": "b4cd8ed5ddee498fc5020a8b40894041744b4ec8",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/switch-on-off.js",
+          "status": "added",
+          "blob": "d4b1e632be6950696e681d6d0e28cca5fe5d9e59",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/switch.mdx",
+          "status": "added",
+          "blob": "bc93ed3b7d055a20b2de6df9aaf8e95627e9a4ea",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/switch/switch.stories.ts",
+          "status": "added",
+          "blob": "f2e13c60e3bf04ab892e0855d610914c3d1d0203",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/switch/switch.test.js",
+          "status": "added",
+          "blob": "b09fed49fb96640381e81827433f0fa60afae4c5",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/switch.vrt.js",
+          "status": "added",
+          "blob": "80c8275fdcbada99049661bed551a49fb6ab02bc",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/with-form-control-label-mode.html",
+          "status": "added",
+          "blob": "f2b3d6201c6328a57fe2af66ffd23e506390e86e",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/switch/with-form-control-label-on-off.html",
+          "status": "added",
+          "blob": "223bf39217c8597fd960ea0e73a6519c88bab02d",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/tab/tab.mdx",
+          "status": "modified",
+          "blob": "777e947bee04fdede1d240b4ce69dd75178c8cae",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/table/table.mdx",
+          "status": "modified",
+          "blob": "e3d30784d1b3b355990f6e45254f4b652fb8d841",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/textarea/textarea.mdx",
+          "status": "modified",
+          "blob": "b12c9cf2f1c3ef307b288d07054b6b4c6376feaf",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/toc/toc.mdx",
+          "status": "modified",
+          "blob": "e0426c01add293f40b238f19d3008ec1329bac33",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/utility-link/utility-link.mdx",
+          "status": "modified",
+          "blob": "3ca4b6f44c6bd939602b865a9a3eab82f8c2e680",
+          "decision": "docs"
+        },
+        {
+          "path": "src/docs/getting-started.mdx",
+          "status": "modified",
+          "blob": "09cd756e2013cd458baf6dbd5f9c8f657fe90c39",
+          "decision": "docs"
+        }
+      ]
+    },
+    {
+      "id": "react",
+      "repository": "digital-go-jp/design-system-example-components-react",
+      "base": "88110f7f08c99845b2fd97e093a9fbfb1a334ea5",
+      "head": "68b452e16d40ffaebcb195a7289696f88890cc3e",
+      "commits": 32,
+      "changedFiles": 93,
+      "comparisonUrl": "https://github.com/digital-go-jp/design-system-example-components-react/compare/88110f7f08c99845b2fd97e093a9fbfb1a334ea5...68b452e16d40ffaebcb195a7289696f88890cc3e",
+      "files": [
+        {
+          "path": ".agents/skills/component-rules/SKILL.md",
+          "status": "modified",
+          "blob": "2fcf0d30b66142b5b63ba809fc4f6034bd7ebb3e",
+          "decision": "docs"
+        },
+        {
+          "path": ".agents/skills/port-html-to-react/SKILL.md",
+          "status": "modified",
+          "blob": "61dce8066644410ddb27d66a7abb403c74fb408f",
+          "decision": "docs"
+        },
+        {
+          "path": ".storybook/preview.ts",
+          "status": "modified",
+          "blob": "bb3def2eb09e8bec6f1f0940fd605e8825d18dc3",
+          "decision": "tools"
+        },
+        {
+          "path": "biome.json",
+          "status": "modified",
+          "blob": "9ba3b74af40087a4d56d857d7af52cfe9f18d931",
+          "decision": "tools"
+        },
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob": "4237201cba03f959432a40e5ddb18e8846659498",
+          "decision": "tools"
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob": "e93e7d8115cd1bdf5e7ffe41649fdb7f2d6080d9",
+          "decision": "tools"
+        },
+        {
+          "path": "src/components/Accordion/Accordion.stories.tsx",
+          "status": "modified",
+          "blob": "ad8781621d3e18b81ad2052b3e444bedad1f13e6",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Blockquote/Blockquote.stories.tsx",
+          "status": "modified",
+          "blob": "eee945768562a4df508f8ee8e1d819e63022f282",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Breadcrumbs/Breadcrumbs.stories.tsx",
+          "status": "modified",
+          "blob": "a22b78563036c7b0f06a3e1477f20004a770f415",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Breadcrumbs/Breadcrumbs.tsx",
+          "status": "modified",
+          "blob": "9a9b778903e14289131202b55ab3b61295feef41",
+          "decision": "breadcrumb"
+        },
+        {
+          "path": "src/components/Button/Button.stories.tsx",
+          "status": "modified",
+          "blob": "c61dab3a9d077527c4ff38722879021b34426fe7",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Button/Button.tsx",
+          "status": "modified",
+          "blob": "f1db7394eec086d0943846e76212a46b67cd4e9f",
+          "decision": "controls"
+        },
+        {
+          "path": "src/components/Button/index.ts",
+          "status": "modified",
+          "blob": "a662f81996f8b18f8b5063b5c1100932c043f06c",
+          "decision": "controls"
+        },
+        {
+          "path": "src/components/Calendar/Calendar.stories.tsx",
+          "status": "modified",
+          "blob": "3c078e0eb2e76936e9e0a29e7bc674810e5de54b",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Card/Card.mdx",
+          "status": "added",
+          "blob": "c5139a4b45cbf7296b9dd0c6c6a949db04db7d1b",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Card/Card.stories.tsx",
+          "status": "added",
+          "blob": "6f1425abb11f1d1997d8bbe8eb895b3952d3bc64",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Card/assets/card-2.jpg",
+          "status": "added",
+          "blob": "fe5e28c33c787333ff6b334f79236b64c9557c1f",
+          "decision": "assets"
+        },
+        {
+          "path": "src/components/Card/assets/card-3-1.png",
+          "status": "added",
+          "blob": "e8c16804f3ad09c9b393f376e4843f8611c097e1",
+          "decision": "assets"
+        },
+        {
+          "path": "src/components/Card/assets/card-3-2.png",
+          "status": "added",
+          "blob": "cbf2e7cf7bb3e337cc2b04ef1837fe371dd1b20c",
+          "decision": "assets"
+        },
+        {
+          "path": "src/components/Card/assets/card-4.jpg",
+          "status": "added",
+          "blob": "45e015af70b760506e225b802e8cdd4ccf9e2b7b",
+          "decision": "assets"
+        },
+        {
+          "path": "src/components/Card/assets/card-5.jpg",
+          "status": "added",
+          "blob": "26f27439dc165385b379f1f80a4d300993144b32",
+          "decision": "assets"
+        },
+        {
+          "path": "src/components/Card/assets/card-6.jpg",
+          "status": "added",
+          "blob": "8cb73c94a7c84f426733e6861137d5f78db3d3b5",
+          "decision": "assets"
+        },
+        {
+          "path": "src/components/Card/component-spec.md",
+          "status": "added",
+          "blob": "4c1518df4868f274ef37a84035ac3e4b0f2a6583",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Card/index.ts",
+          "status": "added",
+          "blob": "bca50908e9ef2a0a7ed1235ff2cc753c5384f579",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/Carousel/Carousel.stories.tsx",
+          "status": "modified",
+          "blob": "cb9a4fbc7f29c3373f283f05b80625c8c7d05d68",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Checkbox/Checkbox.stories.tsx",
+          "status": "modified",
+          "blob": "c07e38b5837e0c819b674faf231dce2d83500a93",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Checkbox/Checkbox.tsx",
+          "status": "modified",
+          "blob": "0d7b0d6d8f42392602faae34e58cb6e12e6e57ba",
+          "decision": "controls"
+        },
+        {
+          "path": "src/components/ChipLabel/ChipLabel.stories.tsx",
+          "status": "modified",
+          "blob": "48d55899a85c8fd8618e2d8cc3de881f729e4c8a",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/DatePicker/DatePicker.stories.tsx",
+          "status": "modified",
+          "blob": "d332ad0825f8b4915681f41de37bbda7ab8ffbeb",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Disclosure/Disclosure.stories.tsx",
+          "status": "modified",
+          "blob": "582162119059e0a87ef3d25e6e62f07a605e5861",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Divider/Divider.stories.tsx",
+          "status": "modified",
+          "blob": "df14de49848d76db6b03cdb3c54decfaeefb96b4",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Dl/Dl.stories.tsx",
+          "status": "modified",
+          "blob": "62cbc37c4267a6df78b2de91742f18d9606ed8b0",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Drawer/Drawer.stories.tsx",
+          "status": "modified",
+          "blob": "fbd8d404347ababe6988126c4f07bb407f0db2d0",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/EmergencyBanner/EmergencyBanner.stories.tsx",
+          "status": "modified",
+          "blob": "225d65ef50532fb5493f6cc2f4b8dc29824612f0",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/FileUpload/FileUpload.stories.tsx",
+          "status": "modified",
+          "blob": "9a55131942ee4fc421ad11cd28a8d1d27789cae5",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/HamburgerMenuButton/HamburgerMenuButton.stories.tsx",
+          "status": "modified",
+          "blob": "ab136f2664dd71dd3af48ef661e8790857815af3",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Heading/Heading.stories.tsx",
+          "status": "modified",
+          "blob": "a2046acc3673b5a69cb948c6a21c5f3edf822ccf",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/HorizontalMenu/HorizontalMenu.stories.tsx",
+          "status": "modified",
+          "blob": "6fa5e274961344775e9f4064edb96540511c0207",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Image/Image.stories.tsx",
+          "status": "modified",
+          "blob": "4ada08f25dc8feeafbfa61e611cc34ed1492e256",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Input/Input.stories.tsx",
+          "status": "modified",
+          "blob": "b18ad5ed7459969305b81ebddf1b163323696fca",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/LanguageSelector/LanguageSelector.stories.tsx",
+          "status": "modified",
+          "blob": "12930a7301f0ab731e25d7c039d6560bd87c2312",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Link/Link.stories.tsx",
+          "status": "modified",
+          "blob": "0ef08b4991e922edc6f2363aafd7d991dc880a90",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/List/List.stories.tsx",
+          "status": "modified",
+          "blob": "a9e4dc6e20f14a9c03b93cdfa5cf3bcc31c5629a",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/List/List.tsx",
+          "status": "modified",
+          "blob": "8a53995f9337132f7039de56f9b0f2a223256594",
+          "decision": "list"
+        },
+        {
+          "path": "src/components/MenuList/MenuList.stories.tsx",
+          "status": "modified",
+          "blob": "dead2da3755264cb07e89f8bb4bc23194544fd48",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/MenuListBox/MenuListBox.stories.tsx",
+          "status": "modified",
+          "blob": "f28d350aceefe34a2f96f50696bfe79328a7a6d8",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/ModalDialog/ModalDialog.stories.tsx",
+          "status": "modified",
+          "blob": "ba1e1078273548ced4d981f26c0dcf364a47f5f6",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/NotificationBanner/NotificationBanner.stories.tsx",
+          "status": "modified",
+          "blob": "dc2ff6277036b5d5d39273d6e6231e55c8a721d3",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/PageNavigation/PageNavigation.mdx",
+          "status": "added",
+          "blob": "968ba788624ed45bf531d10c5d23d5a87b6bbd80",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/PageNavigation/PageNavigation.stories.tsx",
+          "status": "added",
+          "blob": "2283bb63c6c46d2f28e9fd5eba8c01a4bb5e5120",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/PageNavigation/PageNavigation.tsx",
+          "status": "added",
+          "blob": "28c67b6e07bcfd083d55bc8b64d3295d067e0800",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/PageNavigation/component-spec.md",
+          "status": "added",
+          "blob": "2f51c05be42d41713e3ef470e782bd86073b9dfd",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/PageNavigation/index.ts",
+          "status": "added",
+          "blob": "b95bf7e6c184539faeb99bfde9ef12590d587d76",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/ProgressIndicator/ProgressIndicator.stories.tsx",
+          "status": "modified",
+          "blob": "0b063e34d204ebaee235a459959f9a53d5685350",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Radio/Radio.stories.tsx",
+          "status": "modified",
+          "blob": "04ea0548a4157fbfe4fffa8356969088d5220db9",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Radio/Radio.tsx",
+          "status": "modified",
+          "blob": "5bd82c9ed8f39fd3de725db88ba5c585b39c96a2",
+          "decision": "controls"
+        },
+        {
+          "path": "src/components/ResourceList/ResourceList.mdx",
+          "status": "added",
+          "blob": "505592a891515daeefde36e07a16db2207f1251d",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/ResourceList/ResourceList.stories.tsx",
+          "status": "added",
+          "blob": "523d4fc52f77eb0601dbe9b6e3f6ebed3b8b69df",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/ResourceList/ResourceList.tsx",
+          "status": "added",
+          "blob": "b5c756dd1bc681b5d6d237a4cfbd56cb7057176d",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/ResourceList/component-spec.md",
+          "status": "added",
+          "blob": "298441e91594ac4c140096f34a39d3ffe605b253",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/ResourceList/index.ts",
+          "status": "added",
+          "blob": "8d9e21386af192fd6b42ef2a2be0839207d044e3",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/SearchBox/SearchBox.mdx",
+          "status": "added",
+          "blob": "af66286bbf0e23a19f76e1d25427f428d4e3c27d",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/SearchBox/SearchBox.stories.tsx",
+          "status": "added",
+          "blob": "fc1dd389a95cf5936b069f0bbdf6760c47f238df",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/SearchBox/SearchBox.tsx",
+          "status": "added",
+          "blob": "b4619ec4f5690a2300a23e3c3d6f0cdcfc82f288",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/SearchBox/component-spec.md",
+          "status": "added",
+          "blob": "4a2efd9f03dab9ef1444938dfa772efa94226615",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/SearchBox/index.ts",
+          "status": "added",
+          "blob": "ffc46c9994f3e3c643e7467cc473c5b177b8f4db",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/SearchBox/search-box.css",
+          "status": "added",
+          "blob": "ffb053454a776089ecc98b836cc4ecda8e2ddba9",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/Select/Select.stories.tsx",
+          "status": "modified",
+          "blob": "12a043a05665b0a126ac2a85232a3165f9651cd3",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/SeparatedDatePicker.stories.tsx",
+          "status": "modified",
+          "blob": "ecb6f2705fcd9f6170416ab2625b74fb7a776533",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/StatusBadge/StatusBadge.tsx",
+          "status": "modified",
+          "blob": "0b6904a5e3990284f6e7d1b63f32da27717ac380",
+          "decision": "badge"
+        },
+        {
+          "path": "src/components/StepNavigation/StepNavigation.mdx",
+          "status": "added",
+          "blob": "0cf1cdc37d072a25f32eb6002501f2bf54829b1c",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/StepNavigation/StepNavigation.stories.tsx",
+          "status": "added",
+          "blob": "350cb7d5d93b55c5cfabb6af4225501ca2aefc42",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/StepNavigation/StepNavigation.tsx",
+          "status": "added",
+          "blob": "5a0275573f95544e8b574beb959d291022213ba8",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/StepNavigation/component-spec.md",
+          "status": "added",
+          "blob": "c7e253c6eb33e8c0ce320051204331dc01f68511",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/StepNavigation/index.ts",
+          "status": "added",
+          "blob": "605e0a18a29f629bbd2f3ad65900a0580084c751",
+          "decision": "new-components"
+        },
+        {
+          "path": "src/components/Switch/Switch.mdx",
+          "status": "added",
+          "blob": "2863bb5fd5121ccb7115905ff2178a5ce5027c5b",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Switch/Switch.stories.tsx",
+          "status": "added",
+          "blob": "1c2893212a84ce99d133c6ebebb672d6c0053c73",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Switch/Switch.tsx",
+          "status": "added",
+          "blob": "36d07d832f821dd36355aa624b0c26621a2e1740",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/Switch/component-spec.md",
+          "status": "added",
+          "blob": "70ab28b643d8bbbe25a8354a09f8bf1bb7f55b07",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Switch/index.ts",
+          "status": "added",
+          "blob": "1b19c1d39c34fbf58461fac90e68212232894091",
+          "decision": "switch"
+        },
+        {
+          "path": "src/components/Tab/Tab.stories.tsx",
+          "status": "modified",
+          "blob": "13aae0f6c819047d68f28a2a5c4d026d68954feb",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Table/Table.stories.tsx",
+          "status": "modified",
+          "blob": "6ce86ac634a0844eb55a99974cbc42f3eb2a62e7",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/Textarea/Textarea.stories.tsx",
+          "status": "modified",
+          "blob": "71cb5ee89361e045510244d20c0ec151037932bd",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/UtilityLink/UtilityLink.stories.tsx",
+          "status": "modified",
+          "blob": "f3dba6f24902f878f286ffe28324862d843112a3",
+          "decision": "docs"
+        },
+        {
+          "path": "src/components/v1/Dialog/Dialog.stories.tsx",
+          "status": "removed",
+          "blob": "c63dc97e8700a3a2343a78a115bc6b7eb2a4db0e",
+          "decision": "modal"
+        },
+        {
+          "path": "src/components/v1/Dialog/Dialog.tsx",
+          "status": "removed",
+          "blob": "5dad218d1c5090c039a6975ac75a470bca35f426",
+          "decision": "modal"
+        },
+        {
+          "path": "src/components/v1/Dialog/index.ts",
+          "status": "removed",
+          "blob": "1ca96bc3d18a1e4d5678610fae2ddde2190653e1",
+          "decision": "modal"
+        },
+        {
+          "path": "src/components/v1/Pagination/Pagination.stories.tsx",
+          "status": "removed",
+          "blob": "127fd89ff347efe763b31e04046cf1a47aa1ef63",
+          "decision": "tools"
+        },
+        {
+          "path": "src/components/v1/Pagination/Pagination.tsx",
+          "status": "removed",
+          "blob": "e3a25cbb64fd871f03c5cd199f9f12125fed08f7",
+          "decision": "tools"
+        },
+        {
+          "path": "src/components/v1/Pagination/index.ts",
+          "status": "removed",
+          "blob": "ccb73a0fddeb1a8fbf756f4524f71db471d5b37c",
+          "decision": "tools"
+        },
+        {
+          "path": "src/docs/getting-started.mdx",
+          "status": "added",
+          "blob": "7bc5f681c9515cd6812b0d5a212be5806e822fd3",
+          "decision": "docs"
+        },
+        {
+          "path": "src/docs/introduction.mdx",
+          "status": "modified",
+          "blob": "2464acbcaf7cdb89f90ecbf88be213e49372f3d2",
+          "decision": "docs"
+        },
+        {
+          "path": "src/index.ts",
+          "status": "modified",
+          "blob": "f8e3d4a4d5740ebf9ff574c71d694e234d3f9a0a",
+          "decision": "tools"
+        }
+      ]
+    }
+  ],
+  "regressions": [
+    "test/module-e2e.test.ts",
+    "test/upstream-review.test.ts"
+  ],
+  "limitations": [
+    "Chromium accessibility tree is supporting evidence, not a human screen-reader test.",
+    "CSS zoom and forced-colors emulation do not certify browser zoom, Windows high contrast or WCAG conformance.",
+    "DADS 2.18.2, tokens 2.1.0 and theme plugin 2.0.0 were detected after the bounded review and remain review-required."
+  ]
+}

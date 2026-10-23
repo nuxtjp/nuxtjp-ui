@@ -3,7 +3,7 @@ import { extname, join, relative } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const roots = ['.']
-const sourceExtensions = new Set(['.css', '.mjs', '.ts', '.vue'])
+const sourceExtensions = new Set(['.css', '.mjs', '.mts', '.ts', '.vue'])
 const ignoredDirectories = new Set([
   '.git', '.nuxt', '.output', 'coverage', 'dist', 'node_modules', 'vendor'
 ])
