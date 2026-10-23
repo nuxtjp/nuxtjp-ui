@@ -51,7 +51,10 @@ describe('reviewed upstream changes against the existing Vue candidates', async 
         const style = getComputedStyle(element)
         return { background: style.backgroundColor, lineHeight: style.lineHeight, fontSize: style.fontSize }
       })
-      expect(styles.background).toMatch(/rgba\(0, 0, 0, 0\.536\)/)
+      const alpha = Number(/rgba\(0, 0, 0, ([\d.]+)\)/.exec(styles.background)?.[1])
+      // CSSOM may serialize an 8-bit quantized alpha; .54 must still fail.
+      expect(alpha).toBeGreaterThanOrEqual(0.535)
+      expect(alpha).toBeLessThanOrEqual(0.538)
       expect(parseFloat(styles.lineHeight) / parseFloat(styles.fontSize)).toBeCloseTo(1.7)
     } finally { await page.close() }
   })
