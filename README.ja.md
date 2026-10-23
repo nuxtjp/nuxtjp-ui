@@ -6,7 +6,7 @@
 
 ## 導入と使い方
 
-`0.1.0`はnpmで公開済みです。Nuxt `^4.5.2`、Vue `^3.5.40`、Node.js 22.19以降または24.11以降を使用してください。
+公開版は `npm view @nuxtjp/ui version` で確認してください。Nuxt `^4.6.2`、Vue `^3.5.40`、Node.js 22.19以降または24.11以降を使用します。
 
 ```sh
 pnpm add @nuxtjp/ui

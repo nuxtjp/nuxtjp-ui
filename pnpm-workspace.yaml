@@ -14,4 +14,3 @@ overrides:
 patchedDependencies:
   "braces@3.0.3": "packages/nuxt-dependency-security/patches/braces-3.0.3.patch"
   "node-forge@1.4.0": "packages/nuxt-dependency-security/patches/node-forge-1.4.0.patch"
-  "simple-git@4.0.2": "packages/nuxt-dependency-security/patches/simple-git-4.0.2.patch"
