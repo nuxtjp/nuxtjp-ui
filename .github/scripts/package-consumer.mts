@@ -39,7 +39,9 @@ writeFileSync(join(root, 'nuxt.config.ts'), `export default defineNuxtConfig({ $
 mkdirSync(join(root, 'app'))
 writeFileSync(join(root, 'tsconfig.json'), JSON.stringify({ extends: './.nuxt/tsconfig.json' }))
 writeFileSync(join(root, 'app/core-types.ts'), `import type { NuxtJpUiLocale } from '@nuxtjp/ui/core'; export const locale: NuxtJpUiLocale = 'ja'`)
-writeFileSync(join(root, 'app/app.vue'), `<template><NuxtJpApp><NuxtJpPageHeader title="Archive consumer" description="Independent package" /><NuxtJpStatusBadge color="success" label="確認済み" /></NuxtJpApp></template>`)
+const content = '<NuxtJpPageHeader title="Archive consumer" description="Independent package" /><NuxtJpStatusBadge color="success" label="確認済み" />'
+const view = layerArchive ? `<NuxtLayout>${content}</NuxtLayout>` : content
+writeFileSync(join(root, 'app/app.vue'), `<template><NuxtJpApp>${view}</NuxtJpApp></template>`)
 run('node', ['node_modules/nuxt/bin/nuxt.mjs', 'prepare'])
 run('node', ['node_modules/nuxt/bin/nuxt.mjs', 'typecheck'])
 run('node', ['node_modules/nuxt/bin/nuxt.mjs', 'build'])
@@ -59,6 +61,7 @@ try {
   assert.ok(html?.includes('lang="ja"'))
   assert.ok(html.includes('Archive consumer'))
   assert.ok(html.includes('確認済み'))
+  if (layerArchive) assert.ok(html.includes('id="management-main"'), 'Management Layer did not render its actual layout')
   if (manager === 'npm') {
     const lock = JSON.parse(readFileSync(join(root, 'package-lock.json'), 'utf8'))
     for (const [name, item] of Object.entries(lock.packages)) {
