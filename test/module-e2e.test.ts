@@ -44,6 +44,18 @@ describe('reviewed upstream changes against the existing Vue candidates', async 
     } finally { await page.close() }
   })
 
+  it('compiles the published v2 tokens through the real Tailwind and Nuxt UI import order', async () => {
+    const page = await createPage('/')
+    try {
+      const styles = await page.getByTestId('theme-proof').evaluate(element => {
+        const style = getComputedStyle(element)
+        return { background: style.backgroundColor, lineHeight: style.lineHeight, fontSize: style.fontSize }
+      })
+      expect(styles.background).toMatch(/rgba\(0, 0, 0, 0\.536\)/)
+      expect(parseFloat(styles.lineHeight) / parseFloat(styles.fontSize)).toBeCloseTo(1.7)
+    } finally { await page.close() }
+  })
+
   it('exposes named states and description terms in the browser accessibility tree', async () => {
     const page = await createPage('/')
     try {

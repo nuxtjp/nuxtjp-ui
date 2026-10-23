@@ -2,10 +2,12 @@ import { expect, test } from "vitest"
 import { readFile, readdir } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
-import { verifyRepository } from "../scripts/lib/compliance-verify.mjs"
+import type { Catalog, Coverage, SourceLock } from "../scripts/lib/compliance-types.ts"
+import { sourceVersionErrors } from "../scripts/lib/source-versions.mts"
+import { verifyRepository } from "../scripts/lib/compliance-verify.mts"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
-const readJson = async (path) => JSON.parse(await readFile(resolve(root, path), "utf8"))
+const readJson = async <T = SourceLock>(path: string): Promise<T> => JSON.parse(await readFile(resolve(root, path), "utf8"))
 
 test("the machine-readable conformance graph is internally valid", async () => {
   const report = await verifyRepository(root)
@@ -14,20 +16,34 @@ test("the machine-readable conformance graph is internally valid", async () => {
   expect(report.summary.components).toBe(49)
 })
 
-test("official package compatibility lag is explicit", async () => {
+test("the consumed theme, upstream compatibility and historical baseline have separate identities", async () => {
   const lock = await readJson("upstream/sources.lock.json")
-  for (const id of ["dads-design-tokens", "dads-tailwind-theme"]) {
-    const source = lock.sources.find((item) => item.id === id)
-    expect(source.status).toBe("compatibility-lag")
-    expect(source.compatibilityThrough).toMatch(/2\.14\.0/)
-    expect(source.notes).toMatch(/2\.15|2\.16/)
-  }
+  const coverage = await readJson<Coverage>("compliance/coverage/components.json")
+  const manifest = await readJson<{ dependencies: Record<string, string> }>("package.json")
+  expect(sourceVersionErrors(lock, coverage, manifest.dependencies)).toEqual([])
+  const tokens = lock.sources.find(source => source.id === "dads-design-tokens")!
+  expect(tokens.status).toBe("compatibility-lag")
+  expect(tokens.compatibilityVersion).toBe("2.18.1")
+  const theme = lock.sources.find(source => source.id === "dads-tailwind-theme")!
+  expect(theme.compatibilityVersion).toBe("2.18.2")
+  expect(theme.consumedVersion).toBe(manifest.dependencies['@digital-go-jp/tailwind-theme-plugin'])
+  expect(lock.implementationBaseline.version).toBe("2.16.0")
+  const drifted = structuredClone(lock)
+  drifted.sources.find(source => source.id === "dads-tailwind-theme")!.consumedVersion = "1.0.1"
+  expect(sourceVersionErrors(drifted, coverage, manifest.dependencies)).toContain(
+    'dads-tailwind-theme: consumed version differs from dependency manifest')
+  const hiddenLag = structuredClone(lock)
+  hiddenLag.sources.find(source => source.id === "dads-design-tokens")!.status = "current"
+  expect(sourceVersionErrors(hiddenLag, coverage, manifest.dependencies)).toContain(
+    'dads-design-tokens: compatibility lag must be explicit')
+  expect(sourceVersionErrors(lock, { ...coverage, sourceVersion: "2.18.2" }, manifest.dependencies))
+    .toContain('coverage: implementation baseline differs from source lock')
 })
 
 test("verified claims always carry review evidence", async () => {
   const directory = resolve(root, "compliance/requirements")
   const names = (await readdir(directory)).filter((name) => name.endsWith(".json"))
-  const catalogs = await Promise.all(names.map((name) => readJson(`compliance/requirements/${name}`)))
+  const catalogs = await Promise.all(names.map((name) => readJson<Catalog["data"]>(`compliance/requirements/${name}`)))
   const verified = catalogs.flatMap((item) => item.requirements).filter((item) => item.status === "verified")
   for (const requirement of verified) {
     expect(requirement.evidence?.length).toBeGreaterThan(0)

@@ -23,7 +23,7 @@ describe('NuxtJP UI module boundary', () => {
     expect(manifest.peerDependencies['@nuxt/icon']).toBe('2.5.1')
     // Patch versions belong to the manifest/lock; this boundary requires a registry version.
     expect(manifest.dependencies['@iconify-json/lucide']).toMatch(/^\d+\.\d+\.\d+$/u)
-    expect(manifest.dependencies['@digital-go-jp/tailwind-theme-plugin']).toBe('1.0.1')
+    expect(manifest.dependencies['@digital-go-jp/tailwind-theme-plugin']).toBe('2.0.0')
   })
 
   it('declares Nuxt UI as a versioned module dependency', () => {

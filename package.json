@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjp/ui",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Nuxt UI derivative with a traceable Japanese public-design profile",
   "keywords": [
     "nuxt",
@@ -66,7 +66,7 @@
     "build": "pnpm run build:module && pnpm run build:playground",
     "build:module": "nuxt-module-build build",
     "build:playground": "nuxt build playground",
-    "compliance:verify": "node scripts/verify-compliance.mjs",
+    "compliance:verify": "node scripts/verify-compliance.mts",
     "dev": "pnpm run dev:prepare && nuxt dev playground",
     "dev:prepare": "nuxt-module-build prepare && nuxt-module-build build --stub && nuxt prepare playground",
     "typecheck": "pnpm run dev:prepare && vue-tsc --noEmit --project tsconfig.json && nuxt typecheck playground",
@@ -77,7 +77,7 @@
     "test:consumer-security": "node --test scripts/consumer-security.check.mjs"
   },
   "dependencies": {
-    "@digital-go-jp/tailwind-theme-plugin": "1.0.1",
+    "@digital-go-jp/tailwind-theme-plugin": "2.0.0",
     "@iconify-json/lucide": "1.2.146",
     "@nuxt/kit": "4.6.2",
     "tailwindcss": "4.3.3",

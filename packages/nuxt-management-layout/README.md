@@ -71,3 +71,5 @@ The upstream command only detects changes. A mismatch or unavailable source beco
 See [architecture](docs/en/architecture.md), [style guide](docs/en/style-guide.md), [governance](docs/en/governance.md), [status](docs/en/status.md), and [third-party notices](THIRD_PARTY_NOTICES.md). Page-level JIS X 8341-3:2016 AA and WCAG 2.2 A/AA evaluation remains the consuming service's release responsibility.
 
 Japanese documentation: [README.ja.md](README.ja.md).
+
+UI peer: `@nuxtjp/ui@0.2.0`; Layer: `@nuxtjp/management-layout@0.5.0`. The theme upgrade belongs to the UI module; this Layer does not add its own Tailwind or DADS dependency. See [theme migration](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/migration-theme-v2.md).

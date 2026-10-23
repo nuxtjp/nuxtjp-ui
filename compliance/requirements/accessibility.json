@@ -7,7 +7,7 @@
       "id": "DADS-V2-A11Y-OWNERSHIP-001", "authority": "upstream", "title": "The adopting service remains responsible for content and operational accessibility",
       "sourceId": "dads-accessibility-guidance", "sourceUrl": "https://design.digital.go.jp/dads/guidance/accessibility/", "section": "デジタル庁デザインシステムとアクセシビリティの関係",
       "upstreamStrength": "required", "localLevel": "must", "applicability": "all", "status": "implemented",
-      "artifacts": ["docs/conformance/status.md"], "tests": ["test/compliance.test.mjs"]
+      "artifacts": ["docs/conformance/status.md"], "tests": ["test/compliance.test.ts"]
     },
     {
       "id": "NJDS-TEST-JIS-AA-001", "authority": "local", "title": "Gate public releases on page-level JIS X 8341-3:2016 AA and WCAG 2.2 A/AA evidence",
@@ -19,13 +19,13 @@
       "id": "DADS-V2-A11Y-SEMANTICS-001", "authority": "upstream", "title": "Preserve semantic relationships, headings, labels and accessible names",
       "sourceId": "dads-accessibility-guidance", "sourceUrl": "https://design.digital.go.jp/dads/components/", "section": "達成基準の表記について",
       "upstreamStrength": "required", "localLevel": "must", "applicability": "when-used", "status": "implemented",
-      "artifacts": ["src/runtime/app/components/PageHeader.vue", "src/runtime/app/components/ReadState.vue"], "tests": ["test/compliance.test.mjs", "test/module-contract.test.ts"]
+      "artifacts": ["src/runtime/app/components/PageHeader.vue", "src/runtime/app/components/ReadState.vue"], "tests": ["test/compliance.test.ts", "test/module-contract.test.ts"]
     },
     {
       "id": "DADS-V2-A11Y-KEYBOARD-001", "authority": "upstream", "title": "Every interactive path remains operable by keyboard with visible focus",
       "sourceId": "dads-accessibility-guidance", "sourceUrl": "https://design.digital.go.jp/dads/guidance/accessibility/", "section": "キーボード操作、フォーカスインジケーター",
       "upstreamStrength": "required", "localLevel": "must", "applicability": "when-used", "status": "implemented",
-      "artifacts": ["src/runtime/app/components/SkipLink.vue", "src/runtime/app/assets/nuxtjp-ui.css"], "tests": ["test/compliance.test.mjs", "test/module-contract.test.ts"]
+      "artifacts": ["src/runtime/app/components/SkipLink.vue", "src/runtime/app/assets/nuxtjp-ui.css"], "tests": ["test/compliance.test.ts", "test/module-contract.test.ts"]
     },
     {
       "id": "DADS-V2-A11Y-CONTRAST-001", "authority": "upstream", "title": "Use color combinations and non-color cues that satisfy applicable contrast requirements",
@@ -37,13 +37,13 @@
       "id": "DADS-V2-A11Y-TARGET-001", "authority": "upstream", "title": "Provide sufficient, non-overlapping targets for controls and links",
       "sourceId": "dads-component-index", "sourceUrl": "https://design.digital.go.jp/dads/components/button/accessibility/", "section": "ターゲットサイズの確保",
       "upstreamStrength": "required", "localLevel": "must", "applicability": "when-used", "status": "implemented",
-      "artifacts": ["src/runtime/app/assets/nuxtjp-ui.css"], "tests": ["test/compliance.test.mjs"]
+      "artifacts": ["src/runtime/app/assets/nuxtjp-ui.css"], "tests": ["test/compliance.test.ts"]
     },
     {
       "id": "NJDS-A11Y-STATE-001", "authority": "local", "title": "Expose loading, ready, empty and error states in text and programmatic semantics",
       "sourceId": "dads-accessibility-guidance", "sourceUrl": "https://design.digital.go.jp/dads/guidance/accessibility/", "section": "操作に対応したインタラクション表現",
       "upstreamStrength": "recommended", "localLevel": "must", "applicability": "all", "status": "implemented",
-      "artifacts": ["src/runtime/core/presentation.ts", "src/runtime/app/components/ReadState.vue"], "tests": ["test/presentation.test.ts", "test/compliance.test.mjs"]
+      "artifacts": ["src/runtime/core/presentation.ts", "src/runtime/app/components/ReadState.vue"], "tests": ["test/presentation.test.ts", "test/compliance.test.ts"]
     },
     {
       "id": "NJDS-A11Y-VISUALIZATION-001", "authority": "local", "title": "Supply an equivalent table or text summary for charts, topology and other visual-only views",

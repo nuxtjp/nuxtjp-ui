@@ -1,0 +1,2785 @@
+{
+  "schemaVersion": 1,
+  "issue": 54,
+  "reviewDate": "2026-10-23",
+  "documentVersion": "2.18.2",
+  "implementationBaseline": "2.16.0",
+  "componentCoveragePromoted": false,
+  "tokenVersion": "2.1.0",
+  "tokenCompatibilityVersion": "2.18.1",
+  "themeVersion": "2.0.0",
+  "themeCompatibilityVersion": "2.18.2",
+  "runtimeVersion": "0.2.0",
+  "callerVersion": "@nuxtjp/management-layout@0.5.0",
+  "publishedTheme": {
+    "registryIntegrity": "sha512-u77xBcxBshOhV75dN/1W5eVA0R0Ko0lGwni1jnG+fN7dP1TMycmFyDsvNfiWzKCCxg2+bFRINvBjnXloLUEfHQ==",
+    "gitHead": "994c888f84fa5c29059b1b06288c999493e46721",
+    "archiveSha256": "c04f023c263acd6ad4c82ff91178fa72b6eeb943767e7e07a90e8316d9ce6817",
+    "bytes": 10385,
+    "license": "MIT",
+    "runtimeDependencyCount": 0
+  },
+  "decisions": {
+    "theme-runtime": {
+      "disposition": "adopt-published-artifact",
+      "requirements": [
+        "NJDS-CMP-NUXT-001",
+        "NJDS-GOV-VERSION-001"
+      ],
+      "reason": "Use the integrity-verified published theme 2.0.0 v4 CSS, including opacity .536 and simplified Sans; document removed aliases. Do not build the upstream Node 26 / TypeScript 7 toolchain."
+    },
+    "tokens-runtime": {
+      "disposition": "adopt-through-theme",
+      "requirements": [
+        "NJDS-GOV-VERSION-001"
+      ],
+      "reason": "The theme publication incorporates token 2.1.0. No second token runtime/import is installed. Token README compatibility ends at 2.18.1, whereas the theme README explicitly covers 2.18.2."
+    },
+    "build-docs": {
+      "disposition": "reference-only",
+      "requirements": [
+        "NJDS-GOV-BOUNDARY-001"
+      ],
+      "reason": "Upstream build scripts, package/CI/development configuration, agent instructions and Markdown/Storybook documentation are not application code. Only metadata and applicability are recorded; no instructions or toolchains are adopted."
+    },
+    "vue-candidates": {
+      "disposition": "retain-generic-vue",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001",
+        "NJDS-CMP-NUXT-001"
+      ],
+      "reason": "Heading, description-list, chip-label/removed React StatusBadge, step navigation and notification examples do not replace the existing generic Nuxt UI wrappers. Keep planned DADS coverage; verify keyboard/focus/accessible states and compiled theme in the existing browser fixture."
+    },
+    "forms": {
+      "disposition": "not-adopted",
+      "requirements": [
+        "DADS-V2-CMP-USAGE-001",
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "reason": "FormControlLabel layout, checkbox/radio baseline offsets, date/select/textarea Safari sizing and error controls belong to unadopted DADS-specific form implementations. Do not transplant React refs or HTML wrappers into unrelated Vue controls; retain planned coverage for future component-specific acceptance."
+    },
+    "interaction": {
+      "disposition": "not-adopted",
+      "requirements": [
+        "DADS-V2-CMP-A11Y-001"
+      ],
+      "reason": "Switch focus, page-navigation hover/active, modal focus typing, resource-link specificity, menu/search/tab ref updates apply to unadopted reference components. Preserve labelled/disabled/focus requirements for future Vue adoption, rather than claiming their reference tests certify Nuxt."
+    },
+    "images": {
+      "disposition": "not-adopted",
+      "requirements": [
+        "DADS-V2-CMP-USAGE-001"
+      ],
+      "reason": "Image caption color/margin and example-only assets are not copied or bundled by this module. No third-party image or logo rights are imported."
+    },
+    "reference-markup": {
+      "disposition": "reference-only",
+      "requirements": [
+        "DADS-V2-CMP-USAGE-001"
+      ],
+      "reason": "Reference markup examples change inherited typography, variants, sample labels and layout. They are not copied into the Vue module; generic wrappers remain independently tested and DADS-specific candidates remain planned."
+    }
+  },
+  "sources": [
+    {
+      "id": "tokens",
+      "base": "d532a91dfb13044a521a5a65ae288f1ba17fe4f4",
+      "head": "a96c66793fef07af96b16f5e87f688a263b66df0",
+      "commits": 7,
+      "changedFiles": 6,
+      "inventoryMethod": "complete GitHub compare response below the 300-file limit",
+      "comparisonUrl": "https://github.com/digital-go-jp/design-tokens/compare/d532a91dfb13044a521a5a65ae288f1ba17fe4f4...a96c66793fef07af96b16f5e87f688a263b66df0",
+      "files": [
+        {
+          "path": ".github/workflows/publish.yml",
+          "status": "modified",
+          "blob": "fcb25adbeb786a02cacb9d9cf1986f10b5fe8679",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".nvmrc",
+          "status": "added",
+          "blob": "6f4247a6255c99f420d1df558d68745592862ff7",
+          "decision": "build-docs"
+        },
+        {
+          "path": "README.md",
+          "status": "modified",
+          "blob": "19c4c95128e9e419bbc5eed8ed4e1acfdaf7d174",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples/tokens.css",
+          "status": "modified",
+          "blob": "f9ca8c46c4009eb27f08e7a0259fe58541114927",
+          "decision": "tokens-runtime"
+        },
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob": "cbf9b8c81a160522869390cdd7735c8e3ec0b55e",
+          "decision": "build-docs"
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob": "258ac33ff6a5af1d447380e2dbe6a7020e3fe401",
+          "decision": "build-docs"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "base": "7bbe005eba0e2b6e283380f3ed4377bef41280ad",
+      "head": "994c888f84fa5c29059b1b06288c999493e46721",
+      "commits": 12,
+      "changedFiles": 18,
+      "inventoryMethod": "complete GitHub compare response below the 300-file limit",
+      "comparisonUrl": "https://github.com/digital-go-jp/tailwind-theme-plugin/compare/7bbe005eba0e2b6e283380f3ed4377bef41280ad...994c888f84fa5c29059b1b06288c999493e46721",
+      "files": [
+        {
+          "path": ".github/workflows/publish.yml",
+          "status": "modified",
+          "blob": "fcb25adbeb786a02cacb9d9cf1986f10b5fe8679",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".nvmrc",
+          "status": "added",
+          "blob": "6f4247a6255c99f420d1df558d68745592862ff7",
+          "decision": "build-docs"
+        },
+        {
+          "path": "MIGRATION.md",
+          "status": "added",
+          "blob": "9c0e448cd69eade6ee010bb9b526a3cd2b77bd03",
+          "decision": "build-docs"
+        },
+        {
+          "path": "README.md",
+          "status": "modified",
+          "blob": "7c45adeb389d6ae69b5d286659f441b6e1a49095",
+          "decision": "build-docs"
+        },
+        {
+          "path": "biome.json",
+          "status": "modified",
+          "blob": "3d43ce8b09d2435be5667e8935faf7f8c9f00b13",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples-v4/.nvmrc",
+          "status": "added",
+          "blob": "6f4247a6255c99f420d1df558d68745592862ff7",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples-v4/package-lock.json",
+          "status": "modified",
+          "blob": "999ddaadf5099d25b94e1a3e4ca97d60f5bb8845",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples-v4/package.json",
+          "status": "modified",
+          "blob": "0f126ecae2003ee11c07ff1381924f971e00f2ad",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples-v4/src/tailwind-theme-plugin/v4.css",
+          "status": "modified",
+          "blob": "1dd631d7d9bf9079413c0b008c6baa91952b5f3f",
+          "decision": "theme-runtime"
+        },
+        {
+          "path": "examples/.nvmrc",
+          "status": "added",
+          "blob": "6f4247a6255c99f420d1df558d68745592862ff7",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples/package-lock.json",
+          "status": "modified",
+          "blob": "925e92ca646af6271767721183af8b8e0345615e",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples/package.json",
+          "status": "modified",
+          "blob": "2abd989b29c4d607d1eaade49ab30c8f80eccd94",
+          "decision": "build-docs"
+        },
+        {
+          "path": "examples/tailwind-theme-plugin/index.cjs.js",
+          "status": "modified",
+          "blob": "8c336ff429bbe9b8d133aa135af35220405b67fe",
+          "decision": "theme-runtime"
+        },
+        {
+          "path": "examples/tailwind-theme-plugin/index.es.js",
+          "status": "modified",
+          "blob": "f5290929db8e2c4f0751a0422582f418a3d2fcbc",
+          "decision": "theme-runtime"
+        },
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob": "26027a6cfced8bf5010bd2c1023bfb8b9fdae983",
+          "decision": "build-docs"
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob": "55387db7b6b7ca034b915e1f27015fe83ed2bf31",
+          "decision": "build-docs"
+        },
+        {
+          "path": "scripts/generate-theme.ts",
+          "status": "modified",
+          "blob": "e7c7e443fd0f7b928112bc59533224088e278bfb",
+          "decision": "theme-runtime"
+        },
+        {
+          "path": "scripts/generate-v4-theme.ts",
+          "status": "modified",
+          "blob": "9faf76b4e5e7494bd852094d6cd6a6adcb930322",
+          "decision": "theme-runtime"
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "base": "af8b6656c8d864a22ef444d088e5568f3416f6aa",
+      "head": "caa50d731cf515cfa5eae0093121f11ac5299235",
+      "commits": 72,
+      "changedFiles": 339,
+      "inventoryMethod": "git diff --raw --no-abbrev --no-renames; complete, including deletions and added paths",
+      "comparisonUrl": "https://github.com/digital-go-jp/design-system-example-components-html/compare/af8b6656c8d864a22ef444d088e5568f3416f6aa...caa50d731cf515cfa5eae0093121f11ac5299235",
+      "files": [
+        {
+          "path": ".agents/skills/develop-component/SKILL.md",
+          "status": "M",
+          "blob": "76fa4e785bbdb322d1de637d89b6761c4a60a837",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".agents/skills/write-document/SKILL.md",
+          "status": "M",
+          "blob": "f4fa6989248d734be3e5b354b27a36148fa580df",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/workflows/cleanup-pr.yml",
+          "status": "M",
+          "blob": "fc185cedb5c714913409c344a74e83b00c76bef7",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/workflows/deploy-pr.yml",
+          "status": "M",
+          "blob": "ce545658593bff434731a1db78348f14b39bbb01",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/workflows/deploy-prod.yml",
+          "status": "M",
+          "blob": "2ad0983d800aa6d1a3951101101d3abb887dc96c",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/workflows/deploy-stg.yml",
+          "status": "M",
+          "blob": "7679839310cbef97136050b22013270019da3265",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "status": "M",
+          "blob": "56e4b1f25b7042022aef45b2c6ae4db60d159e27",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".storybook/Link.tsx",
+          "status": "A",
+          "blob": "595156098cdfbc3c04294b1344b04b567e84598d",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".storybook/dads-md/index.mjs",
+          "status": "A",
+          "blob": "a94316a44898799dba48f9aae44314c4685eb9f0",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".storybook/dads-md/transform.mjs",
+          "status": "A",
+          "blob": "41e729a49b95763b0b75c5c43141414543347fb9",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".storybook/main.ts",
+          "status": "M",
+          "blob": "9ffc34b38acf3f4e4ad85cabda63a4dddd9b95fe",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".storybook/preview.ts",
+          "status": "M",
+          "blob": "f6559ae70ce1e68babc408b9bc74b8c06e2478e9",
+          "decision": "build-docs"
+        },
+        {
+          "path": "README.md",
+          "status": "M",
+          "blob": "031f87ac553b8acd479eb0a4027491f0e4c92545",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/accordion/accordion.md",
+          "status": "A",
+          "blob": "b0e1cccbe10b2a7a3d4c4317bfc1c21efeceda83",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/accordion/accordion.mdx",
+          "status": "M",
+          "blob": "73e1cfdd1eb51c7da5c948b3ab8d1a52f48652d1",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/blockquote/blockquote.md",
+          "status": "A",
+          "blob": "2b99074a954351b4fe254474b706602b6b5bada9",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/blockquote/blockquote.mdx",
+          "status": "M",
+          "blob": "8f661e828917aed249b415474e3f21d3008e8dbd",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/blockquote/multiple-paragraphs.html",
+          "status": "M",
+          "blob": "ea2f91b5c5c50398ec16d0c6fcb04687470f2af8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/blockquote/playground.html",
+          "status": "M",
+          "blob": "9f4bb822450ff0983a08a9effadebf80b371f8fd",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/blockquote/with-list.html",
+          "status": "M",
+          "blob": "17d69ff2468ba468715d5523021846be6d3f805d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/breadcrumb/breadcrumb.md",
+          "status": "A",
+          "blob": "61751e11b0093d973ec462f45513bab74a1a65fb",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/breadcrumb/breadcrumb.mdx",
+          "status": "M",
+          "blob": "37a42a207eb49eda5bf1c463a0acf13c849946ab",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/breadcrumb/plain.html",
+          "status": "M",
+          "blob": "7c009d6a1b769ff6f8a2b16fb15e8d9fde0d2f42",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/breadcrumb/with-home-icon.html",
+          "status": "M",
+          "blob": "67c36a3516797baad38f00db0d20bb07d51328e8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/breadcrumb/with-visible-label.html",
+          "status": "M",
+          "blob": "8a09229a89742969ed55188b3e1e493ce070808c",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/all-buttons-using-button.html",
+          "status": "M",
+          "blob": "1d006abc3bc875a46071dcaa5fb06f6db2170ff0",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/all-buttons-using-link.html",
+          "status": "M",
+          "blob": "df9725f1b1bec59f2809212d6da5a40e33611ff1",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/as-link.html",
+          "status": "A",
+          "blob": "0f15fd202bac0a434a94d22f5e5ce44a1d022694",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/button.md",
+          "status": "A",
+          "blob": "967b5b048c43c3e8e02b88877dfbbc0aea797f9d",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/button/button.mdx",
+          "status": "M",
+          "blob": "355408334068cf47cac1d73dd10aa3b28c6581be",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/button/button.stories.ts",
+          "status": "M",
+          "blob": "97d099d40a4d9a4708175152b2d332ba71ac1536",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/button/disabled-link.html",
+          "status": "A",
+          "blob": "1d459df506d0f76caccf13b90dc8cac2d1191bad",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/disabled.html",
+          "status": "A",
+          "blob": "7381c318c740baf5377d2c0bb3331bc2c72fb3ef",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/playground.html",
+          "status": "M",
+          "blob": "2398dd2ddee6a8e3a8195c05ffdb14d25770de49",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/button/with-icon.html",
+          "status": "A",
+          "blob": "8b40b17a903deb71167d4c2452f5ca4a9f8f65b5",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/calendar/calendar.md",
+          "status": "A",
+          "blob": "b0b522167e6a479dbbfdcaf30d2f27df846f9a13",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/calendar/calendar.mdx",
+          "status": "M",
+          "blob": "7ccaf80938b7ce8686f3d5bd735cc606fa84e532",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/calendar/playground.html",
+          "status": "M",
+          "blob": "b9c3998f41e97786cbebac74c23f266b43745db1",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/card/card.md",
+          "status": "A",
+          "blob": "44e2c4a2ae726e3882f9c4e0c0b1a57a864a2900",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/card/card.mdx",
+          "status": "M",
+          "blob": "b484c93e6bbf526d90dd5af43312acc9a97da879",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/card/example-1.html",
+          "status": "M",
+          "blob": "5aff1c20a6d9bb06dafdaa517bb6478b5e807ee8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/card/example-2.html",
+          "status": "M",
+          "blob": "f06d9075b9f99c547e96f0becaf37d17509933de",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/card/example-3.html",
+          "status": "M",
+          "blob": "ae9ec5585d1f0df81e9e3a355854c47d7fab1290",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/card/example-4.html",
+          "status": "M",
+          "blob": "18d174cfd58908f59c1b37722db1b2f7014cdd75",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/card/example-5.html",
+          "status": "M",
+          "blob": "f16b5f5503594548477d23c550c63747c02b055d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/card/example-6.html",
+          "status": "M",
+          "blob": "f8485d7f20a4e50bf2f47fdf61a1b7bb9e28fbac",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/carousel/carousel.md",
+          "status": "A",
+          "blob": "03bdd6fa267745232501d92be9960059869d4c26",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/carousel/carousel.mdx",
+          "status": "M",
+          "blob": "6a4892f250f87e7347114f8e583467bb8117d86e",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/carousel/container.html",
+          "status": "M",
+          "blob": "d7ffbe97faab7a7f9e9bf65287108e7223d610b9",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/carousel/key-visual-multi.html",
+          "status": "M",
+          "blob": "cb413df4263a1bc3048093140033a0e3a10d4818",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/carousel/key-visual-single.html",
+          "status": "M",
+          "blob": "cf0766858510907f67e7f17a55ceb156e7056d18",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/checkbox/all-checkboxes.html",
+          "status": "M",
+          "blob": "ab958dd812ad5192517d34f86fe0113cd0a6d15b",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.css",
+          "status": "M",
+          "blob": "8df8829f0c9318c94031115b495539bd92d7bc18",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.md",
+          "status": "A",
+          "blob": "c72422182cae566adf6e267a5eeed93d29017386",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.mdx",
+          "status": "M",
+          "blob": "531506d7d31365a965f68859e2b6159861002702",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/checkbox/checkbox.stories.ts",
+          "status": "M",
+          "blob": "d84f365371b5ca648376c4ccf2b0076c7a3fa3c0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/checkbox/errored.html",
+          "status": "M",
+          "blob": "2d296a61de2178aa35a3ee4ef9af205cd7d2ed41",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/checkbox/indeterminate.html",
+          "status": "M",
+          "blob": "80848aa772b02915067fa4cbbe4b298f0057c6d6",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/checkbox/playground.html",
+          "status": "M",
+          "blob": "67d4c26f4c091a49a4094f4317e8789b8af8dc30",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/checkbox/stacked.html",
+          "status": "M",
+          "blob": "c4684246063a3512bf1c4d4d07f4fbcf1f4d0d6b",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/checkbox/standalone.html",
+          "status": "M",
+          "blob": "7ee077ebebab690d9821fec0c11535a1c24cb2f4",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/chip-label/all-chip-labels.html",
+          "status": "M",
+          "blob": "a1fdf296103ecce9077c577e867d37374b1a399a",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/chip-label/chip-label.md",
+          "status": "A",
+          "blob": "59b3c4640c64d21f5bc4b4ed2763f05f2b803449",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/chip-label/chip-label.mdx",
+          "status": "M",
+          "blob": "c96b305e3565e997dd49db2243a6fbd6e12297b1",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/chip-label/chip-label.stories.ts",
+          "status": "M",
+          "blob": "6b78bce19ef5d6fdaf298673607c67a60794423c",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/chip-label/custom-color.html",
+          "status": "A",
+          "blob": "5597cd9970601f905e3805e889bd30e1bbeb73a5",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/chip-label/playground.html",
+          "status": "M",
+          "blob": "709df25333d7b2568a575601559d465083db5c21",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/chip-label/with-icon.html",
+          "status": "A",
+          "blob": "735abf955357544006a85c7cbb7bd5394ab8f27e",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/chip-label/without-icon.html",
+          "status": "A",
+          "blob": "9915d4608b5d5665894a92b98ba611eb24cab61e",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/date-picker/date-picker.css",
+          "status": "M",
+          "blob": "c09305dd61ea6f581ff64a17347f8a2825fdc1ef",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/date-picker.md",
+          "status": "A",
+          "blob": "490e356ca951bb67c0f0f13af634a16ecf0e6e10",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/date-picker/date-picker.mdx",
+          "status": "M",
+          "blob": "4300e81f9fb35d7a5f4a7dbc4d013c902e4eae85",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/date-picker/date-picker.stories.ts",
+          "status": "M",
+          "blob": "dec8ab68134d31668225f380a51020ce5077527b",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/date-picker/disabled.html",
+          "status": "A",
+          "blob": "ca942b88c0a9fef9777a31e5fadaf726286dd52e",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/error.html",
+          "status": "A",
+          "blob": "91a17cd353e5434e7eae5f2a05b74ea70450a62d",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/playground-consolidated-with-calendar.html",
+          "status": "A",
+          "blob": "a129b444141a8a9dad513aeb66ee3e2f4c611eb2",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/playground-consolidated.html",
+          "status": "M",
+          "blob": "64923ad47d724d921245af42df9a9a1dd17120ee",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/playground-separated-with-calendar.html",
+          "status": "A",
+          "blob": "a461705e0ce75f696f5c119e657130c725090d5e",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/playground-separated.html",
+          "status": "M",
+          "blob": "e11fd3d694ddbf5297a34ff8b20298c05252ccd9",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/readonly.html",
+          "status": "M",
+          "blob": "49693c0c891bd9b6cd8a29d5befab636eb103e2c",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/date-picker/with-form-control-label.html",
+          "status": "M",
+          "blob": "bff5e1f59f96a2f572cabf0aca96acb88ab904d6",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/description-list/bullet.html",
+          "status": "A",
+          "blob": "c0e9d1d1af4f4ca28ad799ac71d26f29937902de",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/description-list/custom-icon-marker.html",
+          "status": "A",
+          "blob": "073bb63f67c09afed2126d267389350462d7154c",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/description-list/custom-marker.html",
+          "status": "A",
+          "blob": "58c6d2f2b12bed21ab76980fbee0a1a69e5a86f7",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/description-list/description-list.md",
+          "status": "A",
+          "blob": "70fb0cdbed84e04c5404a0db78babf57ccd3a8a0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/description-list/description-list.mdx",
+          "status": "M",
+          "blob": "98390888c9674fa3f6bfd57807518f60d4631b94",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/description-list/description-list.stories.ts",
+          "status": "M",
+          "blob": "51970187e0e3c0ed833a43b3e48b118fb40acf36",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/description-list/playground.html",
+          "status": "D",
+          "blob": "0aa04175a0d28261ed9b8782d6e300ab7ff920b5",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/description-list/without-marker.html",
+          "status": "A",
+          "blob": "e7635c8bd09cc338f2dae73e9ab257a3bfb78ec9",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/disclosure/disclosure.md",
+          "status": "A",
+          "blob": "1588fef814af4d8e89112c038c3f8ac7ac2e8eb6",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/disclosure/disclosure.mdx",
+          "status": "M",
+          "blob": "e538ae6fb220dcc5d6ab430e2931fdaa5a3ed343",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/disclosure/playground.html",
+          "status": "M",
+          "blob": "7a779af007facf03ce40eee663aa8535e8f793f2",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/divider/all-dividers.html",
+          "status": "M",
+          "blob": "a095489da490e14f15e86e8cbd178dd6e3cd8d32",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/divider/decorative.html",
+          "status": "A",
+          "blob": "ae4f70f31879fcdfceec8815f7d692a2d5047110",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/divider/divider.md",
+          "status": "A",
+          "blob": "1c729cc3d8af2bcdb88650cef6efed1d48f7937d",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/divider/divider.mdx",
+          "status": "M",
+          "blob": "5385b08e7d04338a9568e9391df5d660e0bcba94",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/divider/divider.stories.ts",
+          "status": "M",
+          "blob": "d7fa87c47a7f62613117bfff0af3210616fac48e",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/divider/playground.html",
+          "status": "M",
+          "blob": "edb5dc23bcc8b90d927ebaef860891e7b4cccb9d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/drawer/drawer.md",
+          "status": "A",
+          "blob": "5162b2eb66f49d415869d8c311b65125ee44cdea",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/drawer/drawer.mdx",
+          "status": "M",
+          "blob": "205fa6edb18a408a8d5df01b5d17200c8a1944c0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/drawer/drawer.stories.ts",
+          "status": "M",
+          "blob": "70c06ea08fce7c1d937d6e21e7692b34e3cd2840",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/drawer/left.html",
+          "status": "A",
+          "blob": "83d02c7c4dbfa6a0397c44f29c407eb2e45ef9f5",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/drawer/playground.html",
+          "status": "D",
+          "blob": "5ad13537861bb178f4239d3f6ca1096085c64d33",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/drawer/right.html",
+          "status": "A",
+          "blob": "dbfae87351cd1a6447eb66d402f1baa5d79651af",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/emergency-banner/emergency-banner.css",
+          "status": "M",
+          "blob": "0cc7e23178a706a79ea7e52ba1d280bea5b2ba09",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/emergency-banner/emergency-banner.md",
+          "status": "A",
+          "blob": "7f691b5e19cd31bbc40aa5b6684a0b8fdadc13ee",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/emergency-banner/emergency-banner.mdx",
+          "status": "M",
+          "blob": "d80fee1fd5041fee954c4c69c7277ad3e5990784",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/emergency-banner/playground.html",
+          "status": "M",
+          "blob": "19919dc695fec4a518dad2bc5a129d9d17c3b716",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/file-upload/file-upload.md",
+          "status": "A",
+          "blob": "b3ff5cce7f78510f07f39afd7e055fa37a46a421",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/file-upload/file-upload.mdx",
+          "status": "M",
+          "blob": "71e5f6c7359f3395f5773be458f7d37c36790fdd",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/file-upload/file-upload.stories.ts",
+          "status": "M",
+          "blob": "abbd320d30e788f7e1c4fcd71c3b5fdb5d4c0aa0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/file-upload/non-expandable.html",
+          "status": "A",
+          "blob": "46f83c9353cb7dc0de920768b2c128469bc8b312",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/file-upload/playground.html",
+          "status": "M",
+          "blob": "4a1d8c58f44d1ff23902ce945a3e6ee8ed75bf6b",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/file-upload/single-file.html",
+          "status": "A",
+          "blob": "b77d64435bda4c41440f3533497d05c02d959abc",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/file-upload/with-error.html",
+          "status": "A",
+          "blob": "5eeffd6d6a5fbb58165021e4189173483041062a",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/file-upload/with-existing-files.html",
+          "status": "M",
+          "blob": "cd817d1bb74a93e0961160760d4afeaed23f783d",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/file-upload/with-form-control-label.html",
+          "status": "A",
+          "blob": "a30a0d4fadbe96bedebaa7eadc5050e657ed8e24",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/file-upload/without-drop-area.html",
+          "status": "A",
+          "blob": "5d62f63ce68d40c64ce528dee69b83c87f5978f7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/form-control-label/form-control-label.css",
+          "status": "M",
+          "blob": "5cf6b1ac47d20a49ecba6b5eed02c90d61e91405",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/form-control-label/form-control-label.md",
+          "status": "A",
+          "blob": "8253736bf294ad79914ccc322e4b38b38836b2cd",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/form-control-label/form-control-label.mdx",
+          "status": "M",
+          "blob": "2e406060d6b23a6985d5297f4a984c5e2ab78eab",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/form-control-label/form-control-label.stories.ts",
+          "status": "M",
+          "blob": "672eed791e17e7ca8790f25822b3f3bfef013ce5",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/form-control-label/form-control-label.vrt.js",
+          "status": "M",
+          "blob": "318360b41e39506140b42ca88a5727771f3d3967",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/form-control-label/horizontal.html",
+          "status": "A",
+          "blob": "cf4284b539b8e0dbacfdedd07e3e60fad42f802c",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/form-control-label/multiple.html",
+          "status": "M",
+          "blob": "a6267dfe56176489ae423cf0ef3ec6e69996c9c7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/form-control-label/single.html",
+          "status": "M",
+          "blob": "2003a988829c79656c429ab53cf662f10e9658b7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/hamburger-menu-button/hamburger-menu-button.md",
+          "status": "A",
+          "blob": "92fa021d62da96e1a838289b2b8f7a5b91471c2b",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/hamburger-menu-button/hamburger-menu-button.mdx",
+          "status": "M",
+          "blob": "68b797dbe853bd06605c883f5f1afaf447d58f18",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/hamburger-menu-button/hamburger-menu-button.stories.ts",
+          "status": "M",
+          "blob": "33fef67149c5be3d7254d518eb6733025633a96f",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/hamburger-menu-button/icon-button.html",
+          "status": "A",
+          "blob": "fd8a1ea512bb4ef80438f8799c4405fa7fba1472",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/hamburger-menu-button/text-button.html",
+          "status": "A",
+          "blob": "25f4fd500f80c55fd9d0c23b2b9f94b917262ac3",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/heading/basic.html",
+          "status": "A",
+          "blob": "e8c7170297b5d03193b55c80ddc0f5ff0cd4ee54",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/heading/heading.md",
+          "status": "A",
+          "blob": "8c450991e1ed19b2a29145a19e57d397403be8b0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/heading/heading.mdx",
+          "status": "M",
+          "blob": "016fa6af6e224a88619cccd5b50e480522c22552",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/heading/heading.stories.ts",
+          "status": "M",
+          "blob": "f75d91160e07676dc6b77db0db4ac1dd0d14cb7f",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/heading/playground.html",
+          "status": "M",
+          "blob": "d0540f07c8ac50d96045c936dc13728e7ca0740a",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/heading/with-chip.html",
+          "status": "A",
+          "blob": "ffe22ef37e25111bf543130c5e736b22a0d234b8",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/heading/with-icon.html",
+          "status": "A",
+          "blob": "5da09d008b0698e49794b4488875ea9bce134bbf",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/heading/with-rule.html",
+          "status": "A",
+          "blob": "97d06baf9514c8ce7a11a78654a7dc1df8339157",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/heading/with-shoulder.html",
+          "status": "A",
+          "blob": "abf73d9649debc282498062d5cf92a938a8d48d5",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/horizontal-menu/horizontal-menu.md",
+          "status": "A",
+          "blob": "0a023faa9cf217c62b6439a1ce1f83e6a8a19230",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/horizontal-menu/horizontal-menu.mdx",
+          "status": "M",
+          "blob": "f583b3a445f67720ab72aa07610d78f7b20494a8",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/horizontal-menu/horizontal-menu.stories.ts",
+          "status": "M",
+          "blob": "dfb1cdbbbedb1b4e5f985b0316e137d6a94ef588",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/horizontal-menu/links-only.html",
+          "status": "A",
+          "blob": "8215b6161b3de6e4f97995562b18aecc4efc1d4b",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/horizontal-menu/playground.html",
+          "status": "M",
+          "blob": "70de81d4807803303f1b027a036c721925c23dc5",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/horizontal-menu/submenu-button.html",
+          "status": "A",
+          "blob": "a01bf68809fcd1a19441620edb585f1a49fb1fba",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/image/borderless.html",
+          "status": "A",
+          "blob": "c2ca53a5fb3ca3b633079d35be33550db973654b",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/caption-solid.html",
+          "status": "A",
+          "blob": "c2df6ab758cf90d0f3979c6e6c09823d21b2fb03",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/full-width.html",
+          "status": "A",
+          "blob": "469c489a2da41a4a3e52631da62b40ab8dddb765",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/image.css",
+          "status": "M",
+          "blob": "b29d3884daff2901297969557e7dba1ab5934d5b",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/image.md",
+          "status": "A",
+          "blob": "c03ed85b73d622d97d8966e4df55446106726384",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/image/image.mdx",
+          "status": "M",
+          "blob": "e931adb02ac15ab42bbcb5a812529ec430c5baa4",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/image/image.stories.ts",
+          "status": "M",
+          "blob": "6dc6bc26c6882311503f946d2865cfbc01bf34f2",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/image/playground.html",
+          "status": "M",
+          "blob": "1d35ec68256a82bba9f3eff02164b7a8f3d9520a",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/with-link.html",
+          "status": "A",
+          "blob": "5d411a44d193ef48a11c6900c288415c975f25c7",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/with-picture-element.html",
+          "status": "M",
+          "blob": "83e7a75fc4de4b684402b72c02986d17a70bad1f",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/image/without-caption.html",
+          "status": "A",
+          "blob": "1f7b8c1f611c2f4a6619949e972782bb5d7178d1",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/input-text/basic.html",
+          "status": "A",
+          "blob": "135d7d79030a7238e91c99cce006f22bcc622751",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/input-text/disabled.html",
+          "status": "A",
+          "blob": "bed7968e83241a7a735134318147e68f0a05e32c",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/input-text/errored.html",
+          "status": "A",
+          "blob": "b266efe282c570675e1b423541666724318bbd8d",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/input-text/input-text.md",
+          "status": "A",
+          "blob": "b43c4ebaad12e042087f992a17837d13e8fa2422",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/input-text/input-text.mdx",
+          "status": "M",
+          "blob": "4a9e3824a431215f897b920619d0106796d182ce",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/input-text/input-text.stories.ts",
+          "status": "M",
+          "blob": "fa0f47e09befc37dcf09405ba76f4506105c013d",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/input-text/playground.html",
+          "status": "D",
+          "blob": "a4d3db79b4d79ad7495b1e0dc3c1b46afa469af7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/input-text/readonly.html",
+          "status": "M",
+          "blob": "4a2fb40a1bc52ff9a1de00b025fb947522dd1fcc",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/input-text/with-form-control-label.html",
+          "status": "M",
+          "blob": "820aa572aed8b7d5ec392711e4600605165f11f0",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/language-selector/language-selector.md",
+          "status": "A",
+          "blob": "aa69dab5efa00bc9a4b09160150365b38a756d14",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/language-selector/language-selector.mdx",
+          "status": "M",
+          "blob": "7ec246095d06b52213569f4299970df97a43ea7d",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/language-selector/playground.html",
+          "status": "M",
+          "blob": "53f82a7a6826f92508ff843db5ec8ffd560c8d25",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/link/link.md",
+          "status": "A",
+          "blob": "541a339fa67300a2a0360cf6d5555ea58efd8bbc",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/link/link.mdx",
+          "status": "M",
+          "blob": "c735d7b3c7ac0757a741ca1edde7a11dba2ad57a",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/link/link.stories.ts",
+          "status": "M",
+          "blob": "48ac56b3d59dd1c0554d38545acf919697d1d501",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/link/new-tab.html",
+          "status": "A",
+          "blob": "4d678ac8041ff078a126c4b2b29189c501141e9f",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/link/playground.html",
+          "status": "M",
+          "blob": "dc2aa72e9aa6eb40cc1710739480e191f9f6503b",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/list/all-lists.html",
+          "status": "D",
+          "blob": "6d50777bfdba0cc7ea988d1d3b3f57cf8f82d0c0",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/list/bullet.html",
+          "status": "A",
+          "blob": "e4e8a2809600d53af4289d850acf90250cd5254d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/list/custom-marker-format.html",
+          "status": "A",
+          "blob": "936ed1923c5c21b53928a0826fe56843749dcdcd",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/list/list.md",
+          "status": "A",
+          "blob": "3e68fc3935481656c97de66d84d10f71f4e35960",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/list/list.mdx",
+          "status": "M",
+          "blob": "51f05df6bdbadc7e6437370f3feabb5274a4c64c",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/list/list.stories.ts",
+          "status": "M",
+          "blob": "4ec4187c3db3ac8ce60385afe2ffe740f79f887e",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/list/nested.html",
+          "status": "A",
+          "blob": "bde233914486940386b40250b9a7fd873df8b52a",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/list/numbered-with-links.html",
+          "status": "A",
+          "blob": "4bf2f0cd4990d556ca1fc9dbf55e8daf0470ee57",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/list/numbered.html",
+          "status": "A",
+          "blob": "16857f57542ee305bd469e38ba25b272ce4ae193",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/menu-list-box/menu-list-box.md",
+          "status": "A",
+          "blob": "7f63936b3854ed67df29808f0bd18b473a2deb09",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/menu-list-box/menu-list-box.mdx",
+          "status": "M",
+          "blob": "a6b8ae73545aea96c810a19a83a58f502e0a538b",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/menu-list/basic.html",
+          "status": "A",
+          "blob": "e4f3ea15c677d840aa21669a558a9d0b205ef868",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/menu-list/menu-list.md",
+          "status": "A",
+          "blob": "ded3be14d15cfb7c2760166f76421cba746007ac",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/menu-list/menu-list.mdx",
+          "status": "M",
+          "blob": "63b46b7337d615d2c003a02f14df8e98807c4938",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/menu-list/menu-list.stories.ts",
+          "status": "M",
+          "blob": "5a8977ad28263e4f6a71b8e97f35d687e341d8d3",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/menu-list/playground.html",
+          "status": "M",
+          "blob": "48ed47d8fade3851cfbb3f9b9309cdadc39c3043",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/modal-dialog/fixed-width.html",
+          "status": "M",
+          "blob": "5369c84ca15d9cab52f665abc29936e138c02ded",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/modal-dialog/full-width.html",
+          "status": "A",
+          "blob": "dfe5a07f85599f7feb0b09f4c68e8a8b7dceee96",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/modal-dialog/inner-scroll-with-fixed-actions.html",
+          "status": "M",
+          "blob": "6554ffa77da776605c4226a2279fb43c13597eb9",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/modal-dialog/inner-scroll-with-fixed-both.html",
+          "status": "M",
+          "blob": "5744f49575eb1157761968739fe4da8bad7d3e09",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/modal-dialog/inner-scroll-with-fixed-header.html",
+          "status": "M",
+          "blob": "d9765977530351b1a70982d0554443c08d48e472",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/modal-dialog/inner-scroll.html",
+          "status": "M",
+          "blob": "5a29919172ea352fdcc56e9af3b0d65e3c9b50e9",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/modal-dialog/modal-dialog.md",
+          "status": "A",
+          "blob": "90b71331ffb43c4da88f4b586db1576f82a24163",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/modal-dialog/modal-dialog.mdx",
+          "status": "M",
+          "blob": "9631b8527f76646b38e97382da9393bb29c9e1d0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/modal-dialog/modal-dialog.stories.ts",
+          "status": "M",
+          "blob": "add38d535dc7d23eff7c94bf1e796d42cf1c9cd5",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/modal-dialog/playground.html",
+          "status": "M",
+          "blob": "c56a0b917b02cc69dd331b078367693f70a57aae",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/notification-banner/color-chip.html",
+          "status": "A",
+          "blob": "ccc478846ee86584e47c38f6d05e1dade4e99490",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/notification-banner/error.html",
+          "status": "M",
+          "blob": "a45218ff7198cfe6c9999c11b7395c802c858ad9",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/notification-banner/info-1.html",
+          "status": "M",
+          "blob": "b2d98b34f4ed6c47f3dfad886f8c7cbc60769bfb",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/notification-banner/info-2.html",
+          "status": "M",
+          "blob": "bee0b512d4d7eab0aeee7b9ac5fd380c158a1c6d",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/notification-banner/mobile-compact.html",
+          "status": "M",
+          "blob": "3bc688f72f5d90f4a808cbad3fdfa4f9facab9ae",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/notification-banner/notification-banner.md",
+          "status": "A",
+          "blob": "21b0280b1f4b41b5057c461c16f12155c9147c93",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/notification-banner/notification-banner.mdx",
+          "status": "M",
+          "blob": "c375a3b2a2f0ce4718851fda96e15635d596e417",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/notification-banner/notification-banner.stories.ts",
+          "status": "M",
+          "blob": "67df939e3b4c8f002cd37c28d436e455fa046337",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/notification-banner/success.html",
+          "status": "M",
+          "blob": "ca7bb1efb62a3a39793d5b95813e645c2ac59bb3",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/notification-banner/warning.html",
+          "status": "M",
+          "blob": "6e0e76859d0c612a12789cb07775a651a09214cc",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/page-navigation/arrow-button.html",
+          "status": "M",
+          "blob": "9db532a654f80d34135d02dcd76fca30b67cbeb4",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/page-navigation/first-page.html",
+          "status": "A",
+          "blob": "95e86d67cc22119fe103ef5eb3ca74c67a4affbe",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/page-navigation/last-page.html",
+          "status": "A",
+          "blob": "78ef8cecb68103f8123064058197e289c96cdf3b",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/page-navigation/outlined-button.html",
+          "status": "M",
+          "blob": "fe3ac7566c83e5c22bf657c8d45958c51239edd2",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/page-navigation/page-navigation.md",
+          "status": "A",
+          "blob": "d526c2aaeb8e104def1a8e18dd2b4b4e2401480a",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/page-navigation/page-navigation.mdx",
+          "status": "M",
+          "blob": "cfd79c5e87dcf5b65a67590cf278f21b810576c3",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/page-navigation/page-navigation.stories.ts",
+          "status": "M",
+          "blob": "aeb218e3d21ae6633d803a33484b1fc0680b7fbb",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/page-navigation/text-button.html",
+          "status": "M",
+          "blob": "71016c718ec3d0ff726f4c3f997a0a6ef16ef074",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/progress-indicator/interactive-demo.html",
+          "status": "M",
+          "blob": "f79557423bca338b2b234036859475d3061af29d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/progress-indicator/linear-fill.html",
+          "status": "M",
+          "blob": "f10506308c3c4908d1ad09dd7d8a57ba665daeb5",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/progress-indicator/linear-loop.html",
+          "status": "M",
+          "blob": "33e9111cd3e98551838f4d7c618f230908286a0c",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/progress-indicator/progress-indicator.md",
+          "status": "A",
+          "blob": "55b1b793f3a43ec363899525bc497252fe6c8e75",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/progress-indicator/progress-indicator.mdx",
+          "status": "M",
+          "blob": "13adade5a959c504df6d06d90d5553ba6e0c19e7",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/progress-indicator/spinner-fill.html",
+          "status": "M",
+          "blob": "a520a78831e735bbe75391d1d440be78d2fc93e8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/progress-indicator/spinner-loop.html",
+          "status": "M",
+          "blob": "b6ec9e98f286a935873eebd0ba3cfee125156f7c",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/progress-indicator/static.html",
+          "status": "M",
+          "blob": "00d8b56c52f75adfcee5fee9490f2351f53d2f1d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/radio/all-radios.html",
+          "status": "M",
+          "blob": "06a3771f52b53327a62837be194049d36c8f5b42",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/radio/errored.html",
+          "status": "M",
+          "blob": "e5cb076306663ac00f4eb8a518a354a8819281c6",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/radio/playground.html",
+          "status": "M",
+          "blob": "be0eee0df8ac603a93a2fb1c76aeaeaabe1aa3a1",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/radio/radio.css",
+          "status": "M",
+          "blob": "9f8f590899b42a034f9485b1d37a360447a17c95",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/radio/radio.md",
+          "status": "A",
+          "blob": "b62b2920aadc55b55d0568431709dc36ec29e48d",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/radio/radio.mdx",
+          "status": "M",
+          "blob": "1a187ab266293651fe2f5bdc4c7ddcb8cfec0bbb",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/radio/stacked.html",
+          "status": "M",
+          "blob": "d6ea0fea690a8638609838fbadd0415d71cfb9c2",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/radio/standalone.html",
+          "status": "M",
+          "blob": "d7e822c8102a313d54f2a077cecb756e0fbaa73b",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/resource-list/multiple-items.html",
+          "status": "M",
+          "blob": "f00cf2a0e0f47e2a44fa9aa4bee3a89270572c8f",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/plain-with-inline-link.html",
+          "status": "A",
+          "blob": "ae2be35bfc8b4f50eab058fcfe8b42266d16dc37",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/plain-with-whole-link.html",
+          "status": "A",
+          "blob": "6ebb07cc360d4375794067a2af2d9e24533a2a69",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/plain.html",
+          "status": "A",
+          "blob": "47f44610f864b9d49eefe84960e87452ddd3005a",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/playground.html",
+          "status": "D",
+          "blob": "0bf9d1db248d5fd55669904f089271c109810caa",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/resource-list.css",
+          "status": "M",
+          "blob": "ce3fc83a0d686bb2a7b1fd44bb399068b64b0fc4",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/resource-list.md",
+          "status": "A",
+          "blob": "b6257708a699fb738dc602908cf80e2859a17500",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/resource-list/resource-list.mdx",
+          "status": "M",
+          "blob": "d695cbf189c112ed3084defc1221abe86dd7b52c",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/resource-list/resource-list.stories.ts",
+          "status": "M",
+          "blob": "bdab10f15122a7154c0bba849ea1690c13eb9c32",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/resource-list/resource-list.vrt.js",
+          "status": "M",
+          "blob": "dced5c3eec43fd77ff44a6dc479a5a77f8612820",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/selectable-with-inline-interaction.html",
+          "status": "A",
+          "blob": "482fa9b71f880defbe7ab3f8ed37f26356d1ece9",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/selectable-with-whole-interaction.html",
+          "status": "A",
+          "blob": "a2ba63377e71f1c8ec00826b69a641a8bff26607",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/resource-list/with-control.html",
+          "status": "D",
+          "blob": "081c0e3ba6a4ea9bc58fe358cf0e1488e6df57e8",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/search-box/playground.html",
+          "status": "M",
+          "blob": "75246e09ab33b5bdfbcef34a23374a55e4d0e532",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/search-box/search-box.md",
+          "status": "A",
+          "blob": "e55db586124cd925caf09336728512f54676321f",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/search-box/search-box.mdx",
+          "status": "M",
+          "blob": "e1f3ae42dd33bf81588aadc49010f669d2f190db",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/search-box/search-box.stories.ts",
+          "status": "M",
+          "blob": "028b946210782812cc5ef74e223f614001434ef1",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/search-box/with-detail.html",
+          "status": "M",
+          "blob": "ffd5f16b2e595cdbfc792784bb7cd14cca83a422",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/search-box/without-select.html",
+          "status": "A",
+          "blob": "8f8ca1460998a7ee338f769e0faa65efbe300258",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/select/disabled.html",
+          "status": "A",
+          "blob": "e510908b6632de8da1aee789f7b67f12ee540dd4",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/select/error.html",
+          "status": "A",
+          "blob": "4bf5439a013abf0447ee9d8671cf66d5d911845b",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/select/optgroup.html",
+          "status": "A",
+          "blob": "c8957441755328c678b4508f3dcb05c0be34a3e6",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/select/playground.html",
+          "status": "M",
+          "blob": "f47d2bee8b5e43fa25d7df55bdc7df0fcb79b9c5",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/select/select.css",
+          "status": "M",
+          "blob": "26b413f941d17c0ac906c4b0c3df5609a8f50b51",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/select/select.md",
+          "status": "A",
+          "blob": "b54819f80d121cc5fb39599c779bc6288e803477",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/select/select.mdx",
+          "status": "M",
+          "blob": "eca364ec5fc06b9414b3307262aeecf41c01e30a",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/select/select.stories.ts",
+          "status": "M",
+          "blob": "cbef8a6162da59681d5c0a69258fb6e62e0f58fa",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/select/with-form-control-label.html",
+          "status": "M",
+          "blob": "68e118e790d3393181d4ce2a5acd89a52a756570",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/step-navigation/as-navigation.html",
+          "status": "A",
+          "blob": "bd2ca6f07291ce0664234f66df6c5ae2200d2fa4",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/number-only.html",
+          "status": "A",
+          "blob": "4f330468d2c60685795f89f89dbccd43b061f587",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/playground-full.html",
+          "status": "D",
+          "blob": "8f55d3fd7144f576c812373b86ae9bc8303f15a6",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/playground-single.html",
+          "status": "D",
+          "blob": "7775f5596e24d423a1045fa72056ec0f575ed39f",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/playground.html",
+          "status": "A",
+          "blob": "32bfcce55f93dc0d7a9717fa977aeb4608029e73",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/set-step-width.html",
+          "status": "A",
+          "blob": "0cb91818b58a8f92798c2089c363f9d9c5bcee0d",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-completed.html",
+          "status": "A",
+          "blob": "e8c2233abebf2e0e63450bfe12f80c7dc10c229d",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-default.html",
+          "status": "A",
+          "blob": "7dd38db9ecd8e6378ec395ab377ecba608686b08",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-editing.html",
+          "status": "A",
+          "blob": "e2011e5f6bc23cf57728262e41266a10d5a02e01",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-error.html",
+          "status": "A",
+          "blob": "c970b03bf16e39d880f93fa08c52f333ada9066a",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-navigation.css",
+          "status": "M",
+          "blob": "0a6cfa317ee06907eee235733ad6eea74eec3d44",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-navigation.md",
+          "status": "A",
+          "blob": "79e77a1b675b9a0954e1a2cdf35861514b337907",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/step-navigation/step-navigation.mdx",
+          "status": "M",
+          "blob": "21f2df970cd31b3ee71f82d7700391cb5a71332c",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/step-navigation/step-navigation.stories.ts",
+          "status": "M",
+          "blob": "790969a65fd59f57cdc52c293818efa900f228a8",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/step-navigation/step-navigation.vrt.js",
+          "status": "M",
+          "blob": "c639ce34552a4442241ee8f1950d48b4ee81bb2a",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-reached.html",
+          "status": "A",
+          "blob": "34f1a3905e800ec3dc425e1676255d2d89da07ad",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/step-navigation/step-skipped.html",
+          "status": "A",
+          "blob": "1d6e7523ef8f0cf35ac3f3f69869ac69aa2c9cd3",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/switch/playground-mode.html",
+          "status": "M",
+          "blob": "5fb652686745a9c534ffb2c23881e0cce616d1d3",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/switch/playground-on-off.html",
+          "status": "M",
+          "blob": "3d98e40e9513e580d916632acb72feb5ac1ed8fe",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/switch/switch.md",
+          "status": "A",
+          "blob": "a92b915e0065b13069a2ff4a650bb36df44977b1",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/switch/switch.mdx",
+          "status": "M",
+          "blob": "56b9c81dfae853fbb92958cabddab1e0dc71cac0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/switch/with-form-control-label-mode.html",
+          "status": "M",
+          "blob": "4420038709f83fc6f2ec0018c2bc99f503c91aca",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/switch/with-form-control-label-on-off.html",
+          "status": "M",
+          "blob": "c991f7ffb46f43f0b09fc9463ab7ef89fee700da",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/basic-aria.html",
+          "status": "A",
+          "blob": "bcdf3108d16dddc3bf22708e89563f989ebf440d",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/basic-static.html",
+          "status": "A",
+          "blob": "dfda03417cad652159c1a2ae2e42213b3c4e415e",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/basic.html",
+          "status": "A",
+          "blob": "1917470188ed11aa0c988dc4f613395748ab5ae1",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/example.html",
+          "status": "M",
+          "blob": "e3030780d422c3ba08200591b2f50cf63a13b202",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/playground-aria.html",
+          "status": "M",
+          "blob": "cf69e701460f6ad64937bffb46ec7cd98cf2e62b",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/playground-static.html",
+          "status": "M",
+          "blob": "cfa83c98b736cca82c9d5a91b37f8cdfaec5f3a0",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/playground.html",
+          "status": "M",
+          "blob": "2bc7d84b8cdd63719a27aed911702c8bf8d518eb",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/tab/tab.md",
+          "status": "A",
+          "blob": "09a8f5c1cc00f691983910a52377604243d47de2",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/tab/tab.mdx",
+          "status": "M",
+          "blob": "115fc173c4ed09dbe22ec1f90533475e45bcf492",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/table/border-on-row-and-column.html",
+          "status": "M",
+          "blob": "743f6ceb4495f1283f07e36aac12e4ec47268a5b",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/condensed-table.html",
+          "status": "M",
+          "blob": "b8c769f2256c42ac513b1edfe61506dae67c62b2",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/example.html",
+          "status": "A",
+          "blob": "1414f888e8c62e37a750a09c3fd49e68de5f3a33",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/first-column-as-header-cell.html",
+          "status": "M",
+          "blob": "099b336fc15b6442cc3cb6284a4efd2a04c3f067",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/first-row-and-column-as-header-cell.html",
+          "status": "M",
+          "blob": "a092d4d87c8678378d2ea58b530398e26ecf62e9",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/first-row-as-header-cell.html",
+          "status": "M",
+          "blob": "67ab28fcb25973f5610c0a4e9a3872a2016bd330",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/highlight-hovered-row.html",
+          "status": "M",
+          "blob": "ce56eacdb21e1e8172d8b20b199ae9b3f64747d8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/indented-rows.html",
+          "status": "M",
+          "blob": "af3e1fe7e1629e9d20c2becf450e58557338c0b8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/linked-text-in-cell.html",
+          "status": "M",
+          "blob": "60f7c143eb3b0fb8e13e3411fc6c2fb1a530b99a",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/overflow-on-mobile.html",
+          "status": "M",
+          "blob": "9c2f7caa926d472706d88b679d6b6b224aae8063",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/plain.html",
+          "status": "M",
+          "blob": "8e4dce30e8773e351066138786acfb8de6a201ab",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/playground.html",
+          "status": "M",
+          "blob": "3fe1201acdba6853b3f67ce39b5caa7c78a94c4c",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/selectable-table.html",
+          "status": "M",
+          "blob": "1c352a7b72d81978eeec14b0917682ffd0f5083c",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/sortable-header-dense.html",
+          "status": "M",
+          "blob": "1b4e9879d328845a9fa4e30b8c411ca81480ff90",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/sortable-header.html",
+          "status": "M",
+          "blob": "70daaa4ab73319115d845fc38d936f18a71df385",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/stripe-table.html",
+          "status": "M",
+          "blob": "40c6720fce98949214fb5d460e85b7e8e3248211",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/table-header-with-colspan.html",
+          "status": "M",
+          "blob": "8d094dd4b2539d0576c15c29cc03c6ad084ca50f",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/table-header-with-rowspan.html",
+          "status": "M",
+          "blob": "d95d2c0c5c6fbeb7023f528a90bbaddfd3877792",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/table/table.md",
+          "status": "A",
+          "blob": "d28023b18d9ae5f7356b0757e845cb600b11fbcd",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/table/table.mdx",
+          "status": "M",
+          "blob": "f578c18d7a8add00838e584ff0fd99a0a92c11e2",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/table/table.stories.ts",
+          "status": "M",
+          "blob": "c044dcc01fd54f7d2462adda17c92cf864c2a8c2",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/table/with-caption.html",
+          "status": "M",
+          "blob": "95cb74ecd86cfa79fb3d9d9434860655ad49f8e2",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/textarea/basic.html",
+          "status": "A",
+          "blob": "0bb2d682f03939d814bb0731e48e8d05711f2564",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/disabled.html",
+          "status": "A",
+          "blob": "26ec419e179275e409a39d51a93770df795043bf",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/errored.html",
+          "status": "A",
+          "blob": "fe957a8800fbbb9ea65fdebea6683ae00458db22",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/playground.html",
+          "status": "D",
+          "blob": "42437a19a82ca48add8a3b0ab4d89c7b48e8da8c",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/readonly.html",
+          "status": "M",
+          "blob": "1b3522ed92864446248a76991d0e75a97577dd08",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/textarea.css",
+          "status": "M",
+          "blob": "bfc18c9937b016dabe656c24ca8f89dc6d90488c",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/textarea.md",
+          "status": "A",
+          "blob": "b619e00526d7f9d5c2bfed1a20db7589ac93b25a",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/textarea/textarea.mdx",
+          "status": "M",
+          "blob": "b83f1c2ffbc7c71cb15eaa7a5bb7d4237d550663",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/textarea/textarea.stories.ts",
+          "status": "M",
+          "blob": "1435ec2e50feb53df6315407821930df86403320",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/textarea/with-counter.html",
+          "status": "M",
+          "blob": "61ae3cb2f7ff545bf94255d1e17548e30442da21",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/textarea/with-form-control-label.html",
+          "status": "M",
+          "blob": "2340141d5a403f0ee37ecda56b32d0e41bc7388d",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/toc/nested.html",
+          "status": "M",
+          "blob": "fb8c85cd5f2f16cf8aac5b2b7d5c2af049d0bd6c",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/toc/playground.html",
+          "status": "M",
+          "blob": "134af040317c52dd24017142288db9d5120d4dd7",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/toc/toc.md",
+          "status": "A",
+          "blob": "9d1d0896ec7dfc7039e561a0cca8619ca2c9d946",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/toc/toc.mdx",
+          "status": "M",
+          "blob": "33d0ba4662d9dd6cc19990ba44c4fceed44dd9df",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/toc/toc.stories.ts",
+          "status": "M",
+          "blob": "63917365aeea497ff2fa422256660b3a70a8c0b3",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/utility-link/basic.html",
+          "status": "A",
+          "blob": "e580e4455272b75a3052cea8386015d0d5f2e00a",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/utility-link/multiple.html",
+          "status": "M",
+          "blob": "3ab7006c57775714b68516859dd97dc38c452b8d",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/utility-link/playground.html",
+          "status": "M",
+          "blob": "3c3b9bb299baae3bd0c20a62b242ad85f36d5f54",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/utility-link/utility-link.md",
+          "status": "A",
+          "blob": "3565972ed4cc1e0da27c401f6d747d031f97e987",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/utility-link/utility-link.mdx",
+          "status": "M",
+          "blob": "4e4d6e959dfdf1e117b2d06964f656baa9a71b72",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/utility-link/utility-link.stories.ts",
+          "status": "M",
+          "blob": "1df69a8cf17e887aa6e79d8fb1b0a2a370432c73",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/utility-link/with-lead-icon.html",
+          "status": "A",
+          "blob": "5fb85fda9b8824e725fe790274454bc88f46ee19",
+          "decision": "reference-markup"
+        }
+      ]
+    },
+    {
+      "id": "react",
+      "base": "68b452e16d40ffaebcb195a7289696f88890cc3e",
+      "head": "e637c6820a8ceb5b1c28719e3260afdab89c2b57",
+      "commits": 20,
+      "changedFiles": 78,
+      "inventoryMethod": "complete GitHub compare response below the 300-file limit",
+      "comparisonUrl": "https://github.com/digital-go-jp/design-system-example-components-react/compare/68b452e16d40ffaebcb195a7289696f88890cc3e...e637c6820a8ceb5b1c28719e3260afdab89c2b57",
+      "files": [
+        {
+          "path": ".agents/skills/component-rules/SKILL.md",
+          "status": "modified",
+          "blob": "4b757d295a412e1de7f1afeb8dbcdf4e43f8cd16",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".agents/skills/review/SKILL.md",
+          "status": "modified",
+          "blob": "25c79f546d278b7f7b99f5f9b6576364f5428a7d",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/PULL_REQUEST_TEMPLATE/release_template.md",
+          "status": "modified",
+          "blob": "3dcb8b6e8ae42fb70f3d061fa513276f587ace79",
+          "decision": "build-docs"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "status": "added",
+          "blob": "277a0b0c5174d1d223adf1c48e7043c46cb00baa",
+          "decision": "build-docs"
+        },
+        {
+          "path": "AGENTS.md",
+          "status": "modified",
+          "blob": "5fc90c40c83f0d6ebf9775a98a3ccf5ca92a4a2e",
+          "decision": "build-docs"
+        },
+        {
+          "path": "README.md",
+          "status": "modified",
+          "blob": "35ce1fd4eafc311cfc7395d9f64f378fdd3cb110",
+          "decision": "build-docs"
+        },
+        {
+          "path": "docs/using-with-react-v18.md",
+          "status": "added",
+          "blob": "a120621bedf01923356343f98310180ea3ade703",
+          "decision": "build-docs"
+        },
+        {
+          "path": "package-lock.json",
+          "status": "modified",
+          "blob": "cb117e94be6daa2c453a70cdfba978c42a7acddf",
+          "decision": "build-docs"
+        },
+        {
+          "path": "package.json",
+          "status": "modified",
+          "blob": "51b217b847d966a8a80ec3e767b8bf8dc45050e3",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Button/Button.tsx",
+          "status": "modified",
+          "blob": "265ebb65f426d4d53f7cdc68fcaa695c883492e8",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/Checkbox/Checkbox.stories.tsx",
+          "status": "modified",
+          "blob": "84db34cc344d82eefc850bb541f19e36392d61a1",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Checkbox/Checkbox.tsx",
+          "status": "modified",
+          "blob": "40048d4e8f4cce71a37e7f315f61232ec8464276",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/DatePicker/DatePicker.stories.tsx",
+          "status": "modified",
+          "blob": "e06774ddf17878903fb3541dad66baac206418f4",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/DatePicker/DatePicker.tsx",
+          "status": "modified",
+          "blob": "2cc642d2c348a815eefc958a562d66a7e3a36dd9",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/DatePicker/parts/DatePickerCalendarButton.tsx",
+          "status": "modified",
+          "blob": "cb0732d3946c093bab11142c4a503a6653ce600d",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/DatePicker/parts/DatePickerDate.tsx",
+          "status": "modified",
+          "blob": "740b10d7ea90de770e3d68ff4ae1e97693d58b34",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/DatePicker/parts/DatePickerMonth.tsx",
+          "status": "modified",
+          "blob": "02473ee150b995d5b81ab581d1c823dc4d5274d7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/DatePicker/parts/DatePickerYear.tsx",
+          "status": "modified",
+          "blob": "17ea81b3b32e9d1d2ca8067e9d144c916377925a",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/FileUpload/FileUpload.stories.tsx",
+          "status": "modified",
+          "blob": "6fd4771e5444e0e84f0454227a9060f789d1bc2f",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FileUpload/FileUpload.tsx",
+          "status": "modified",
+          "blob": "00139e912921ec78b5f726e6bc649f7e44e85d2d",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/FormControlLabel/FormControlLabel.mdx",
+          "status": "added",
+          "blob": "f85704049eca2c45fcd8a02969a6733ea60e3c59",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/FormControlLabel.stories.tsx",
+          "status": "added",
+          "blob": "bd71d45e43d6343958fdc1acde4ac2e512fd7108",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/FormControlLabel.tsx",
+          "status": "added",
+          "blob": "3ad14fdf661dad86ed50c88764cb327955af28c0",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/FormControlLabel/Label.stories.tsx",
+          "status": "renamed",
+          "blob": "5a6b98aeb4997041e4a9c44fb513b7425cf6b1e0",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/Legend.stories.tsx",
+          "status": "added",
+          "blob": "c6c1583d8e4adbeac6b786273e70e6d7a7ca566b",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/RequirementBadge.stories.tsx",
+          "status": "renamed",
+          "blob": "1b0acb7a09d6930ba8a661a9316ccf609130c980",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/StatusBadge.stories.tsx",
+          "status": "renamed",
+          "blob": "59bb5dba9c74ef7e498bfe73b04167b5ae32a820",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/SupportText.stories.tsx",
+          "status": "renamed",
+          "blob": "2e8212f7bce89b1f1d34ce1e77e135bc9dab3feb",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/FormControlLabel/index.ts",
+          "status": "added",
+          "blob": "ba413602c43e5cf3023c4e49d1cea60c6e15d266",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/HamburgerMenuButton/HamburgerMenuButton.tsx",
+          "status": "modified",
+          "blob": "b9982c0c5bf463aab436b743aa5db65ad85f32d0",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/HamburgerMenuButton/HamburgerMenuIconButton.tsx",
+          "status": "modified",
+          "blob": "4f7995d75a3adfb7f04d76393072efd3aa280fb9",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/Heading/Heading.tsx",
+          "status": "modified",
+          "blob": "1c066f0a0f4dc876b4bc15e8da88d6ad31b6079b",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/Image/Image.tsx",
+          "status": "modified",
+          "blob": "0661bac378bb489786095eb9dcd8c15948f2b23f",
+          "decision": "images"
+        },
+        {
+          "path": "src/components/Input/Input.stories.tsx",
+          "status": "modified",
+          "blob": "d28d4a457651900dbc8494c2da2beae89a7bcbba",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Input/Input.tsx",
+          "status": "modified",
+          "blob": "ef5a223bbf78b8103a509e63025a3db65ec89b29",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/Label/Label.tsx",
+          "status": "removed",
+          "blob": "bd7b1b6e1d90e4a2177493e644f15cdce0afbfe9",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/Label/index.ts",
+          "status": "removed",
+          "blob": "dd0252d842202d121dbe59e9e3caf764fe1b1c96",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/LanguageSelector/LanguageSelector.stories.tsx",
+          "status": "modified",
+          "blob": "208836d410ec30a6fbd49b7c66d274a1e51ca1f6",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/LanguageSelector/parts/Button.tsx",
+          "status": "modified",
+          "blob": "8a0db0b2493c1273891381bb072069718c8236b8",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/LanguageSelector/parts/Menu.tsx",
+          "status": "modified",
+          "blob": "030c6204b9e04921974496ad482f8c0793ea269a",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/LanguageSelector/parts/MenuItem.tsx",
+          "status": "modified",
+          "blob": "017f046fbd14d2c4a5131af2dc16b22b8d1085c3",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Legend/Legend.stories.tsx",
+          "status": "removed",
+          "blob": "598bfef499f6cea41b2c19af9dc040cda3d314ec",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Legend/Legend.tsx",
+          "status": "removed",
+          "blob": "b1a5e62d8fdb9474a8c1b85ce85cffff4ab9b865",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/Legend/index.ts",
+          "status": "removed",
+          "blob": "81e7010ace5199ae318ede5783eb997569618fee",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/MenuListBox/MenuListBox.tsx",
+          "status": "modified",
+          "blob": "f09263e78242c2a95b7a641f449a7447ca151bf2",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/ModalDialog/ModalDialog.tsx",
+          "status": "modified",
+          "blob": "093f7294e5e07cb68a8103b3d744d403d5821b33",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/ModalDialog/component-spec.md",
+          "status": "modified",
+          "blob": "f11d7148f8df6f82b38f3df8a9c8eef423890503",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/ModalDialog/useModalDialog.ts",
+          "status": "modified",
+          "blob": "59097af7c156f1a7fe420a540d2901eeb67faa1d",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/NotificationBanner/NotificationBanner.stories.tsx",
+          "status": "modified",
+          "blob": "771fd60d5544201ab03b7d3e184afa814f5aecbe",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/PageNavigation/PageNavigation.tsx",
+          "status": "modified",
+          "blob": "59c7ad58c964738b663d214c1db0ee4b01dbe973",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Radio/Radio.stories.tsx",
+          "status": "modified",
+          "blob": "bc4738764a040ace6b8d173297478ae89d352dbf",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Radio/Radio.tsx",
+          "status": "modified",
+          "blob": "8ba5172b64e923ed0d65613b8c9702358f385c55",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/RequirementBadge/RequirementBadge.tsx",
+          "status": "removed",
+          "blob": "ee23c2a1be94d55b9111cf8a017c64cca5cdd3e6",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/RequirementBadge/index.ts",
+          "status": "removed",
+          "blob": "9540f2521f271073ad8d20f85c10b8d6ecb03aa8",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SearchBox/SearchBox.stories.tsx",
+          "status": "modified",
+          "blob": "e8e090769899113a2d2eb4a11f34f4713ee25b64",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/SearchBox/SearchBox.tsx",
+          "status": "modified",
+          "blob": "964574825e4c00c219333da4b58d65faea20aeda",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Select/Select.stories.tsx",
+          "status": "modified",
+          "blob": "f518e6a6afab4d7db0b499d77100bac1ffff0fc5",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Select/Select.tsx",
+          "status": "modified",
+          "blob": "8a8815c661824ff33e0e58117b9f2ef01326e2ba",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/SeparatedDatePicker.stories.tsx",
+          "status": "modified",
+          "blob": "212709d2321b725071e8137aa3cac74982b5f6d7",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/SeparatedDatePicker.tsx",
+          "status": "modified",
+          "blob": "feb33a59c77fb380384bce8d3aa7ab4e19cd82e7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/parts/SeparatedDatePickerCalendarButton.tsx",
+          "status": "modified",
+          "blob": "aea533827b42449b98b4e48d7e309c87e17b50c7",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/parts/SeparatedDatePickerDate.tsx",
+          "status": "modified",
+          "blob": "d692e88e0e4a0b0cd7116867cf4cb43153e03ed6",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/parts/SeparatedDatePickerMonth.tsx",
+          "status": "modified",
+          "blob": "677db981ed47cfd7e91055fa05495695e165f3c4",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SeparatedDatePicker/parts/SeparatedDatePickerYear.tsx",
+          "status": "modified",
+          "blob": "91d3f5977bd3531056e3ce12196764d5c192ed62",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/Slot/Slot.tsx",
+          "status": "modified",
+          "blob": "8b46e34d75a4e3de520e1c2b0f1f5a50576fd8ce",
+          "decision": "reference-markup"
+        },
+        {
+          "path": "src/components/StatusBadge/StatusBadge.tsx",
+          "status": "removed",
+          "blob": "0b6904a5e3990284f6e7d1b63f32da27717ac380",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/StatusBadge/index.ts",
+          "status": "removed",
+          "blob": "4dd98d2f53d1db7a90e942495e684ef9eb0cc2c3",
+          "decision": "vue-candidates"
+        },
+        {
+          "path": "src/components/SupportText/SupportText.tsx",
+          "status": "removed",
+          "blob": "65f5c23796832772ed6620ab00c3f296424f0c20",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/SupportText/index.ts",
+          "status": "removed",
+          "blob": "9146ae86d4b1f7e1f411bc71fcf403f62bc9bd5b",
+          "decision": "forms"
+        },
+        {
+          "path": "src/components/Switch/Switch.stories.tsx",
+          "status": "modified",
+          "blob": "58e2766e245130dbd352576d508066ca8bf25db3",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Switch/Switch.tsx",
+          "status": "modified",
+          "blob": "38c71841ad8db3dfe1c4c14b0e74185c0647c92c",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Tab/Tab.tsx",
+          "status": "modified",
+          "blob": "22b8ecb5f530bb3085420d5b8cb6a5d34214cfef",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Tab/useTab.ts",
+          "status": "modified",
+          "blob": "5029ec1f0f551495a492e0a437ec37ef6fb2dca1",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Tab/useTabAria.ts",
+          "status": "modified",
+          "blob": "d1090db7f00ca83ddde81b01c606dc37c37d365c",
+          "decision": "interaction"
+        },
+        {
+          "path": "src/components/Textarea/Textarea.stories.tsx",
+          "status": "modified",
+          "blob": "cdcd2b4422c3f2dc6bb743f61425afa7814a9759",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/components/Textarea/Textarea.tsx",
+          "status": "modified",
+          "blob": "367ecf5128ee6bf919c5ef468cee0f21ce5a6f98",
+          "decision": "forms"
+        },
+        {
+          "path": "src/docs/getting-started.mdx",
+          "status": "modified",
+          "blob": "429a23de4dc2f778c8191d7bdac03bd5c8529d28",
+          "decision": "build-docs"
+        },
+        {
+          "path": "src/index.ts",
+          "status": "modified",
+          "blob": "cf86e5ce512bf0f64e27fe0f22dab32fe7d135e3",
+          "decision": "build-docs"
+        }
+      ]
+    }
+  ],
+  "regressions": [
+    "test/module-e2e.test.ts",
+    "test/theme-migration.test.ts",
+    "test/compliance.test.ts",
+    ".github/scripts/package-consumer.mts"
+  ],
+  "limitations": [
+    "Accessibility tree, CSS zoom and forced-colors emulation are supporting evidence, not manual screen-reader, browser zoom or Windows certification.",
+    "Component inventory retains its historical 2.16.0 baseline and planned adoption states; reviewed upstream observations are not full conformance."
+  ]
+}

@@ -19,7 +19,7 @@
       "id": "DASH-2026-GRID-001", "authority": "upstream", "title": "Use a consistent grid to establish hierarchy and align dashboard regions",
       "sourceId": "dashboard-guide-2026", "sourceUrl": "https://www.digital.go.jp/resources/dashboard-guidebook", "section": "整理されたレイアウトを簡単に作れる",
       "upstreamStrength": "recommended", "localLevel": "should", "applicability": "dashboard", "status": "implemented",
-      "artifacts": ["src/runtime/app/components/MetricGrid.vue"], "tests": ["test/compliance.test.mjs", "test/module-contract.test.ts"]
+      "artifacts": ["src/runtime/app/components/MetricGrid.vue"], "tests": ["test/compliance.test.ts", "test/module-contract.test.ts"]
     },
     {
       "id": "DASH-2026-CHART-001", "authority": "upstream", "title": "Choose chart types from the comparison, trend, composition and relationship task",
