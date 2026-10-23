@@ -58,7 +58,7 @@ pnpm pack --pack-destination ./artifacts
 package manifestと[LICENSE](LICENSE)はApache-2.0を指定します。[LICENSE-PREVIOUS](LICENSE-PREVIOUS)は以前のMIT表示を保持し、以前の許諾と第三者条件は[NOTICE](NOTICE)と[第三者表示](THIRD_PARTY_NOTICES.md)に記録します。このREADME整理はライセンスファイルや許諾を変更しません。
 DADSのガイド、ソース、素材の条件は別に管理します。ロゴや公式markは含みません。[参照版](https://github.com/nuxtjp/nuxtjp-ui/blob/main/upstream/sources.lock.json)と[適合状況](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/conformance/status.md)に対象範囲と互換性の不足を記録しています。アプリ全体のaccessibilityを示す検証は別途必要です。
 
-本ソースは UI 0.2.0 と management-layout 0.5.0 を exact peer で組み合わせます。公開レジストリでの配布確認後に利用してください。[テーマv2移行](docs/migration-theme-v2.md)に削除されたCSSクラスと保持する実装基準を記載しています。
+本ソースは UI 0.2.0 と management-layout 0.5.0 を exact peer で組み合わせます。公開レジストリでの配布確認後に利用してください。[テーマv2移行](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/migration-theme-v2.md)に削除されたCSSクラスと保持する実装基準を記載しています。
 
 Dependency updates: [repository policy](docs/dependency-updates.md).
 Registry releases: [version tags and GitHub OIDC](docs/registry-release.md).

@@ -78,7 +78,7 @@ The dependency-security tool can be used by Nuxt 3/Vuetify or Nuxt 4 hosts
 without installing a different UI framework. It does not replace local source
 or endpoint auditing by vpremises-security.
 
-This source pairs UI 0.2.0 with management-layout 0.5.0 using an exact UI peer. Use registry versions only after publication is independently verified. [Theme v2 migration](docs/migration-theme-v2.md) explains the removed CSS utilities and retained component baseline.
+This source pairs UI 0.2.0 with management-layout 0.5.0 using an exact UI peer. Use registry versions only after publication is independently verified. [Theme v2 migration](https://github.com/nuxtjp/nuxtjp-ui/blob/main/docs/migration-theme-v2.md) explains the removed CSS utilities and retained component baseline.
 
 [OSS responsibility and source completion](docs/oss-source-contract.md) defines the supported package boundary and required acceptance. It does not declare unexecuted source, distribution or production checks complete.
 

@@ -65,20 +65,21 @@
       "id": "dads-markdown",
       "title": "DADS documentation and accessibility guidelines (Markdown)",
       "authority": "Digital Agency, Government of Japan",
-      "url": "https://design.digital.go.jp/dads/dads-markdown-20260722.zip",
-      "checkedAt": "2026-08-05",
-      "publishedAt": "2026-07-22",
-      "observedVersion": "20260722",
+      "url": "https://design.digital.go.jp/dads/dads-markdown-20261021.zip",
+      "checkedAt": "2026-10-23",
+      "publishedAt": "2026-10-21",
+      "observedVersion": "20261021",
       "license": "PDL-1.0 plus DADS attribution notices",
       "status": "current",
       "reviewRequired": true,
       "probes": [
         {
           "type": "contains-text",
-          "url": "https://design.digital.go.jp/dads/updates-misc/",
-          "expected": "2026年7月22日"
+          "url": "https://design.digital.go.jp/dads/resources/",
+          "expected": "href=\"/dads/dads-markdown-20261021.zip\""
         }
-      ]
+      ],
+      "notes": "Observed and hashed the current official Markdown archive as documentation reference. No wholesale document/component adoption or implementation-baseline promotion is inferred."
     },
     {
       "id": "dads-accessibility-guidance",

@@ -2781,5 +2781,12 @@
   "limitations": [
     "Accessibility tree, CSS zoom and forced-colors emulation are supporting evidence, not manual screen-reader, browser zoom or Windows certification.",
     "Component inventory retains its historical 2.16.0 baseline and planned adoption states; reviewed upstream observations are not full conformance."
-  ]
+  ],
+  "markdownArchive": {
+    "url": "https://design.digital.go.jp/dads/dads-markdown-20261021.zip",
+    "sha256": "ccab493b68878592d6f4537c24014cbe7e07f9335f6789be3ec6b5819bc9c994",
+    "archiveBytes": 287659,
+    "files": 145,
+    "referenceOnly": true
+  }
 }
