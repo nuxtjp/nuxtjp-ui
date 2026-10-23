@@ -193,7 +193,7 @@
     "packages/nuxt-management-layout/core/navigation.ts",
     "packages/nuxt-management-layout/scripts/lib/repository-path.mjs",
     "packages/nuxt-management-layout/scripts/lib/source-audit.mjs",
-    "packages/nuxt-management-layout/test/compliance.test.mjs",
+    "packages/nuxt-management-layout/test/compliance.test.mts",
     "packages/nuxt-management-layout/test/config.test.ts",
     "packages/nuxt-management-layout/test/layer-contract.test.ts",
     "packages/nuxt-management-layout/test/navigation-hierarchy.test.ts",
