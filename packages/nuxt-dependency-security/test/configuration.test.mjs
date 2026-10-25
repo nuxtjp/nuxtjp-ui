@@ -17,7 +17,7 @@ test('explicit application preserves unrelated settings and is idempotent', () =
   applySecurityPatches(root, source)
   assert.deepEqual(readFileSync(join(root, 'package.json')), before)
   const data = JSON.parse(before)
-  assert.deepEqual(data.pnpm.overrides, { sample: '1.0.0', 'simple-git': '4.0.2', '@simple-git/argv-parser': '2.0.1', esbuild: '0.28.2' })
+  assert.deepEqual(data.pnpm.overrides, { sample: '1.0.0', 'simple-git': '4.0.2', '@simple-git/argv-parser': '2.0.1', esbuild: '0.28.2', 'undici@6': '6.29.1', 'undici@7': '7.30.1', 'undici@8': '8.12.2', 'serialize-javascript@7': '7.1.3' })
   assert.equal(Object.keys(data.pnpm.patchedDependencies).length, 2)
 }))
 test('conflicting configuration is rejected without changing the manifest', () => fixture(root => {
@@ -72,7 +72,7 @@ test('a linked dependency outside the selected project remains rejected', () => 
 })))
 
 test('optional absence is distinct from a malformed active dependency', () => fixture(root => {
-  writeFileSync(join(root, 'package.json'), JSON.stringify({ dependencies: { 'simple-git': '4.0.2' } }))
+  writeFileSync(join(root, 'package.json'), JSON.stringify({ optionalDependencies: { 'simple-git': '4.0.2' } }))
   assert.deepEqual(installedDependencies(root, 'simple-git', undefined, { allowMissing: true }), [])
   assert.throws(() => installedDependencies(root, 'simple-git'), /not present/)
   const folder = join(root, 'node_modules/simple-git')

@@ -55,3 +55,25 @@ against another process with the same user privileges.
 [LICENSE](LICENSE) and [NOTICE](NOTICE) describe this tool's license. The unchanged
 LICENSE-braces, LICENSE-node-forge and LICENSE-simple-git files retain upstream
 patch-input attribution and redistribution terms.
+
+## Version policy 2
+
+Exact generic fixes and major-scoped fixes have one source in
+`dependency-versions.json`. Undici's maintained major lines and the current
+serialize-javascript major are pinned separately; configuration never forces an
+unrelated major into the same implementation. Broad/conflicting caller overrides
+fail before mutation. The check walks the active installed graph, accepts optional
+absence only after complete traversal, rejects malformed manifests and rejects
+installed majors without a reviewed rule. An absent package is not proof that its
+implementation passed a vulnerability regression.
+
+The additional upstream fixes address:
+- https://github.com/advisories/GHSA-xjj6-f33q-929c
+- https://github.com/advisories/GHSA-4qv8-2p9j-2685
+- https://github.com/advisories/GHSA-f72v-6w45-q472
+- https://github.com/advisories/GHSA-m5mm-p8h7-m29v
+
+Apply the preset, refresh the lockfile, check the actual installed implementations,
+and run the owning application's type/build/consumer acceptance. Published fixed
+versions do not make Node's bundled HTTP implementation newer; Node security
+updates and registry dependencies remain separate responsibilities.

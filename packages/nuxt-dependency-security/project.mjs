@@ -3,6 +3,7 @@ import { existsSync, lstatSync, readFileSync, mkdirSync, writeFileSync, renameSy
 import { join, resolve } from 'node:path'
 import { randomUUID } from 'node:crypto'
 import resolver from './resolved-dependency.cjs'
+import versionPolicy from './version-policy.cjs'
 
 const patches = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2']
 function regular(path) {
@@ -33,20 +34,10 @@ export function applySecurityPatches(project, source) {
   const existing = pnpm.patchedDependencies ?? {}
   if (!object(existing)) throw new Error('Expected object-valued patchedDependencies')
   const pinned = parseJson(regular(join(source, 'dependency-versions.json')))
-  if (pinned.schemaVersion !== 1 || !object(pinned.overrides)) throw new Error('Invalid dependency version policy')
+  const rules = versionPolicy.requirements(pinned)
   const overrides = pnpm.overrides ?? {}
   if (!object(overrides)) throw new Error('Expected object-valued dependency overrides')
-  for (const [name, version] of Object.entries(pinned.overrides)) {
-    if (!/^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/.test(name) || !/^\d+\.\d+\.\d+$/.test(version)) {
-      throw new Error('Exact registry package versions required')
-    }
-    for (const [selector, target] of Object.entries(overrides)) {
-      const dependency = selector.split('>').at(-1)
-      if ((dependency === name || dependency.startsWith(name + '@')) && target !== version) {
-        throw new Error('A dependency override conflicts; review it before applying')
-      }
-    }
-  }
+  versionPolicy.validateOverrides(rules, overrides)
   const dir = join(root, '.nuxtjp-security')
   if (existsSync(dir) && (lstatSync(dir).isSymbolicLink() || !lstatSync(dir).isDirectory())) {
     throw new Error('Security patch directory must be a real directory')
