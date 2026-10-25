@@ -105,3 +105,8 @@ remain errors. Unreferenced store entries remain excluded.
 The configuration CLI still refuses workspace YAML. Its owner updates that native
 policy using the public policy export and reviewed patch assets. Graph inspection
 does not install dependencies, invoke package lifecycles or grant runtime authority.
+
+The reviewed policy retains fast-uri 3.1.9 for 3.x consumers and selects 4.2.3
+for 4.x consumers; it never forces a cross-major SDK update. The 4.x correction
+follows the upstream release: https://github.com/fastify/fast-uri/releases/tag/v4.2.3 .
+A passing policy check is not an exhaustive advisory audit of unrelated packages.
