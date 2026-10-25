@@ -3,9 +3,28 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createRequire } = require('node:module');
 
+function projectManifests(root, projects = [root]) {
+  root = fs.realpathSync(root);
+  if (!Array.isArray(projects) || projects.length === 0 || projects.length > 256) throw new Error('Invalid selected project inventory');
+  const manifests = projects.map(project => {
+    if (typeof project !== 'string') throw new Error('Invalid selected project');
+    const selected = fs.realpathSync(path.resolve(root, project));
+    const relative = path.relative(root, selected);
+    if (relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)
+      || relative.split(path.sep).includes('node_modules')) throw new Error('Selected project escapes workspace boundary');
+    const manifest = path.join(selected, 'package.json');
+    if (fs.realpathSync(manifest) !== manifest) throw new Error('Linked project manifest refused');
+    return manifest;
+  });
+  if (new Set(manifests).size !== manifests.length || !manifests.includes(path.join(root, 'package.json'))) {
+    throw new Error('Project inventory must include the workspace root exactly once');
+  }
+  return manifests;
+}
 function installedDependencies(root, target, version, options = {}) {
   root = fs.realpathSync(root);
-  const pending = [path.join(root, 'package.json')];
+  const entries = new Set(projectManifests(root, options.projects));
+  const pending = [...entries];
   const seen = new Set();
   const found = new Set();
   while (pending.length) {
@@ -23,7 +42,7 @@ function installedDependencies(root, target, version, options = {}) {
     }
     const request = createRequire(file);
     const names = Object.keys({ ...data.dependencies, ...data.optionalDependencies, ...data.peerDependencies,
-      ...(file === path.join(root, 'package.json') ? data.devDependencies : {}) });
+      ...(entries.has(file) ? data.devDependencies : {}) });
     for (const name of names) {
       let resolved = false;
       for (const location of request.resolve.paths(name + '/package.json') ?? []) {
@@ -37,7 +56,7 @@ function installedDependencies(root, target, version, options = {}) {
         resolved = true;
         break;
       }
-      if (!resolved && Object.hasOwn(data.dependencies ?? {}, name)
+      if (!resolved && Object.hasOwn({ ...data.dependencies, ...(entries.has(file) ? data.devDependencies : {}) }, name)
         && !Object.hasOwn(data.optionalDependencies ?? {}, name)) {
         throw new Error('Incomplete required dependency graph');
       }
@@ -46,4 +65,4 @@ function installedDependencies(root, target, version, options = {}) {
   if (found.size === 0 && options.allowMissing !== true) throw new Error('Dependency not present in the installed application graph');
   return [...found].sort();
 }
-module.exports = { installedDependencies };
+module.exports = { installedDependencies, projectManifests };

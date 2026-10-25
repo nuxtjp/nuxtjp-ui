@@ -9,13 +9,14 @@ import { fileURLToPath } from 'node:url'
 const source = fileURLToPath(new URL('../', import.meta.url))
 const policy = JSON.parse(readFileSync(new URL('../dependency-versions.json', import.meta.url)))
 test('maintained HTTP major fixes coexist and optional absence is explicit', () => {
-  assert.doesNotThrow(() => policyTools.checkVersions(policy, { undici: ['6.29.1', '7.30.1', '8.12.2'], 'serialize-javascript': ['7.1.3'], 'fast-uri': ['3.1.9'] }))
+  assert.doesNotThrow(() => policyTools.checkVersions(policy, { undici: ['6.29.1', '7.30.1', '8.12.2'], 'serialize-javascript': ['7.1.3'], 'fast-uri': ['3.1.9', '4.2.3'] }))
   assert.doesNotThrow(() => policyTools.checkVersions(policy, { undici: [] }))
   for (const version of ['6.29.0', '7.29.1', '8.12.1', '9.0.0', '8.12.2-secret']) {
     assert.throws(() => policyTools.checkVersions(policy, { undici: [version] }))
   }
   assert.throws(() => policyTools.checkVersions(policy, { 'serialize-javascript': ['6.0.2'] }))
   assert.throws(() => policyTools.checkVersions(policy, { 'fast-uri': ['3.1.8'] }))
+  assert.throws(() => policyTools.checkVersions(policy, { 'fast-uri': ['4.2.2'] }))
 })
 test('policy refuses malformed selectors, mismatched majors and old schema', () => {
   for (const overrides of [{ 'undici@*': '8.12.2' }, { 'undici@7': '8.12.2' }, { undici: '^8.12.2' }]) {

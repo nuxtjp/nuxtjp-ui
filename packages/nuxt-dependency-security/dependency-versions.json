@@ -8,7 +8,8 @@
     "undici@7": "7.30.1",
     "undici@8": "8.12.2",
     "serialize-javascript@7": "7.1.3",
-    "fast-uri@3": "3.1.9"
+    "fast-uri@3": "3.1.9",
+    "fast-uri@4": "4.2.3"
   },
   "backportedAdvisories": [
     "GHSA-vfj7-8cjw-p6xm",

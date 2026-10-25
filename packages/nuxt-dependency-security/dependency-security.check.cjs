@@ -4,9 +4,11 @@ const { createRequire } = require('node:module');
 const { generateKeyPairSync, sign, privateEncrypt, constants } = require('node:crypto');
 const path = require('node:path');
 const fs = require('node:fs');
+const graphOptions = process.env.NUXTJP_SECURITY_PROJECTS
+  ? { projects: JSON.parse(process.env.NUXTJP_SECURITY_PROJECTS) } : {};
 function dependency(name, version) {
   const { installedDependencies } = require('./resolved-dependency.cjs');
-  const matches = installedDependencies(process.cwd(), name, version);
+  const matches = installedDependencies(process.cwd(), name, version, graphOptions);
   assert.equal(matches.length, 1, 'Expected one active locked dependency implementation');
   return createRequire(matches[0])(name);
 }
@@ -50,14 +52,14 @@ test('RSA verifier accepts standard signatures and rejects extra or malformed Di
 
 test('active dependency graph uses every required upstream security version', () => {
   const policy = JSON.parse(fs.readFileSync(path.join(__dirname, 'dependency-versions.json'), 'utf8'));
-  require('./version-policy.cjs').verifyInstalledPolicy(process.cwd(), policy);
+  require('./version-policy.cjs').verifyInstalledPolicy(process.cwd(), policy, graphOptions);
 });
 
 // Preserve the ESM entry point expected by current Nuxt devtools without downgrading Git protections.
 test('fixed simple-git retains named and legacy ESM factory exports', async context => {
   const { pathToFileURL } = require('node:url');
   const { installedDependencies } = require('./resolved-dependency.cjs');
-  const manifests = installedDependencies(process.cwd(), 'simple-git', '4.0.2', { allowMissing: true });
+  const manifests = installedDependencies(process.cwd(), 'simple-git', '4.0.2', { ...graphOptions, allowMissing: true });
   if (!manifests.length) { context.skip('No active simple-git: compatibility check is not applicable'); return; }
   for (const manifest of manifests) {
     const module = await import(pathToFileURL(path.join(path.dirname(manifest), 'dist/index.mjs')).href);

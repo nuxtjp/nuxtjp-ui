@@ -47,10 +47,10 @@ function checkVersions(policy, observed) {
     }
   }
 }
-function verifyInstalledPolicy(root, policy) {
+function verifyInstalledPolicy(root, policy, options = {}) {
   const names = new Set(requirements(policy).map(rule => rule.name)), observed = {};
   for (const name of names) {
-    observed[name] = installedDependencies(root, name, undefined, { allowMissing: true })
+    observed[name] = installedDependencies(root, name, undefined, { ...options, allowMissing: true })
       .map(file => JSON.parse(fs.readFileSync(file, 'utf8')).version);
   }
   checkVersions(policy, observed);
