@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjp/dependency-security",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Explicit pnpm backport configuration and active dependency regression checks without Nuxt peers",
   "type": "module",
   "license": "Apache-2.0",
@@ -49,7 +49,7 @@
     "nuxtjp-security-check": "./check.mjs"
   },
   "scripts": {
-    "build": "node --check index.mjs && node --check project.mjs && node --check apply.mjs && node --check check.mjs && node --check resolved-dependency.cjs",
+    "build": "node --check index.mjs && node --check project.mjs && node --check apply.mjs && node --check check.mjs && node --check resolved-dependency.cjs && node --check version-policy.cjs",
     "test": "node --test test/*.test.mjs",
     "typecheck": "tsc --strict --noEmit --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts"
   },

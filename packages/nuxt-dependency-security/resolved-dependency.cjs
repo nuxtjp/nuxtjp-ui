@@ -25,7 +25,8 @@ function installedDependencies(root, target, version, options = {}) {
     const names = Object.keys({ ...data.dependencies, ...data.optionalDependencies, ...data.peerDependencies,
       ...(file === path.join(root, 'package.json') ? data.devDependencies : {}) });
     for (const name of names) {
-      for (const location of request.resolve.paths(name) ?? []) {
+      let resolved = false;
+      for (const location of request.resolve.paths(name + '/package.json') ?? []) {
         const candidate = path.join(location, name, 'package.json');
         if (!fs.existsSync(candidate)) continue;
         const real = fs.realpathSync(candidate);
@@ -33,7 +34,12 @@ function installedDependencies(root, target, version, options = {}) {
           throw new Error('Dependency resolves outside the selected project; select the workspace root');
         }
         pending.push(real);
+        resolved = true;
         break;
+      }
+      if (!resolved && Object.hasOwn(data.dependencies ?? {}, name)
+        && !Object.hasOwn(data.optionalDependencies ?? {}, name)) {
+        throw new Error('Incomplete required dependency graph');
       }
     }
   }
