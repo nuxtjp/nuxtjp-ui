@@ -60,7 +60,7 @@ patch-input attribution and redistribution terms.
 
 Exact generic fixes and major-scoped fixes have one source in
 `dependency-versions.json`. Undici's maintained major lines and the current
-serialize-javascript major are pinned separately; configuration never forces an
+serialize-javascript and fast-uri majors are pinned separately; configuration never forces an
 unrelated major into the same implementation. Broad/conflicting caller overrides
 fail before mutation. The check walks the active installed graph, accepts optional
 absence only after complete traversal, rejects malformed manifests and rejects
@@ -72,6 +72,10 @@ The additional upstream fixes address:
 - https://github.com/advisories/GHSA-4qv8-2p9j-2685
 - https://github.com/advisories/GHSA-f72v-6w45-q472
 - https://github.com/advisories/GHSA-m5mm-p8h7-m29v
+- https://github.com/advisories/GHSA-w74x-v6f9-j3xg
+- https://github.com/advisories/GHSA-xhq7-xmqj-769h
+- https://github.com/advisories/GHSA-wjr9-j795-jxcr
+- https://github.com/advisories/GHSA-333x-w4r6-6crp
 
 Apply the preset, refresh the lockfile, check the actual installed implementations,
 and run the owning application's type/build/consumer acceptance. Published fixed
