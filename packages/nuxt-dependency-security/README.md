@@ -88,3 +88,20 @@ result before mutation; its owner must project the reviewed rules into that YAML
 rather than create competing configuration in package.json. Graph verification
 still supports an explicitly selected workspace root. No workspace YAML parser or
 second package-manager authority is introduced.
+
+### Explicit workspace graph verification
+
+`verifyProject(workspaceRoot, { projects })` checks the aggregate active dependency
+graphs of explicitly selected projects, including each project's development
+dependencies. Supply the actual owner package manager inventory (for example,
+paths returned by `pnpm list -r --depth -1 --json`), including the workspace root
+exactly once. The caller owns inventory completeness; this API does not parse
+workspace YAML or infer that unselected projects were checked. More than 256
+projects, duplicates, missing root, linked manifests, node_modules selections
+and paths outside the workspace are refused. Dependencies shared within the
+workspace are allowed; external resolutions and missing required dependencies
+remain errors. Unreferenced store entries remain excluded.
+
+The configuration CLI still refuses workspace YAML. Its owner updates that native
+policy using the public policy export and reviewed patch assets. Graph inspection
+does not install dependencies, invoke package lifecycles or grant runtime authority.

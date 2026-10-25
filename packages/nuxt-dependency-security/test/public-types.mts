@@ -7,3 +7,8 @@ applySecurityPatches({});
 
 const check: (project: string) => { exitCode: number; stdout: string; stderr: string } = verifyProject;
 void check;
+
+verifyProject('.', { projects: ['.', 'apps/web'] });
+installedDependencies('.', 'braces', '3.0.3', { projects: ['.', 'apps/web'] });
+// @ts-expect-error Each project must be a path string.
+verifyProject('.', { projects: [1] });
