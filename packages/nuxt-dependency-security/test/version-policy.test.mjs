@@ -61,10 +61,19 @@ test('missing required dependency cannot be reported as optional absence', () =>
   } finally { rmSync(root, { recursive: true }) }
 })
 
-test('Node builtins satisfy resolution without inventing a missing registry package', () => {
+test('a registry dependency sharing a builtin name is traversed and required', async () => {
+  const { mkdirSync } = await import('node:fs')
   const root = mkdtempSync(join(tmpdir(), 'nuxtjp-builtin-policy-'))
   try {
     writeFileSync(join(root, 'package.json'), '{"dependencies":{"buffer":"6.0.3"}}')
-    assert.deepEqual(policyTools.verifyInstalledPolicy(root, policy).undici, [])
+    assert.throws(() => policyTools.verifyInstalledPolicy(root, policy), /Incomplete required/)
+    mkdirSync(join(root, 'node_modules/buffer'), { recursive: true })
+    writeFileSync(join(root, 'node_modules/buffer/package.json'), '{"name":"buffer","version":"6.0.3","dependencies":{"undici":"8.12.1"}}')
+    assert.throws(() => policyTools.verifyInstalledPolicy(root, policy), /Incomplete required/)
+    mkdirSync(join(root, 'node_modules/undici'), { recursive: true })
+    writeFileSync(join(root, 'node_modules/undici/package.json'), '{"name":"undici","version":"8.12.1"}')
+    assert.throws(() => policyTools.verifyInstalledPolicy(root, policy), /outside/)
+    writeFileSync(join(root, 'node_modules/undici/package.json'), '{"name":"undici","version":"8.12.2"}')
+    assert.deepEqual(policyTools.verifyInstalledPolicy(root, policy).undici, ['8.12.2'])
   } finally { rmSync(root, { recursive: true }) }
 })

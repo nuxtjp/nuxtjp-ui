@@ -1,7 +1,7 @@
 /** Resolve a dependency through the installed application graph, ignoring unused store entries. */
 const fs = require('node:fs');
 const path = require('node:path');
-const { createRequire, isBuiltin } = require('node:module');
+const { createRequire } = require('node:module');
 
 function installedDependencies(root, target, version, options = {}) {
   root = fs.realpathSync(root);
@@ -26,7 +26,7 @@ function installedDependencies(root, target, version, options = {}) {
       ...(file === path.join(root, 'package.json') ? data.devDependencies : {}) });
     for (const name of names) {
       let resolved = false;
-      for (const location of request.resolve.paths(name) ?? []) {
+      for (const location of request.resolve.paths(name + '/package.json') ?? []) {
         const candidate = path.join(location, name, 'package.json');
         if (!fs.existsSync(candidate)) continue;
         const real = fs.realpathSync(candidate);
@@ -37,7 +37,7 @@ function installedDependencies(root, target, version, options = {}) {
         resolved = true;
         break;
       }
-      if (!resolved && !isBuiltin(name) && Object.hasOwn(data.dependencies ?? {}, name)
+      if (!resolved && Object.hasOwn(data.dependencies ?? {}, name)
         && !Object.hasOwn(data.optionalDependencies ?? {}, name)) {
         throw new Error('Incomplete required dependency graph');
       }
