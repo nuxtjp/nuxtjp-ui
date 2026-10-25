@@ -91,3 +91,12 @@ test('an absent optional target does not leave an unused generated patch binding
   applySecurityPatches(root, source)
   assert.equal(JSON.parse(readFileSync(f, 'utf8')).pnpm.patchedDependencies['simple-git@4.0.2'], undefined)
 }))
+
+test('workspace YAML remains the sole owner configuration; no competing manifest policy is created', () => fixture(root => {
+  const original = '{"private":true}'
+  writeFileSync(join(root, 'package.json'), original)
+  writeFileSync(join(root, 'pnpm-workspace.yaml'), 'packages: ["."]\noverrides:\n  undici: 7.29.1\n')
+  assert.throws(() => applySecurityPatches(root, source), error => error.code === 'UNSUPPORTED_WORKSPACE_CONFIGURATION')
+  assert.equal(readFileSync(join(root, 'package.json'), 'utf8'), original)
+  assert.equal(readFileSync(join(root, 'pnpm-workspace.yaml'), 'utf8'), 'packages: ["."]\noverrides:\n  undici: 7.29.1\n')
+}))

@@ -81,3 +81,10 @@ Apply the preset, refresh the lockfile, check the actual installed implementatio
 and run the owning application's type/build/consumer acceptance. Published fixed
 versions do not make Node's bundled HTTP implementation newer; Node security
 updates and registry dependencies remain separate responsibilities.
+
+Configuration writes target a single-project package.json. If a selected root
+already has pnpm-workspace.yaml, the CLI reports an explicit unsupported-workspace
+result before mutation; its owner must project the reviewed rules into that YAML
+rather than create competing configuration in package.json. Graph verification
+still supports an explicitly selected workspace root. No workspace YAML parser or
+second package-manager authority is introduced.

@@ -24,6 +24,12 @@ function object(value) {
 /** Reject conflicting patches and links before mutating a project. No network access occurs. */
 export function applySecurityPatches(project, source) {
   const root = realpathSync(resolve(project))
+  if (existsSync(join(root, 'pnpm-workspace.yaml'))) {
+    regular(join(root, 'pnpm-workspace.yaml'))
+    const error = new Error('Use the owner-native workspace configuration; no second manifest policy was written')
+    error.code = 'UNSUPPORTED_WORKSPACE_CONFIGURATION'
+    throw error
+  }
   const manifest = join(root, 'package.json')
   const original = regular(manifest)
   const data = parseJson(original)
