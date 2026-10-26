@@ -27,3 +27,11 @@ The [Dashboard Design Guidebook](https://www.digital.go.jp/resources/dashboard-g
 - [`digital-go-jp/policy-dashboard-assets`](https://github.com/digital-go-jp/policy-dashboard-assets) — terms by asset; referenced Power BI assets are PDL 1.0
 
 No upstream name or mark implies endorsement of NuxtJP or a consuming application.
+
+## Chart.js
+
+The optional Vue series renderer imports registry Chart.js 4.6.1 (MIT),
+Copyright (c) 2014-2024 Chart.js Contributors. Source and license:
+https://github.com/chartjs/Chart.js and the dependency's `LICENSE.md`.
+The dependency remains external to this source package. Applications that bundle
+it must retain its MIT notice along with their other bundled dependencies.
