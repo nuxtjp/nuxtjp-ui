@@ -1,23 +1,27 @@
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui'
-import { computed, h, ref, resolveComponent } from 'vue'
+import { computed, h, ref } from 'vue'
+import UButton from '@nuxt/ui/components/Button.vue'
+import UFormField from '@nuxt/ui/components/FormField.vue'
+import UInput from '@nuxt/ui/components/Input.vue'
+import UTable from '@nuxt/ui/components/Table.vue'
 import type { NuxtJpDataTableColumn, NuxtJpDataTableRow } from '../../core'
 
-interface FlatRow { id: string, __action?: NuxtJpDataTableRow['action'], [key: string]: unknown }
+interface FlatRow { id: string, __action?: NuxtJpDataTableRow['action'], values: NuxtJpDataTableRow['values'] }
 const props = withDefaults(defineProps<{ columns: NuxtJpDataTableColumn[], rows: NuxtJpDataTableRow[],
-  searchLabel?: string, emptyMessage?: string }>(), { searchLabel: '表を検索',
+  searchLabel?: string, emptyMessage?: string, interactive?: boolean }>(), { interactive: true, searchLabel: '表を検索',
   emptyMessage: '条件に一致する項目はありません。' })
 const query = ref('')
 const sorting = ref<Array<{ id: string, desc: boolean }>>([])
-const button = resolveComponent('UButton')
+const button = UButton
 const data = computed<FlatRow[]>(() => props.rows.map(row =>
-  ({ id: row.id, ...row.values, __action: row.action })))
+  ({ id: row.id, values: row.values, __action: row.action })))
 const columns = computed<TableColumn<FlatRow>[]>(() => {
   const declared = props.columns.map((item): TableColumn<FlatRow> => ({
-    accessorKey: item.key,
-    enableGlobalFilter: item.searchable !== false,
-    enableSorting: item.sortable !== false,
-    header: ({ column }) => item.sortable === false ? item.label : h(button, {
+    id: item.key, accessorFn: row => Object.hasOwn(row.values, item.key) ? row.values[item.key] : null,
+    enableGlobalFilter: props.interactive && item.searchable !== false,
+    enableSorting: props.interactive && item.sortable !== false,
+    header: ({ column }) => !props.interactive || item.sortable === false ? item.label : h(button, {
       color: 'neutral', variant: 'ghost', size: 'sm', label: item.label,
       icon: column.getIsSorted() === 'asc' ? 'i-lucide-arrow-up'
         : column.getIsSorted() === 'desc' ? 'i-lucide-arrow-down' : 'i-lucide-arrow-up-down',
@@ -39,7 +43,7 @@ const columns = computed<TableColumn<FlatRow>[]>(() => {
 
 <template>
   <section class="nuxtjp-data-table" aria-label="検索と並べ替えができる表">
-    <UFormField :label="searchLabel" class="nuxtjp-data-table-search">
+    <UFormField v-if="interactive" :label="searchLabel" class="nuxtjp-data-table-search">
       <UInput v-model="query" icon="i-lucide-search" autocomplete="off" />
     </UFormField>
     <UTable v-model:global-filter="query" v-model:sorting="sorting" :data="data"

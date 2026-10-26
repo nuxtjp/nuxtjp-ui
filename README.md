@@ -84,3 +84,22 @@ This source pairs UI 0.2.0 with management-layout 0.5.0 using an exact UI peer. 
 
 Dependency updates: [repository policy](docs/dependency-updates.md).
 Registry releases: [version tags and GitHub OIDC](docs/registry-release.md).
+
+### Vue/Vite entry and precomputed views
+
+`@nuxtjp/ui/vue` exports the existing `NuxtJpDataTable` and
+`NuxtJpSeriesChart`. In a Vite application, configure the official
+`@nuxt/ui/vite` plugin, install `@nuxt/ui/vue-plugin` on the Vue application,
+and import Tailwind/Nuxt UI CSS as documented by Nuxt UI. This is a browser
+entry; it does not start a Nuxt/Nitro server.
+
+Set `interactive=false` on the table when the backend already owns filtering,
+ordering and limits. Local search/sort is then disabled so a displayed subset
+cannot masquerade as a complete query. Column values are separate from row IDs
+and actions, including columns named `id` or `constructor`.
+
+The chart uses Chart.js for `bar`/`line` presentation and exposes the same values
+as an accessible list. It accepts at most 1,000 unique finite points; missing or
+invalid data is not replaced with zero. Query meaning, timezone, completeness,
+permissions and data storage belong to the consuming product. No provider or
+network client is included. Instances are destroyed on update/unmount.

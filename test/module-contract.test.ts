@@ -11,6 +11,7 @@ describe('NuxtJP UI module boundary', () => {
     expect(manifest.main).toBe('./dist/module.mjs')
     expect(manifest.exports['.'].import).toBe('./dist/module.mjs')
     expect(manifest.typesVersions['*'].core).toEqual(['./dist/runtime/core/index.d.ts'])
+    expect(manifest.exports['./vue']).toEqual({ types: './dist/runtime/vue/index.d.ts', import: './dist/runtime/vue/index.js' })
     expect(manifest.files).toContain('dist')
     expect(manifest.files).toContain('SECURITY.md')
     expect(manifest.files).not.toContain('test')
