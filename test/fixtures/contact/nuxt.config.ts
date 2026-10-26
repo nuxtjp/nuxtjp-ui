@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config'
-import contactForm from '../../../packages/nuxt-contact-form/dist/module.mjs'
+import contactSource from '../../../packages/nuxt-contact-form/src/module'
+const contactForm = process.env.CONTACT_FORM_BUILT === '1' ? '../../../packages/nuxt-contact-form/dist/module.mjs' : contactSource
 export default defineNuxtConfig({
  modules: [contactForm],
  compatibilityDate: '2026-10-27',
