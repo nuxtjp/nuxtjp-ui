@@ -4,6 +4,7 @@ packages:
   - "packages/nuxt-operations-console"
   - "packages/nuxt-managed-resources"
   - "packages/nuxt-dependency-security"
+  - "packages/nuxt-contact-form"
 linkWorkspacePackages: true
 overrides:
   "@nuxt/devtools>simple-git": "4.0.2"
