@@ -1,1 +1,0 @@
-<template><NuxtContactForm /></template>
