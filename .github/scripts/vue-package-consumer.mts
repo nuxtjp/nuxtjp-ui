@@ -18,7 +18,7 @@ function run(command: string, args: string[]) {
 try {
   writeFileSync(join(root, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: {
     ...(helperArchive ? { '@nuxtjp/dependency-security': `file:${helperArchive}` } : {}),
-    '@nuxtjp/ui': `file:${archive}`, '@nuxt/ui': '4.12.0', '@nuxt/icon': '2.5.1', vue: '3.5.44', 'vue-router': '5.4.0',
+    '@nuxtjp/ui': `file:${archive}`, '@nuxt/ui': '4.12.0', '@nuxt/icon': '2.6.0', vue: '3.5.44', 'vue-router': '5.4.0',
   }, devDependencies: { vite: '8.3.4', '@vitejs/plugin-vue': '6.0.10', typescript: '5.9.3', 'vue-tsc': '3.3.13', '@playwright/test': '1.64.1' } }))
   run('npm', ['install', '--ignore-scripts', '--registry=https://registry.npmjs.org/', '--no-audit', '--no-fund'])
   for (const [name, contents] of Object.entries(vueConsumerFiles)) { mkdirSync(dirname(join(root, name)), { recursive: true }); writeFileSync(join(root, name), contents) }
