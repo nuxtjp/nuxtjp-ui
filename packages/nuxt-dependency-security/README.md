@@ -15,10 +15,10 @@ pnpm exec nuxtjp-security-check --project-root .
 pnpm audit --json
 ```
 
-The preset requires an installed Nuxt host with the selected braces and node-forge
-targets. The simple-git compatibility patch applies only when that dependency is
-active. Newer DevTools no longer needs it; absence is not a reason to install an
-unused Git process library. Present targets still require the reviewed fixed
+The preset requires an installed Nuxt host with the selected braces target. The
+node-forge and simple-git patches apply only when their exact reviewed targets are
+active. Node-forge 1.4.2 uses its upstream implementation and is checked by the
+same RSA regressions; 1.4.0 still needs the backport. Absence is not a reason to install an unused package. Present targets still require the reviewed fixed
 versions and malformed/escaping graphs fail closed. A bare core-only library
 graph does not need these backports.
 Use an initial install with `--ignore-scripts` before configuring a new host.
@@ -26,12 +26,21 @@ Use an initial install with `--ignore-scripts` before configuring a new host.
 Commit the generated `.nuxtjp-security` patches, manifest and lockfile. Run the
 check after every locked install. Configuration refuses conflicting patches,
 symlink storage and concurrent manifest changes; unrelated settings are retained.
-The check loads the explicitly installed braces/node-forge implementations and
-exercises bounded recursion and malformed RSA signature cases. It creates a
+The check loads the explicitly installed braces implementation and, when present,
+node-forge, and exercises bounded recursion and malformed RSA signature cases. It creates a
 never-issued ephemeral test key in memory and never reads an account key.
 
-Two upstream advisories currently have no fixed registry version:
-GHSA-vfj7-8cjw-p6xm (braces 3.0.3) and GHSA-86w9-cpqp-85rv (node-forge 1.4.0).
+When deepmerge 4.3.1 is present, the reviewed backport rejects `__proto__`,
+`constructor`, and `prototype` keys in both merge inputs. This deliberately
+excludes those keys from merged output. Regression tests check both distributed
+entry points against poisoned prototypes and ordinary nested and array merges.
+The reported issue and proposed remediation are documented at
+https://github.com/TehShrike/deepmerge/issues/273. The patch is omitted when
+deepmerge is absent, and a different installed version requires review.
+
+The following upstream advisories have no recorded fixed registry version:
+GHSA-vfj7-8cjw-p6xm (braces 3.0.3), GHSA-86w9-cpqp-85rv (node-forge 1.4.0)
+and GHSA-gcqx-w48m-w2h4 (deepmerge 4.3.1).
 Version-only audit findings remain visible. Tested patches supplement those
 releases; every other advisory blocks validation. Exact fixed override versions
 for simple-git, its argument parser and esbuild live in `dependency-versions.json`.
@@ -47,13 +56,17 @@ applySecurityPatches('/explicit/application')
 const active = installedDependencies('/explicit/application', 'braces', '3.0.3')
 ```
 
+`verifyAuditedAdvisories(project, ids)` rejects unrelated advisories and reported
+backports with no active target, then runs the installed dependency regressions.
+This binds version-only audit exceptions to the implementations actually tested.
+
 A missing target or an installed dependency resolving outside the selected project
 is an error. The API does not execute installs or inspected application scripts.
 The caller must own and explicitly select the project; this is not an OS sandbox
 against another process with the same user privileges.
 
 [LICENSE](LICENSE) and [NOTICE](NOTICE) describe this tool's license. The unchanged
-LICENSE-braces, LICENSE-node-forge and LICENSE-simple-git files retain upstream
+LICENSE-braces, LICENSE-node-forge, LICENSE-simple-git and LICENSE-deepmerge files retain upstream
 patch-input attribution and redistribution terms.
 
 ## Version policy 2

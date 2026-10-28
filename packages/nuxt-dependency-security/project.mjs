@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 import resolver from './resolved-dependency.cjs'
 import versionPolicy from './version-policy.cjs'
 
-const patches = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2']
+const patches = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2', 'deepmerge@4.3.1']
 function regular(path) {
   const stat = lstatSync(path)
   if (stat.isSymbolicLink() || !stat.isFile() || stat.size > 1024 * 1024) {
@@ -49,6 +49,13 @@ export function applySecurityPatches(project, source) {
     throw new Error('Security patch directory must be a real directory')
   }
   const activeSimpleGit = resolver.installedDependencies(root, 'simple-git', undefined, { allowMissing: true }).length > 0
+  const forge = resolver.installedDependencies(root, 'node-forge', undefined, { allowMissing: true })
+  const forgeVersions = forge.map(path => parseJson(regular(path)).version)
+  if (forgeVersions.some(version => !['1.4.0', '1.4.2'].includes(version))) {
+    throw new Error('Dependency version changed; review its security patch')
+  }
+  const activeForge = forgeVersions.includes('1.4.0')
+  const activeDeepmerge = resolver.installedDependencies(root, 'deepmerge', '4.3.1', { allowMissing: true }).length > 0
   const inputs = patches.map(name => {
     const relative = `.nuxtjp-security/${name.replace('@', '-')}.patch`
     if (existing[name] !== undefined && existing[name] !== relative) {
@@ -59,7 +66,9 @@ export function applySecurityPatches(project, source) {
     if (existsSync(target) && !regular(target).equals(bytes)) {
       throw new Error('An existing patch differs; no files were overwritten')
     }
-    return { name, relative, bytes, target, required: name !== 'simple-git@4.0.2' || activeSimpleGit }
+    return { name, relative, bytes, target, required:
+      (name !== 'simple-git@4.0.2' || activeSimpleGit) && (name !== 'node-forge@1.4.0' || activeForge) &&
+      (name !== 'deepmerge@4.3.1' || activeDeepmerge) }
   })
   if (!readFileSync(manifest).equals(original)) throw new Error('Manifest changed during preparation')
   mkdirSync(dir, { recursive: true })

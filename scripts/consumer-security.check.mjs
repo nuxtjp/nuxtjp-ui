@@ -19,8 +19,8 @@ test('explicit application preserves unrelated settings and is idempotent', () =
   assert.deepEqual(readFileSync(join(root, 'package.json')), before)
   const data = JSON.parse(before)
   assert.deepEqual(data.pnpm.overrides, { sample: '1.0.0', ...policy.overrides })
-  const reviewed = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2']
-  for (const name of reviewed.slice(0, 2)) assert.ok(Object.hasOwn(data.pnpm.patchedDependencies, name))
+  const reviewed = ['braces@3.0.3', 'node-forge@1.4.0', 'simple-git@4.0.2', 'deepmerge@4.3.1']
+  assert.deepEqual(Object.keys(data.pnpm.patchedDependencies), ['braces@3.0.3'])
   for (const [name, patch] of Object.entries(data.pnpm.patchedDependencies)) {
     assert.ok(reviewed.includes(name), `unexpected patch ${name}`)
     assert.equal(patch, `.nuxtjp-security/${name.replace('@', '-')}.patch`)
