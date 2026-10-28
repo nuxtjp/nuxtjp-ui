@@ -3,7 +3,7 @@ import { mkdtempSync, writeFileSync, readFileSync, cpSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
-import { verifyAuditedAdvisories } from '@nuxtjp/dependency-security'
+import { verifyAuditReport } from '@nuxtjp/dependency-security'
 
 // Exercise every shipped backport in the independent security consumer,
 // including the Git integration fixture optional in current Nuxt devtools.
@@ -36,12 +36,7 @@ const audited = spawnSync(pm[0], [...pm.slice(1), 'audit', '--json'], {
 assert.ok(audited.status === 0 || audited.status === 1, 'Dependency audit execution failed')
 const report = JSON.parse(audited.stdout)
 writeFileSync(join(project, 'dependency-audit.json'), JSON.stringify(report, null, 2))
-verifyAuditedAdvisories(project, Object.values(report.advisories ?? {}).map(advisory => advisory.github_advisory_id))
-for (const severity of ['critical', 'moderate']) {
- assert.equal(report.metadata.vulnerabilities[severity], 0, 'Unexpected ' + severity + ' vulnerabilities')
-}
-const lowFindings = Object.values(report.advisories ?? {}).filter(advisory => advisory.severity === 'low')
-assert.ok(report.metadata.vulnerabilities.low <= lowFindings.length, 'Unaccounted low vulnerabilities')
+verifyAuditReport(project, report)
 console.log(JSON.stringify({ versionOnlyAudit: report.metadata.vulnerabilities,
  backportsVerifiedByRegressions: policy.backportedAdvisories, report: 'dependency-audit.json' }))
 

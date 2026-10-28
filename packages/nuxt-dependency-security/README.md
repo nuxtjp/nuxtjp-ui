@@ -59,6 +59,8 @@ const active = installedDependencies('/explicit/application', 'braces', '3.0.3')
 `verifyAuditedAdvisories(project, ids)` rejects unrelated advisories and reported
 backports with no active target, then runs the installed dependency regressions.
 This binds version-only audit exceptions to the implementations actually tested.
+`verifyAuditReport(project, report)` additionally checks every severity total,
+rejects unaccounted findings and preserves zero critical/moderate thresholds.
 
 A missing target or an installed dependency resolving outside the selected project
 is an error. The API does not execute installs or inspected application scripts.

@@ -4,7 +4,7 @@ import { mkdtempSync, writeFileSync, readFileSync, mkdirSync, symlinkSync, rmSyn
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { applySecurityPatches } from '../project.mjs'
-import { verifyAuditedAdvisories } from '../advisories.mjs'
+import { verifyAuditedAdvisories, verifyAuditReport } from '../advisories.mjs'
 import { fileURLToPath } from 'node:url'
 const source = fileURLToPath(new URL('../', import.meta.url))
 function fixture(fn) {
@@ -133,6 +133,12 @@ test('audit exceptions require a known identifier and an active tested target', 
   assert.throws(() => verifyAuditedAdvisories(root, ['GHSA-0000-0000-0000']), /Unremediated advisory/)
   assert.throws(() => verifyAuditedAdvisories(root, ['GHSA-gcqx-w48m-w2h4']), /no active regression target/)
   assert.throws(() => verifyAuditedAdvisories(root, []), /regressions failed/)
+  const totals = { info: 0, low: 1, moderate: 0, high: 0, critical: 0 }
+  assert.throws(() => verifyAuditReport(root, { advisories: {}, metadata: { vulnerabilities: totals } }), /Unaccounted low/)
+  totals.low = 0
+  totals.moderate = 1
+  assert.throws(() => verifyAuditReport(root, { advisories: {}, metadata: { vulnerabilities: totals } }), /Unexpected moderate/)
+  assert.throws(() => verifyAuditReport(root, {}), /Invalid audit report/)
 }))
 
 test('workspace YAML remains the sole owner configuration; no competing manifest policy is created', () => fixture(root => {

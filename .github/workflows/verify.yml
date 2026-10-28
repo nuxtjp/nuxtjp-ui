@@ -80,4 +80,4 @@ jobs:
 
       - name: Verify the packed Vue entry through Vite and the real browser
         timeout-minutes: 8
-        run: node .github/scripts/vue-package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}"
+        run: node .github/scripts/vue-package-consumer.mts "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_UI_NPM}" "$RUNNER_TEMP/ui-package/${PACKAGE_ARCHIVE_NUXTJP_DEPENDENCY_SECURITY_NPM}"
