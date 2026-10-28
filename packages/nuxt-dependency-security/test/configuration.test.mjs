@@ -4,6 +4,7 @@ import { mkdtempSync, writeFileSync, readFileSync, mkdirSync, symlinkSync, rmSyn
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { applySecurityPatches } from '../project.mjs'
+import { verifyAuditedAdvisories, verifyAuditReport } from '../advisories.mjs'
 import { fileURLToPath } from 'node:url'
 const source = fileURLToPath(new URL('../', import.meta.url))
 function fixture(fn) {
@@ -18,7 +19,7 @@ test('explicit application preserves unrelated settings and is idempotent', () =
   assert.deepEqual(readFileSync(join(root, 'package.json')), before)
   const data = JSON.parse(before)
   assert.deepEqual(data.pnpm.overrides, { sample: '1.0.0', ...JSON.parse(readFileSync(join(source, 'dependency-versions.json'))).overrides })
-  assert.equal(Object.keys(data.pnpm.patchedDependencies).length, 2)
+  assert.deepEqual(Object.keys(data.pnpm.patchedDependencies), ['braces@3.0.3'])
 }))
 test('conflicting configuration is rejected without changing the manifest', () => fixture(root => {
   const original = JSON.stringify({ pnpm: { patchedDependencies: { 'braces@3.0.3': 'custom.patch' } } })
@@ -90,6 +91,54 @@ test('an absent optional target does not leave an unused generated patch binding
   writeFileSync(f, JSON.stringify(data))
   applySecurityPatches(root, source)
   assert.equal(JSON.parse(readFileSync(f, 'utf8')).pnpm.patchedDependencies['simple-git@4.0.2'], undefined)
+}))
+
+test('node-forge patch follows the installed graph and refuses an unreviewed version', () => fixture(root => {
+  const manifest = join(root, 'package.json')
+  writeFileSync(manifest, JSON.stringify({ dependencies: { 'node-forge': '1.4.0' } }))
+  const folder = join(root, 'node_modules', 'node-forge')
+  mkdirSync(folder, { recursive: true })
+  const dependency = join(folder, 'package.json')
+  writeFileSync(dependency, JSON.stringify({ name: 'node-forge', version: '1.4.0' }))
+  applySecurityPatches(root, source)
+  assert.equal(JSON.parse(readFileSync(manifest)).pnpm.patchedDependencies['node-forge@1.4.0'], '.nuxtjp-security/node-forge-1.4.0.patch')
+  writeFileSync(dependency, JSON.stringify({ name: 'node-forge', version: '1.4.2' }))
+  applySecurityPatches(root, source)
+  assert.equal(JSON.parse(readFileSync(manifest)).pnpm.patchedDependencies['node-forge@1.4.0'], undefined)
+  writeFileSync(manifest, JSON.stringify({}))
+  applySecurityPatches(root, source)
+  assert.equal(JSON.parse(readFileSync(manifest)).pnpm.patchedDependencies['node-forge@1.4.0'], undefined)
+  writeFileSync(manifest, JSON.stringify({ dependencies: { 'node-forge': '1.4.1' } }))
+  writeFileSync(dependency, JSON.stringify({ name: 'node-forge', version: '1.4.1' }))
+  const before = readFileSync(manifest)
+  assert.throws(() => applySecurityPatches(root, source), /version changed/)
+  assert.deepEqual(readFileSync(manifest), before)
+}))
+
+test('deepmerge patch is selected only for its reviewed active version', () => fixture(root => {
+  const manifest = join(root, 'package.json')
+  writeFileSync(manifest, JSON.stringify({ dependencies: { deepmerge: '4.3.1' } }))
+  const folder = join(root, 'node_modules', 'deepmerge')
+  mkdirSync(folder, { recursive: true })
+  writeFileSync(join(folder, 'package.json'), JSON.stringify({ name: 'deepmerge', version: '4.3.1' }))
+  applySecurityPatches(root, source)
+  assert.equal(JSON.parse(readFileSync(manifest)).pnpm.patchedDependencies['deepmerge@4.3.1'], '.nuxtjp-security/deepmerge-4.3.1.patch')
+  writeFileSync(manifest, '{}')
+  applySecurityPatches(root, source)
+  assert.equal(JSON.parse(readFileSync(manifest)).pnpm.patchedDependencies['deepmerge@4.3.1'], undefined)
+}))
+
+test('audit exceptions require a known identifier and an active tested target', () => fixture(root => {
+  writeFileSync(join(root, 'package.json'), '{}')
+  assert.throws(() => verifyAuditedAdvisories(root, ['GHSA-0000-0000-0000']), /Unremediated advisory/)
+  assert.throws(() => verifyAuditedAdvisories(root, ['GHSA-gcqx-w48m-w2h4']), /no active regression target/)
+  assert.throws(() => verifyAuditedAdvisories(root, []), /regressions failed/)
+  const totals = { info: 0, low: 1, moderate: 0, high: 0, critical: 0 }
+  assert.throws(() => verifyAuditReport(root, { advisories: {}, metadata: { vulnerabilities: totals } }), /Unaccounted low/)
+  totals.low = 0
+  totals.moderate = 1
+  assert.throws(() => verifyAuditReport(root, { advisories: {}, metadata: { vulnerabilities: totals } }), /Unexpected moderate/)
+  assert.throws(() => verifyAuditReport(root, {}), /Invalid audit report/)
 }))
 
 test('workspace YAML remains the sole owner configuration; no competing manifest policy is created', () => fixture(root => {

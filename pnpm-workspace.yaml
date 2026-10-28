@@ -19,3 +19,4 @@ overrides:
 patchedDependencies:
   "braces@3.0.3": "packages/nuxt-dependency-security/patches/braces-3.0.3.patch"
   "node-forge@1.4.0": "packages/nuxt-dependency-security/patches/node-forge-1.4.0.patch"
+  "deepmerge@4.3.1": "packages/nuxt-dependency-security/patches/deepmerge-4.3.1.patch"
