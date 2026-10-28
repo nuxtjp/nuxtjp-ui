@@ -87,7 +87,7 @@
     "@digital-go-jp/tailwind-theme-plugin": "2.0.0",
     "@iconify-json/lucide": "1.2.147",
     "@nuxt/kit": "4.6.2",
-    "@nuxtjp/dependency-security": "0.2.1",
+    "@nuxtjp/dependency-security": "0.2.2",
     "chart.js": "4.6.1",
     "tailwindcss": "4.3.3"
   },

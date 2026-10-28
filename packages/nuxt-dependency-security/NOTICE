@@ -1,4 +1,6 @@
 NuxtJP dependency-security
 Apache-2.0 applies to the configuration and verification tool.
 Third-party patch inputs retain the included LICENSE-braces, LICENSE-node-forge
-and LICENSE-simple-git notices; these do not relicense the upstream packages.
+LICENSE-simple-git and LICENSE-deepmerge notices; these do not relicense the upstream packages.
+The deepmerge 4.3.1 backport rejects prototype-sensitive keys in both inputs;
+see https://github.com/TehShrike/deepmerge/issues/273 and CVE-2026-93753.

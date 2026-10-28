@@ -6,6 +6,7 @@ import { spawnSync } from 'node:child_process'
 import { createServer } from 'node:net'
 import { vueConsumerFiles } from './vue-consumer-fixture.mts'
 const archive = resolve(process.argv[2]!)
+const helperArchive = process.argv[3] ? resolve(process.argv[3]) : null
 const root = mkdtempSync(join(tmpdir(), 'nuxtjp-vue-consumer-')); chmodSync(root, 0o700)
 const env = { ...process.env, CI: 'true', NPM_CONFIG_USERCONFIG: join(root, '.npmrc'), NPM_CONFIG_CACHE: join(root, 'cache'), NODE_OPTIONS: '--max-old-space-size=768' }
 for (const key of ['NPM_TOKEN', 'NODE_AUTH_TOKEN', 'GH_TOKEN', 'GITHUB_TOKEN']) delete env[key]
@@ -16,6 +17,7 @@ function run(command: string, args: string[]) {
 }
 try {
   writeFileSync(join(root, 'package.json'), JSON.stringify({ private: true, type: 'module', dependencies: {
+    ...(helperArchive ? { '@nuxtjp/dependency-security': `file:${helperArchive}` } : {}),
     '@nuxtjp/ui': `file:${archive}`, '@nuxt/ui': '4.12.0', '@nuxt/icon': '2.6.0', vue: '3.5.44', 'vue-router': '5.4.0',
   }, devDependencies: { vite: '8.3.4', '@vitejs/plugin-vue': '6.0.10', typescript: '5.9.3', 'vue-tsc': '3.3.13', '@playwright/test': '1.64.1' } }))
   run('npm', ['install', '--ignore-scripts', '--registry=https://registry.npmjs.org/', '--no-audit', '--no-fund'])

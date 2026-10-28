@@ -13,6 +13,7 @@
   },
   "backportedAdvisories": [
     "GHSA-vfj7-8cjw-p6xm",
-    "GHSA-86w9-cpqp-85rv"
+    "GHSA-86w9-cpqp-85rv",
+    "GHSA-gcqx-w48m-w2h4"
   ]
 }

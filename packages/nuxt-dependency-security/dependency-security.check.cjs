@@ -13,7 +13,8 @@ function dependency(name, version) {
   return createRequire(matches[0])(name);
 }
 const braces = dependency('braces', '3.0.3');
-const forge = dependency('node-forge', '1.4.0');
+const forgeManifests = require('./resolved-dependency.cjs').installedDependencies(process.cwd(), 'node-forge', undefined, { ...graphOptions, allowMissing: true });
+const deepmergeManifests = require('./resolved-dependency.cjs').installedDependencies(process.cwd(), 'deepmerge', '4.3.1', { ...graphOptions, allowMissing: true });
 test('brace compilation, expansion and stringification retain ordinary behavior', () => {
   assert.equal(braces.compile('src/{a,b}.vue'), 'src/(a|b).vue');
   assert.deepEqual(braces.expand('src/{a,b}.vue'), ['src/a.vue', 'src/b.vue']);
@@ -30,7 +31,11 @@ test('deep brace, parenthesis and caller AST inputs reject before stack exhausti
   const cyclic = { type: 'root', nodes: [] }; cyclic.nodes.push(cyclic);
   assert.throws(() => braces.compile(cyclic), SyntaxError);
 });
-test('RSA verifier accepts standard signatures and rejects extra or malformed DigestAlgorithm elements', () => {
+test('RSA verifier accepts standard signatures and rejects extra or malformed DigestAlgorithm elements', context => {
+  if (!forgeManifests.length) { context.skip('No active node-forge: RSA regression is not applicable'); return; }
+  for (const manifest of forgeManifests) {
+  assert.ok(['1.4.0', '1.4.2'].includes(JSON.parse(fs.readFileSync(manifest, 'utf8')).version), 'Unreviewed node-forge version');
+  const forge = createRequire(manifest)('node-forge');
   const keys = generateKeyPairSync('rsa', { modulusLength: 2048 });
   const publicKey = forge.pki.publicKeyFromPem(keys.publicKey.export({ type: 'spki', format: 'pem' }));
   const data = Buffer.from('never-issued security regression fixture');
@@ -48,11 +53,31 @@ test('RSA verifier accepts standard signatures and rejects extra or malformed Di
     try { accepted = publicKey.verify(digest, signature); } catch { /* Rejection is the expected result for a malformed signature. */ }
     assert.equal(accepted, false, 'Malformed algorithm must not verify');
   }
+  }
 });
 
 test('active dependency graph uses every required upstream security version', () => {
   const policy = JSON.parse(fs.readFileSync(path.join(__dirname, 'dependency-versions.json'), 'utf8'));
   require('./version-policy.cjs').verifyInstalledPolicy(process.cwd(), policy, graphOptions);
+});
+
+test('deepmerge rejects prototype keys in both inputs and preserves ordinary merges', context => {
+  if (!deepmergeManifests.length) { context.skip('No active deepmerge: prototype regression is not applicable'); return; }
+  for (const manifest of deepmergeManifests) {
+    for (const entry of ['dist/cjs.js', 'dist/umd.js']) {
+      const merge = require(path.join(path.dirname(manifest), entry));
+      const malicious = JSON.parse('{"session":{"__proto__":{"admin":true}},"__proto__":{"admin":true}}');
+      for (const target of [{ session: null }, Object.create(null), JSON.parse('{"__proto__":{"admin":true}}')]) {
+        const result = merge(target, malicious);
+        assert.equal(result.admin, undefined);
+        assert.equal(result.session?.admin, undefined);
+        assert.equal(Object.getPrototypeOf(result), Object.prototype);
+        assert.equal(Object.getPrototypeOf(result.session), Object.prototype);
+      }
+      const result = merge({ nested: { a: 1 }, list: [1] }, { nested: { b: 2 }, list: [2] });
+      assert.deepEqual(result, { nested: { a: 1, b: 2 }, list: [1, 2] });
+    }
+  }
 });
 
 // Preserve the ESM entry point expected by current Nuxt devtools without downgrading Git protections.
